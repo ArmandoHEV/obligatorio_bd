@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package main;
-//import interfaz.*;
+import interfaz.*;
 /**
  *
  * @author mlisonct
@@ -18,8 +18,8 @@ public class truequeUCU {
         conexionBD bd = new conexionBD();
         bd.establecerConexion();
         
-        //login init = new login();
-        //init.setVisible(true);
+        login init = new login();
+        init.setVisible(true);
         
     }
     
