@@ -8,7 +8,7 @@ package interfaz;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import main.conexionBD;
+import main.*;
 
 /**
  *
@@ -137,7 +137,7 @@ public class registroUsuario extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_exitActionPerformed
 
-    conexionBD bd = new conexionBD();
+    //conexionBD bd = new conexionBD();
     private void btn_initActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_initActionPerformed
         String nombre = txt_nombre.getText();
         String apellido = txt_apellido.getText();
@@ -149,11 +149,29 @@ public class registroUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Faltan datos por ingresar","Error!", JOptionPane.ERROR_MESSAGE);
         }
         else{
+           /*
         //AGREGAR QUERY PARA AGREGAR USUARIO EN LA TABLA
-            String sql = String.format("INSERT INTO cuenta VALUES (?,?,?,?,?)",this.txt_nombre.getText(),this.txt_apellido.getText(),this.txt_cedula.getText(),this.txt_password);
+            String sql = String.format("INSERT INTO cuenta VALUES (?,?,?,?,0,true)",this.txt_nombre.getText(),this.txt_apellido.getText(),this.txt_cedula.getText(),this.txt_password);
             bd.establecerConexion();
-            bd.ejecutarSQL(sql);
-
+            Boolean aux = bd.ejecutarSQL(sql);
+            if (aux=true){
+                JOptionPane.showMessageDialog(rootPane, "Usuario correcto","Registro correcto", JOptionPane.OK_OPTION);
+            }
+            */
+           sentenciaSQL sql = new sentenciaSQL();
+           cuenta aux = new cuenta();
+           
+           aux.setCi(cedula);
+           aux.setNombre(nombre);
+           aux.setApellido(apellido);
+           aux.setPassword(pass);
+           
+           if(sql.registroCuenta(aux)){
+               JOptionPane.showMessageDialog(null, "Registro correcto!");
+           }else{
+               JOptionPane.showMessageDialog(null, "Registro incorrecto, verifique");
+               
+           }
             //Registro realizado -> Pantalla Login
             login login = new login();
             login.setVisible(true);

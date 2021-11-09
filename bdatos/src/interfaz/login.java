@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package interfaz;
-
+import main.*;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -178,16 +178,19 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_passwordMouseClicked
 
     private void btn_init1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_init1ActionPerformed
-        char passArray[] = txt_password.getPassword();
-        String pass = new String(passArray);
-        if(txt_usuario.getText().equals("123") && pass.equals("123")){
-            menuPrincipal inicio = new menuPrincipal();
-            inicio.setVisible(true);
-            this.dispose();
-        }
-        else{
-            JOptionPane.showMessageDialog(rootPane, "Credenciales equivocadas","Error!", JOptionPane.ERROR_MESSAGE);
-        }
+        
+        sentenciaSQL sql = new sentenciaSQL();
+        String nombre = txt_usuario.getText();
+        String pass = txt_password.getText();
+           
+        if(sql.inicioSesion(nombre,pass)){
+                menuPrincipal inicio = new menuPrincipal();
+                inicio.setVisible(true);
+                this.dispose();          
+           }else{
+               JOptionPane.showMessageDialog(null, "Usuario no válido");
+           }
+        
     }//GEN-LAST:event_btn_init1ActionPerformed
 
     /**
