@@ -8,7 +8,8 @@ package interfaz;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import main.conexionBD;
+import main.*;
+
 
 /**
  *
@@ -24,6 +25,15 @@ public class menuCuenta extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(897, 816)); 
         this.setResizable(false);
+        
+        
+        
+        SentenciaSQL sql = new SentenciaSQL();
+        Cuenta aux = sql.obtenerCuenta("45862435");
+        txt_cedula.setText(aux.getCi());
+        txt_nombre.setText(aux.getNombre());
+        txt_apellido.setText(aux.getApellido());
+
     }
 
     /**
@@ -66,8 +76,6 @@ public class menuCuenta extends javax.swing.JFrame {
         lbl_apellido.setText("Apellido");
         p_init.add(lbl_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 100, -1));
         p_init.add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 370, 230, 30));
-
-        txt_nombre.setForeground(new java.awt.Color(204, 204, 204));
         p_init.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, 230, 30));
 
         btn_init.setText("Aceptar");
@@ -122,14 +130,13 @@ public class menuCuenta extends javax.swing.JFrame {
         p_init.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 100, 110));
 
         txt_cedula.setEditable(false);
-        txt_cedula.setForeground(new java.awt.Color(204, 204, 204));
         p_init.add(txt_cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 230, 30));
-
-        txt_apellido.setForeground(new java.awt.Color(204, 204, 204));
         p_init.add(txt_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 230, 30));
 
-        jLabel2.setText("Marque los campos a modificar");
-        p_init.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Complete los campos que desee modificar");
+        jLabel2.setToolTipText("");
+        p_init.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
 
         getContentPane().add(p_init);
 
@@ -137,28 +144,36 @@ public class menuCuenta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exitActionPerformed
-        login login = new login();
-        login.setVisible(true);
+        menuPrincipal menu = new menuPrincipal();
+        menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_exitActionPerformed
 
-    conexionBD bd = new conexionBD();
+
     private void btn_initActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_initActionPerformed
         String nombre = txt_nombre.getText();
         String apellido = txt_apellido.getText();
-        String cedula = txt_cedula.getText();
         String pass = txt_password.getText();
+        String cedula = txt_cedula.getText();
 
-
-        if(nombre.isBlank() || apellido.isBlank() || cedula.isBlank() || pass.isBlank()){
+        if(nombre.isBlank() || apellido.isBlank() || pass.isBlank()){
             JOptionPane.showMessageDialog(rootPane, "Faltan datos por ingresar","Error!", JOptionPane.ERROR_MESSAGE);
         }
         else{
-        //AGREGAR QUERY PARA AGREGAR USUARIO EN LA TABLA
-            String sql = String.format("INSERT INTO cuenta VALUES (?,?,?,?,?)",this.txt_nombre.getText(),this.txt_apellido.getText(),this.txt_cedula.getText(),this.txt_password);
-            bd.establecerConexion();
-            bd.ejecutarSQL(sql);
-
+           SentenciaSQL sql = new SentenciaSQL();
+           Cuenta aux = new Cuenta();
+           
+           aux.setCi(cedula);
+           aux.setNombre(nombre);
+           aux.setApellido(apellido);
+           aux.setPassword(pass);
+           
+           if(sql.actualizarCuenta(aux)){
+               JOptionPane.showMessageDialog(null, "Actualización de datos correcta!");
+           }else{
+               JOptionPane.showMessageDialog(null, "Hubo un fallo en la actualización, verifique");
+               
+           }
             //Registro realizado -> Pantalla Login
             login login = new login();
             login.setVisible(true);

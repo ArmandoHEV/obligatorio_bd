@@ -10,25 +10,26 @@ import java.util.*;
  *
  * @author mlisonct
  */
-public class truequeUCU {
+public class TruequeUCU {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        conexionBD bd = new conexionBD();
+        ConexionBD bd = new ConexionBD();
         bd.establecerConexion();
         
         login init = new login();
         init.setVisible(true);
         
-        sentenciaSQL test = new sentenciaSQL();
+        /*
+        SentenciaSQL test = new SentenciaSQL();
         ArrayList<ProductoPublicacion> hola = test.buscarPublicacion();
         
         for (ProductoPublicacion i : hola){
             System.out.println(i.getTitulo());
         }
-       
+       */
        
     }
     

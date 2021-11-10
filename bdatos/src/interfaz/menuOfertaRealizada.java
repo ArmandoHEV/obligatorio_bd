@@ -140,6 +140,7 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_endsessionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_endsessionActionPerformed
+        //SE DEBE ELIMINAR EL USUARIO GLOBAL
         login login = new login();
         login.setVisible(true);
         this.dispose();
@@ -152,7 +153,7 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_mispublicActionPerformed
 
     private void btn_cancelofertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelofertaActionPerformed
-        // TODO add your handling code here:
+        //SE DEBE CAMBIAR EL ESTADO DE LA OFERTA SELECCIONADA CON EL MOUSE A RECHAZADA-DESHABILITADA
     }//GEN-LAST:event_btn_cancelofertaActionPerformed
 
     private void btn_menuPrincActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menuPrincActionPerformed
@@ -162,7 +163,9 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_menuPrincActionPerformed
 
     private void btn_ofertasRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ofertasRecActionPerformed
-        // TODO add your handling code here:
+        menuOfertaRecibida menuofert = new menuOfertaRecibida();
+        menuofert.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btn_ofertasRecActionPerformed
 
     /**

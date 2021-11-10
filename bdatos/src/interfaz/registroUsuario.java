@@ -65,8 +65,6 @@ public class registroUsuario extends javax.swing.JFrame {
         jLabel3.setText("Apellido");
         p_init.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 100, -1));
         p_init.add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 460, 230, 30));
-
-        txt_nombre.setForeground(new java.awt.Color(204, 204, 204));
         p_init.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, 230, 30));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -119,11 +117,7 @@ public class registroUsuario extends javax.swing.JFrame {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario_small.png"))); // NOI18N
         p_init.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 100, 110));
-
-        txt_cedula.setForeground(new java.awt.Color(204, 204, 204));
         p_init.add(txt_cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, 230, 30));
-
-        txt_apellido.setForeground(new java.awt.Color(204, 204, 204));
         p_init.add(txt_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 230, 30));
 
         getContentPane().add(p_init);
@@ -149,17 +143,8 @@ public class registroUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Faltan datos por ingresar","Error!", JOptionPane.ERROR_MESSAGE);
         }
         else{
-           /*
-        //AGREGAR QUERY PARA AGREGAR USUARIO EN LA TABLA
-            String sql = String.format("INSERT INTO cuenta VALUES (?,?,?,?,0,true)",this.txt_nombre.getText(),this.txt_apellido.getText(),this.txt_cedula.getText(),this.txt_password);
-            bd.establecerConexion();
-            Boolean aux = bd.ejecutarSQL(sql);
-            if (aux=true){
-                JOptionPane.showMessageDialog(rootPane, "Usuario correcto","Registro correcto", JOptionPane.OK_OPTION);
-            }
-            */
-           sentenciaSQL sql = new sentenciaSQL();
-           cuenta aux = new cuenta();
+           SentenciaSQL sql = new SentenciaSQL();
+           Cuenta aux = new Cuenta();
            
            aux.setCi(cedula);
            aux.setNombre(nombre);

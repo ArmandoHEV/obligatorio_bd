@@ -8,7 +8,7 @@ package main;
  *
  * @author Wilfred
  */
-public class cuenta {
+public class Cuenta {
     private String ci;
     private String nombre;
     private String apellido;

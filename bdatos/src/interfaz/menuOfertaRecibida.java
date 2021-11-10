@@ -38,7 +38,7 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
         main_icon = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btn_endsession = new javax.swing.JButton();
-        btn_ofertaRec = new javax.swing.JButton();
+        btn_ofertaReal = new javax.swing.JButton();
         btn_aceptar = new javax.swing.JButton();
         btn_menuPrinc = new javax.swing.JButton();
         btn_mispublic = new javax.swing.JButton();
@@ -80,13 +80,13 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
         });
         p_init.add(btn_endsession, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 30, 130, 20));
 
-        btn_ofertaRec.setText("Ofertas Realizadas");
-        btn_ofertaRec.addActionListener(new java.awt.event.ActionListener() {
+        btn_ofertaReal.setText("Ofertas Realizadas");
+        btn_ofertaReal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ofertaRecActionPerformed(evt);
+                btn_ofertaRealActionPerformed(evt);
             }
         });
-        p_init.add(btn_ofertaRec, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 150, 20));
+        p_init.add(btn_ofertaReal, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 150, 20));
 
         btn_aceptar.setText("Aceptar Oferta");
         btn_aceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -149,7 +149,7 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_rechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rechazarActionPerformed
-        System.exit(0);
+        //cambiar estado de oferta a rechazada
     }//GEN-LAST:event_btn_rechazarActionPerformed
 
     private void btn_endsessionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_endsessionActionPerformed
@@ -158,12 +158,16 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_endsessionActionPerformed
 
-    private void btn_ofertaRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ofertaRecActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_ofertaRecActionPerformed
+    private void btn_ofertaRealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ofertaRealActionPerformed
+        menuOfertaRealizada menuofertreal = new menuOfertaRealizada();
+        menuofertreal.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_ofertaRealActionPerformed
 
     private void btn_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_aceptarActionPerformed
-        // TODO add your handling code here:
+        //cambiar estado de oferta a aceptada
+        //cambiar publicacion ofertada como deshabilitada
+        //cambiar publicacion "comprada" como deshabilitada
     }//GEN-LAST:event_btn_aceptarActionPerformed
 
     private void btn_menuPrincActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menuPrincActionPerformed
@@ -207,130 +211,6 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -347,7 +227,7 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
     private javax.swing.JButton btn_endsession;
     private javax.swing.JButton btn_menuPrinc;
     private javax.swing.JButton btn_mispublic;
-    private javax.swing.JButton btn_ofertaRec;
+    private javax.swing.JButton btn_ofertaReal;
     private javax.swing.JButton btn_rechazar;
     private javax.swing.JLabel img_background;
     private javax.swing.JLabel jLabel6;

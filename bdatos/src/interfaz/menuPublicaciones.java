@@ -192,7 +192,9 @@ public class menuPublicaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_endsessionActionPerformed
 
     private void btn_ofertaRealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ofertaRealActionPerformed
-        // TODO add your handling code here:
+        menuOfertaRealizada menuofertreal = new menuOfertaRealizada();
+        menuofertreal.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btn_ofertaRealActionPerformed
 
     private void btn_menuPrincActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menuPrincActionPerformed

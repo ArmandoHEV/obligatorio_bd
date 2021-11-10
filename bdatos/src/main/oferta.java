@@ -8,6 +8,6 @@ package main;
  *
  * @author Wilfred
  */
-public class oferta {
+public class Oferta {
     
 }

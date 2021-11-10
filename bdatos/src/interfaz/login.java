@@ -179,7 +179,7 @@ public class login extends javax.swing.JFrame {
 
     private void btn_init1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_init1ActionPerformed
         
-        sentenciaSQL sql = new sentenciaSQL();
+        SentenciaSQL sql = new SentenciaSQL();
         String nombre = txt_usuario.getText();
         String pass = txt_password.getText();
            

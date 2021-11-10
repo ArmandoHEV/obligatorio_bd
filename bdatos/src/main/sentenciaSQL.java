@@ -8,14 +8,15 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.*;
+import javax.swing.DefaultComboBoxModel;
 /**
  *
  * @author Wilfred
  */
-public class sentenciaSQL extends conexionBD{
+public class SentenciaSQL extends ConexionBD{
     
     //ES POSIBLE QUE SE GENEREN TODAS LAS QUERYS ACA Y SE LLAME DIRECTO AL METODO
-    public boolean registroCuenta (cuenta cuenta){
+    public boolean registroCuenta (Cuenta cuenta){
         PreparedStatement ps = null;
         establecerConexion();
         Connection con = getConexion();
@@ -32,7 +33,7 @@ public class sentenciaSQL extends conexionBD{
             return true;
             
         } catch (SQLException ex) {
-            Logger.getLogger(sentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
@@ -63,15 +64,67 @@ public class sentenciaSQL extends conexionBD{
             return false;
             
         } catch (SQLException ex) {
-            Logger.getLogger(sentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }   
     }
     
-    /**
-     *
-     * @return
-     */
+    public Cuenta obtenerCuenta(String cedula){
+        PreparedStatement ps = null;
+        establecerConexion();
+        Connection con = getConexion();
+        
+        String sql = "SELECT * FROM cuenta WHERE idCuenta = ?";
+        
+        try{
+            ps= con.prepareStatement(sql);
+            ps.setString(1,cedula);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+                String id = rs.getString(1);
+                String nombre = rs.getString(2);
+                String apellido = rs.getString(3);
+                
+                Cuenta cuenta = new Cuenta();
+                cuenta.setCi(id);
+                cuenta.setNombre(nombre);
+                cuenta.setApellido(apellido);
+
+                return cuenta;
+            }
+            return null;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }   
+    }
+    
+    public DefaultComboBoxModel obtenerCategorias(){
+        PreparedStatement ps = null;
+        establecerConexion();
+        Connection con = getConexion();
+        
+        DefaultComboBoxModel listaCat = new DefaultComboBoxModel();
+        listaCat.addElement("Seleccione Categoría");
+        //ArrayList<Categoria> cat = new ArrayList<>();
+        String sql = "SELECT * FROM categoria ORDER BY descripcioncategoria";
+     
+        try{
+            ps= con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();    
+            while (rs.next()){
+                listaCat.addElement(rs.getString(2));
+            }
+            return listaCat;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }   
+    }
+    
     public ArrayList<ProductoPublicacion> buscarPublicacion(){
         PreparedStatement ps = null;
         establecerConexion();
@@ -102,11 +155,32 @@ public class sentenciaSQL extends conexionBD{
             return result;
             
         } catch (SQLException ex) {
-            Logger.getLogger(sentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
 
-    
+    public Boolean actualizarCuenta(Cuenta cuenta){
+        PreparedStatement ps = null;
+        establecerConexion();
+        Connection con = getConexion();
+        
+        String sql = "UPDATE cuenta SET nombre = ?, apellido = ?, passwd = ? WHERE idCuenta = ?";
+        
+        try{
+            ps= con.prepareStatement(sql);
+            ps.setString(1,cuenta.getNombre());
+            ps.setString(2,cuenta.getApellido());
+            ps.setString(3,cuenta.getPassword());
+            ps.setString(4,cuenta.getCi());
+            ps.executeUpdate();
+            return true;  
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }   
+    }
     
 }

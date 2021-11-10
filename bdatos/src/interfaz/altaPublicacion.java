@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package interfaz;
-
+import main.*;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 
@@ -22,6 +22,9 @@ public class altaPublicacion extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(897, 816)); 
         this.setResizable(false);
+        
+        SentenciaSQL sql = new SentenciaSQL();
+        combo_categoria.setModel(sql.obtenerCategorias());
     }
 
     /**
@@ -49,8 +52,8 @@ public class altaPublicacion extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txt_valorpeso = new javax.swing.JTextField();
         btn_limpiar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        label_user = new javax.swing.JLabel();
+        combo_categoria = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         txt_descrip = new javax.swing.JTextField();
 
@@ -150,11 +153,16 @@ public class altaPublicacion extends javax.swing.JFrame {
         });
         p_init.add(btn_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 750, 120, 40));
 
-        jLabel2.setText("Nombre_Usuario");
-        p_init.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, -1, -1));
+        label_user.setText("Nombre_Usuario");
+        p_init.add(label_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        p_init.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 230, 30));
+        combo_categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        combo_categoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_categoriaActionPerformed(evt);
+            }
+        });
+        p_init.add(combo_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 230, 30));
 
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -215,6 +223,10 @@ public class altaPublicacion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_ucucoinActionPerformed
 
+    private void combo_categoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_categoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combo_categoriaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -266,16 +278,16 @@ public class altaPublicacion extends javax.swing.JFrame {
     private javax.swing.JButton btn_foto;
     private javax.swing.JButton btn_limpiar;
     private javax.swing.JButton btn_publicar;
+    private javax.swing.JComboBox<String> combo_categoria;
     private javax.swing.JLabel img_background;
     private javax.swing.JPasswordField init_password;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel label_user;
     private javax.swing.JLabel main_icon;
     private javax.swing.JPanel p_init;
     private javax.swing.JTextField txt_descrip;

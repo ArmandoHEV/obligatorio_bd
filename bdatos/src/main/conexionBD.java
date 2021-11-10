@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
  *
  * @author Wilfred
  */
-public class conexionBD {
+public class ConexionBD {
     
     private Connection conectar = null;
     String bd = "jdbc:postgresql://192.168.56.101:5432/pruebas";

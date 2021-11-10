@@ -8,6 +8,6 @@ package main;
  *
  * @author Wilfred
  */
-public class publicacion {
+public class Publicacion {
     
 }

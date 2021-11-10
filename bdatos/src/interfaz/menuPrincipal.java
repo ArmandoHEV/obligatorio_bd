@@ -47,7 +47,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         btn_ofertaReal = new javax.swing.JButton();
         btn_ofertaRec = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table_publicaciones = new javax.swing.JTable();
         img_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -126,7 +126,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         });
         p_init.add(btn_ofertaRec, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, 130, 20));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table_publicaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -142,10 +142,10 @@ public class menuPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(1).setHeaderValue("Tipo");
-            jTable1.getColumnModel().getColumn(3).setHeaderValue("Foto");
+        jScrollPane1.setViewportView(table_publicaciones);
+        if (table_publicaciones.getColumnModel().getColumnCount() > 0) {
+            table_publicaciones.getColumnModel().getColumn(1).setHeaderValue("Tipo");
+            table_publicaciones.getColumnModel().getColumn(3).setHeaderValue("Foto");
         }
 
         p_init.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 540, 620));
@@ -257,9 +257,9 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel main_icon;
     private javax.swing.JPanel p_init;
+    private javax.swing.JTable table_publicaciones;
     // End of variables declaration//GEN-END:variables
 }
