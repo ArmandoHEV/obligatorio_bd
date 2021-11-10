@@ -5,6 +5,7 @@
  */
 package main;
 import interfaz.*;
+import java.util.*;
 /**
  *
  * @author mlisonct
@@ -21,6 +22,14 @@ public class truequeUCU {
         login init = new login();
         init.setVisible(true);
         
+        sentenciaSQL test = new sentenciaSQL();
+        ArrayList<ProductoPublicacion> hola = test.buscarPublicacion();
+        
+        for (ProductoPublicacion i : hola){
+            System.out.println(i.getTitulo());
+        }
+       
+       
     }
     
 }
