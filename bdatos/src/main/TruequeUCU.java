@@ -30,6 +30,7 @@ public class TruequeUCU {
             System.out.println(i.getTitulo());
         }
        */
+        System.out.println("TEST DE PUSH");
        
     }
     
