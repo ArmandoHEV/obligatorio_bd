@@ -7,6 +7,7 @@ package interfaz;
 import main.*;
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -38,7 +39,7 @@ public class altaPublicacion extends javax.swing.JFrame {
 
         p_init = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        init_password = new javax.swing.JPasswordField();
+        txt_imagen = new javax.swing.JPasswordField();
         txt_titular = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txt_ucucoin = new javax.swing.JTextField();
@@ -71,7 +72,7 @@ public class altaPublicacion extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setText("Categoría");
         p_init.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 120, -1));
-        p_init.add(init_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 530, 230, 30));
+        p_init.add(txt_imagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 530, 230, 30));
         p_init.add(txt_titular, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 230, 30));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -91,6 +92,11 @@ public class altaPublicacion extends javax.swing.JFrame {
         p_init.add(txt_ucucoin, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 230, 30));
 
         btn_publicar.setText("Publicar");
+        btn_publicar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_publicarActionPerformed(evt);
+            }
+        });
         p_init.add(btn_publicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 750, 110, 40));
 
         btn_foto.setText("Cargar Foto");
@@ -227,6 +233,40 @@ public class altaPublicacion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_combo_categoriaActionPerformed
 
+    private void btn_publicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_publicarActionPerformed
+         String titulo = txt_titular.getText();
+        String categoria = combo_categoria.getName();
+        String costo = txt_valorpeso.getText();
+        String ucuCoin = txt_ucucoin.getText();
+        String descripcion = txt_descrip.getText();
+        String imagen = txt_imagen.getSelectedText();
+
+        if(titulo.isBlank() || categoria.isBlank() || costo.isBlank() || ucuCoin.isBlank() || descripcion.isBlank() || imagen.isBlank()){
+            JOptionPane.showMessageDialog(rootPane, "Faltan datos por ingresar","Error!", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+           SentenciaSQL sql = new SentenciaSQL();
+           Producto aux = new Producto();
+           
+           aux.setTitulo(titulo);
+           aux.setIdCategoria(Integer.parseInt(categoria));
+           aux.setCosto(Integer.parseInt(costo));
+           aux.setDescripcion(descripcion);
+           aux.setImagen(imagen);
+           
+           if(sql.insertPublicacion(aux,"idCuenta")){
+               JOptionPane.showMessageDialog(null, "Actualización de datos correcta!");
+           }else{
+               JOptionPane.showMessageDialog(null, "Hubo un fallo en la actualización, verifique");
+               
+           }
+            //Registro realizado -> Pantalla Login
+            login login = new login();
+            login.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btn_publicarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -280,7 +320,6 @@ public class altaPublicacion extends javax.swing.JFrame {
     private javax.swing.JButton btn_publicar;
     private javax.swing.JComboBox<String> combo_categoria;
     private javax.swing.JLabel img_background;
-    private javax.swing.JPasswordField init_password;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -291,6 +330,7 @@ public class altaPublicacion extends javax.swing.JFrame {
     private javax.swing.JLabel main_icon;
     private javax.swing.JPanel p_init;
     private javax.swing.JTextField txt_descrip;
+    private javax.swing.JPasswordField txt_imagen;
     private javax.swing.JTextField txt_titular;
     private javax.swing.JTextField txt_ucucoin;
     private javax.swing.JTextField txt_valorpeso;

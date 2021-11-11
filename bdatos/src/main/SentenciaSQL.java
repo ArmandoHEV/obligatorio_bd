@@ -43,7 +43,7 @@ public class SentenciaSQL extends ConexionBD{
         establecerConexion();
         Connection con = getConexion();
         
-        String sql = "SELECT idCuenta,passwd FROM cuenta WHERE idCuenta = ? and passwd = ?"; //('48453889','Gonzalo','Grossi','ggrossi',10000,true);"
+        String sql = "SELECT idCuenta,passwd FROM cuenta WHERE idCuenta = ? and passwd = ? and habilitado=true"; //('48453889','Gonzalo','Grossi','ggrossi',10000,true);"
         
         try{
             ps= con.prepareStatement(sql);
@@ -174,6 +174,38 @@ public class SentenciaSQL extends ConexionBD{
             ps.setString(3,cuenta.getPassword());
             ps.setString(4,cuenta.getCi());
             ps.executeUpdate();
+            return true;  
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }   
+    }
+    
+    
+    public Boolean insertPublicacion(Producto producto, int idCuenta){
+        PreparedStatement ps = null;
+        PreparedStatement ps2 = null;
+        establecerConexion();
+        Connection con = getConexion();
+        
+        String sql = "insert into producto idCategoria,titulo,descripcionProducto,imagen,costo VALUES (?,?,?,?,?)";
+        try{
+            ps= con.prepareStatement(sql);
+            ps.setInt(1,producto.getIdProducto());
+            ps.setString(2,producto.getTitulo());
+            ps.setString(3,producto.getDescripcion());
+            ps.setString(4,producto.getImagen());
+            ps.setInt(4,producto.getCosto());
+            ps.execute();
+ 
+            
+        String sql2 = "insert into publicacion idCuenta,idProducto VALUES (?,?)"; 
+            ps2= con.prepareStatement(sql2);
+            ps2.setInt(1,idCuenta);
+            ps2.setInt(2,producto.getIdProducto());
+            ps2.execute();
             return true;  
             
             

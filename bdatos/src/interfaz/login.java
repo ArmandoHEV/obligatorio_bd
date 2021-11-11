@@ -182,14 +182,22 @@ public class login extends javax.swing.JFrame {
         SentenciaSQL sql = new SentenciaSQL();
         String nombre = txt_usuario.getText();
         String pass = txt_password.getText();
-           
-        if(sql.inicioSesion(nombre,pass)){
-                menuPrincipal inicio = new menuPrincipal();
-                inicio.setVisible(true);
-                this.dispose();          
-           }else{
-               JOptionPane.showMessageDialog(null, "Usuario no válido");
+        if(!nombre.equals(" ") || nombre != null){
+           if(!pass.equals(" ") || pass != null){
+               if(sql.inicioSesion(nombre,pass)){
+                    menuPrincipal inicio = new menuPrincipal();
+                    inicio.setVisible(true);
+                    this.dispose();          
+               }else{
+                    JOptionPane.showMessageDialog(null, "Usuario no válido");
+                } 
+           } else {
+               JOptionPane.showMessageDialog(null, "Ingrese una contraseña");
            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese un nombre");
+        } 
+    
         
     }//GEN-LAST:event_btn_init1ActionPerformed
 
