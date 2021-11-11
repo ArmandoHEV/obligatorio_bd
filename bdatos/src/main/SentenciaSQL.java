@@ -191,7 +191,8 @@ public class SentenciaSQL extends ConexionBD{
         Connection con = getConexion();
         
         String sql = "insert into producto idCategoria,titulo,descripcionProducto,imagen,costo VALUES (?,?,?,?,?)";
-        try{
+        /*try{
+            
             ps= con.prepareStatement(sql);
             ps.setInt(1,producto.getIdProducto());
             ps.setString(2,producto.getTitulo());
@@ -212,7 +213,8 @@ public class SentenciaSQL extends ConexionBD{
         } catch (SQLException ex) {
             Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        }   
+        }   */
+        return false;
     }
     
 }

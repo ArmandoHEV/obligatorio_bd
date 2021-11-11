@@ -6,7 +6,13 @@
 package interfaz;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import main.ProductoPublicacion;
+import main.SentenciaSQL;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -22,7 +28,71 @@ public class menuPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(897, 816)); 
         this.setResizable(false);
+        
+        Object data2[][] = new Object[99][3];
+        SentenciaSQL sql = new SentenciaSQL();
+        
+        jComboBox1.setModel(sql.obtenerCategorias());
+        
+        ArrayList<ProductoPublicacion> publicaciones = sql.buscarPublicacion();
+        
+        for(int i = 0; i < publicaciones.size() ; i++){
+            for(int j = 0; j < 3; j++) {
+                // read information from somewhere
+                switch(j){
+                    case 0:
+                        data2[i][j] = publicaciones.get(i).getTitulo();
+                        break;
+                    case 1:
+                        data2[i][j] = publicaciones.get(i).getDcategoria();
+                        break;
+                    case 2:
+                        data2[i][j] = publicaciones.get(i).getCosto();
+                        break;
+                    case 3:
+                        data2[i][j] = publicaciones.get(i).getImagen();
+                        break;
+                      
+                }
+            }
+        }
+        System.out.print(data2);
+        
+        table_publicaciones.setModel(new javax.swing.table.DefaultTableModel(
+            data2,
+            new String [] {
+                "Titular", "Tipo", "Costo", "Foto"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        
+        
+        table_publicaciones.setCellSelectionEnabled(true);
+        ListSelectionModel cellSelectionModel = table_publicaciones.getSelectionModel();
+        cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+              
+              int index1 = e.getFirstIndex();
+              int index2 = e.getLastIndex();
+              
+              System.out.println(index1 + " " + index2);
+              jTextField1.setText(publicaciones.get(index2).getDproducto());
+            }
+
+        });
+        
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -92,6 +162,12 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
         p_init.add(btn_endsession, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 30, 130, 20));
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
         p_init.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 300, 290, 160));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -199,6 +275,10 @@ public class menuPrincipal extends javax.swing.JFrame {
         publica.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_misPublicActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
