@@ -7,12 +7,14 @@ package interfaz;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 import main.ProductoPublicacion;
 import main.SentenciaSQL;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.ListSelectionModel;
+import main.Producto;
 
 /**
  *
@@ -104,7 +106,7 @@ public class menuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         p_init = new javax.swing.JPanel();
-        init_password = new javax.swing.JPasswordField();
+        txt_buscar = new javax.swing.JPasswordField();
         btn_buscar = new javax.swing.JButton();
         btn_ofertar = new javax.swing.JButton();
         main_icon = new javax.swing.JLabel();
@@ -129,9 +131,14 @@ public class menuPrincipal extends javax.swing.JFrame {
         p_init.setBackground(new java.awt.Color(255, 255, 255));
         p_init.setPreferredSize(new java.awt.Dimension(1000, 1000));
         p_init.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        p_init.add(init_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 120, 230, 30));
+        p_init.add(txt_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 120, 230, 30));
 
         btn_buscar.setText("Buscar");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
+            }
+        });
         p_init.add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 120, 80, 30));
 
         btn_ofertar.setText("Ofertar");
@@ -280,6 +287,17 @@ public class menuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+        String buscar = txt_buscar.getText();
+        if (buscar != null){
+            ArrayList<ProductoPublicacion> productos = new ArrayList<>();
+            SentenciaSQL sql = new SentenciaSQL();
+            productos = sql.filtrarPublicacionesPorTexto(buscar);
+            
+            //Mostrar Productos
+        }
+    }//GEN-LAST:event_btn_buscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -332,7 +350,6 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btn_ofertaRec;
     private javax.swing.JButton btn_ofertar;
     private javax.swing.JLabel img_background;
-    private javax.swing.JPasswordField init_password;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -341,5 +358,6 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel main_icon;
     private javax.swing.JPanel p_init;
     private javax.swing.JTable table_publicaciones;
+    private javax.swing.JPasswordField txt_buscar;
     // End of variables declaration//GEN-END:variables
 }

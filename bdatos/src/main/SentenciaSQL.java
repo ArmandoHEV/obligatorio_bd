@@ -216,5 +216,66 @@ public class SentenciaSQL extends ConexionBD{
         }   */
         return false;
     }
+
+    public ArrayList<ProductoPublicacion> filtrarPublicacionesPorTexto(String texto) {
+        ArrayList<ProductoPublicacion> resultado = new ArrayList<>();
+        PreparedStatement ps = null;
+        establecerConexion();
+        Connection con = getConexion();
+        
+        String sql = "select * from publicacion publ" +
+            " inner join producto prod on publ.idproducto = prod.idproducto" +
+            " where prod.titulo like '%?%';";
+        
+        try{
+            ps= con.prepareStatement(sql);
+            ps.setString(1,texto);
+            ResultSet rs = ps.executeQuery();
+             while (rs.next()){
+                ProductoPublicacion prod = new ProductoPublicacion();
+                prod.setTitulo(rs.getString(7));
+                prod.setDcategoria(rs.getString(6));
+                prod.setCosto(rs.getInt(11));
+                prod.setImagen(rs.getString(10));
+                prod.setDproducto(rs.getString(3));         
+                resultado.add(prod);
+            }          
+         return resultado;
+        } catch (SQLException ex) {
+            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } 
+    }
+    public ArrayList<ProductoPublicacion> filtrarPublicacionesPorCategoria(int idCategoria) {
+         ArrayList<ProductoPublicacion> resultado = new ArrayList<>();
+        PreparedStatement ps = null;
+        establecerConexion();
+        Connection con = getConexion();
+        
+        String sql = "select * from publicacion publ" +
+            " inner join producto prod on publ.idproducto = prod.idproducto" +
+            " where prod.idCategoria=?;";
+        
+        try{
+            ps= con.prepareStatement(sql);
+            ps.setInt(1,idCategoria);
+            ResultSet rs = ps.executeQuery();
+             while (rs.next()){
+                ProductoPublicacion prod = new ProductoPublicacion();
+                prod.setTitulo(rs.getString(7));
+                prod.setDcategoria(rs.getString(6));
+                prod.setCosto(rs.getInt(11));
+                prod.setImagen(rs.getString(10));
+                prod.setDproducto(rs.getString(3));         
+                resultado.add(prod);
+            }          
+         return resultado;
+        } catch (SQLException ex) {
+            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    
     
 }
