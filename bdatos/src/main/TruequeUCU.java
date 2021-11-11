@@ -29,9 +29,9 @@ public class TruequeUCU {
         for (ProductoPublicacion i : hola){
             System.out.println(i.getTitulo());
         }
-       */
-        System.out.println("TEST DE PUSH");
        
+        System.out.println("TEST DE PUSH");
+       */
     }
     
 }
