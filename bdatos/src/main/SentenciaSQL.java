@@ -184,7 +184,7 @@ public class SentenciaSQL extends ConexionBD{
     }
     
     
-    public Boolean insertPublicacion(Producto producto, int idCuenta){
+    public Boolean insertPublicacion(Producto producto, String idCuenta){
         PreparedStatement ps = null;
         PreparedStatement ps2 = null;
         establecerConexion();
