@@ -258,7 +258,7 @@ public class altaPublicacion extends javax.swing.JFrame {
         String descripcion = txt_descrip.getText();
         String imagen = txt_imagen.getSelectedText();
         
-        System.out.print(categoria);
+        System.out.print(costo);
         
 
         if(titulo.isBlank() || costo.isBlank() || ucuCoin.isBlank() || descripcion.isBlank()){
@@ -267,6 +267,7 @@ public class altaPublicacion extends javax.swing.JFrame {
         else{
            SentenciaSQL sql = new SentenciaSQL();
            Producto aux = new Producto();
+           System.out.println(sql.obtenerIdCategoria(categoria));
            
            aux.setTitulo(titulo);
            aux.setIdCategoria(Integer.parseInt(sql.obtenerIdCategoria(categoria)));

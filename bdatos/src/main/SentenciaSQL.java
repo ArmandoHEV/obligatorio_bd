@@ -230,11 +230,11 @@ public class SentenciaSQL extends ConexionBD{
         try{
             
             ps= con.prepareStatement(sql);
-            ps.setInt(1,producto.getIdProducto());
+            ps.setInt(1,producto.getIdCategoria());
             ps.setString(2,producto.getTitulo());
             ps.setString(3,producto.getDescripcion());
             ps.setString(4,producto.getImagen());
-            ps.setDouble(4,producto.getCosto());
+            ps.setDouble(5,producto.getCosto());
             ps.execute();
  
             
