@@ -14,6 +14,40 @@ import javax.swing.DefaultComboBoxModel;
  * @author Wilfred
  */
 public class SentenciaSQL extends ConexionBD{
+
+    public ArrayList<ProductoPublicacion> mostrarOfertasRecibidas(String idCuenta, int idPublicacion) {
+        ArrayList<ProductoPublicacion> resultado =new ArrayList<>();
+        PreparedStatement ps = null;
+        establecerConexion();
+        Connection con = getConexion();
+        String sql = "select p.titulo,p.idcategoria,p.costo,p.idproducto,p.idproducto from publicacion publ "
+                + " inner join producto p on p.idproducto=publ.idproducto"
+                + " inner join oferta o on o.idpublicacionaofertar = publ.idpublicacion"
+                + " where publ.idcuenta=? and publ.idpublicacion=?";
+        try{
+            ps= con.prepareStatement(sql);
+            ps.setString(1,idCuenta);
+            ps.setInt(2,idPublicacion);
+            ResultSet rs = ps.executeQuery();
+                 
+            while (rs.next()){
+                ProductoPublicacion prod = new ProductoPublicacion();
+                prod.setTitulo(rs.getString(7));
+                prod.setDcategoria(rs.getString(13));
+                prod.setCosto(rs.getInt(11));
+                prod.setImagen(rs.getString(12));
+                prod.setDproducto(rs.getString(8));
+                
+                resultado.add(prod);
+            }
+            
+            return resultado;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
     
     //ES POSIBLE QUE SE GENEREN TODAS LAS QUERYS ACA Y SE LLAME DIRECTO AL METODO
     public boolean registroCuenta (Cuenta cuenta){
@@ -274,6 +308,31 @@ public class SentenciaSQL extends ConexionBD{
             Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+
+    public String obtenerUCUCoins(String idCuenta) {
+        String resultado;
+        PreparedStatement ps = null;
+        establecerConexion();
+        Connection con = getConexion();
+        String sql ="select UCUCoins from Cuenta where idCuenta=?";
+        try{
+            ps= con.prepareStatement(sql);
+            ps.setString(1,idCuenta);
+            ResultSet rs = ps.executeQuery();
+            resultado = rs.getString(1);
+             return resultado;
+        } catch (SQLException ex) {
+            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
+            return "error";
+        }   
+    }
+
+    public void aceptarTrueque(String idCuenta, int idOferta, int idPublicacion) {
+        String sql ="";
+        //
+        //
+        //
     }
     
     

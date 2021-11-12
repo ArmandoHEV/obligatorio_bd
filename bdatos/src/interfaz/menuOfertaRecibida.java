@@ -6,7 +6,10 @@
 package interfaz;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import main.ProductoPublicacion;
+import main.SentenciaSQL;
 
 /**
  *
@@ -22,6 +25,9 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(897, 816)); 
         this.setResizable(false);
+        SentenciaSQL sql = new SentenciaSQL();
+        ArrayList<ProductoPublicacion> ofertasAPublicacion = sql.mostrarOfertasRecibidas("48453889",1); // Cuenta ,idPublicacion
+        //mostrar ofertasAPublicacion en la tabla
     }
 
     /**
@@ -165,9 +171,8 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_ofertaRealActionPerformed
 
     private void btn_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_aceptarActionPerformed
-        //cambiar estado de oferta a aceptada
-        //cambiar publicacion ofertada como deshabilitada
-        //cambiar publicacion "comprada" como deshabilitada
+       SentenciaSQL sql = new SentenciaSQL();
+       sql.aceptarTrueque("48453889",1,1); //idCuenta , idOferta , idPublicacion
     }//GEN-LAST:event_btn_aceptarActionPerformed
 
     private void btn_menuPrincActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menuPrincActionPerformed

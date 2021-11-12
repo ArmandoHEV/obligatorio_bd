@@ -240,6 +240,7 @@ public class altaPublicacion extends javax.swing.JFrame {
         String ucuCoin = txt_ucucoin.getText();
         String descripcion = txt_descrip.getText();
         String imagen = txt_imagen.getSelectedText();
+        
 
         if(titulo.isBlank() || categoria.isBlank() || costo.isBlank() || ucuCoin.isBlank() || descripcion.isBlank() || imagen.isBlank()){
             JOptionPane.showMessageDialog(rootPane, "Faltan datos por ingresar","Error!", JOptionPane.ERROR_MESSAGE);

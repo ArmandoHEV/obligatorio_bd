@@ -7,6 +7,7 @@ package interfaz;
 
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import main.SentenciaSQL;
 
 /**
  *
@@ -22,6 +23,7 @@ public class pantallaOferta extends javax.swing.JFrame {
         this.setSize(new Dimension(897, 816)); 
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -115,6 +117,11 @@ public class pantallaOferta extends javax.swing.JFrame {
         p_init.add(btn_ofertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 700, 110, 40));
 
         txt_coin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_coin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_coinActionPerformed(evt);
+            }
+        });
         p_init.add(txt_coin, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 200, 80, 30));
 
         table_pOfertar.setModel(new javax.swing.table.DefaultTableModel(
@@ -261,6 +268,12 @@ public class pantallaOferta extends javax.swing.JFrame {
     
               
     }//GEN-LAST:event_table_publicacionesMouseClicked
+
+    private void txt_coinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_coinActionPerformed
+        SentenciaSQL sql = new SentenciaSQL();
+        String ucucoins = sql.obtenerUCUCoins("48453889");
+        txt_coin.setText(ucucoins);
+    }//GEN-LAST:event_txt_coinActionPerformed
 
     /**
      * @param args the command line arguments
