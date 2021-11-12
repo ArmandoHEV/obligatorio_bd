@@ -172,7 +172,7 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
 
     private void btn_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_aceptarActionPerformed
        SentenciaSQL sql = new SentenciaSQL();
-       sql.aceptarTrueque("48453889",1,1); //idCuenta , idOferta , idPublicacion
+       sql.aceptarTrueque("48453889",1); //idCuenta , idOferta , idPublicacion
     }//GEN-LAST:event_btn_aceptarActionPerformed
 
     private void btn_menuPrincActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menuPrincActionPerformed

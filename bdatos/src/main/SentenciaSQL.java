@@ -328,12 +328,51 @@ public class SentenciaSQL extends ConexionBD{
         }   
     }
 
-    public void aceptarTrueque(String idCuenta, int idOferta, int idPublicacion) {
-        String sql ="";
-        //
+    public void aceptarTrueque(String idCuenta, int idOferta) {
+        String resultado;
+        PreparedStatement ps = null;
+        PreparedStatement ps2 = null;
+        PreparedStatement ps3 = null;
+        PreparedStatement ps4 = null;
+        
+        establecerConexion();
+        Connection con = getConexion();
+        
+        String sumoUCUCOins ="update Cuenta c set UCUCoins = UCUCoins +(select UCUCoins from oferta o where o.idOferta=?)"
+                + " where c.idCuenta=?";
+        
+        String restoUCUCOins ="update Cuenta c set UCUCoins = UCUCoins -(select UCUCoins from oferta o where o.idOferta=?)"
+                + " where c.idCuenta=(select idCuenta from Oferta oo where oo.idOferta=?)";
         
         
-        //
+        String cambioEstadoOferta ="update Oferta set estadoOferta=5, fechaOferta=now() where idOferta=?";
+        
+        String cambioEstadoPublicacion ="update Publicacion set estadoPublicacion=5"
+                + " where p.idPublicacion=(select idPublicacionAOfertar from Oferta o where o.idOferta=?)";
+         try{
+            ps= con.prepareStatement(sumoUCUCOins);
+            ps.setInt(1,idOferta);
+            ps.setString(2,idCuenta);
+            ps.executeUpdate();
+            
+            ps2= con.prepareStatement(restoUCUCOins);
+            ps2.setInt(1,idOferta);
+            ps2.setString(2,idCuenta);
+            ps2.executeUpdate();
+            
+            ps3= con.prepareStatement(cambioEstadoOferta);
+            ps3.setInt(1,idOferta);
+            ps3.executeUpdate();
+            
+            ps4= con.prepareStatement(cambioEstadoPublicacion);
+            ps4.setInt(1,idOferta);
+            ps4.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+        //cambiar estados      
+        //poner y sacar ucucoins
         //
     }
     
