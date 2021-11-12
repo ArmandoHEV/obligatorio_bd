@@ -25,7 +25,7 @@ public class SentenciaSQL extends ConexionBD{
                 + " inner join oferta o on o.idpublicacionaofertar = publ.idpublicacion"
                 + " where publ.idcuenta=? and publ.idpublicacion=?";
         try{
-            ps= con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
             ps.setString(1,idCuenta);
             ps.setInt(2,idPublicacion);
             ResultSet rs = ps.executeQuery();
@@ -227,20 +227,20 @@ public class SentenciaSQL extends ConexionBD{
         Connection con = getConexion();
         
         String sql = "insert into producto idCategoria,titulo,descripcionProducto,imagen,costo VALUES (?,?,?,?,?)";
-        /*try{
+        try{
             
             ps= con.prepareStatement(sql);
-            ps.setInt(1,producto.getIdProducto());
+            ps.setInt(1,producto.getIdCategoria());
             ps.setString(2,producto.getTitulo());
             ps.setString(3,producto.getDescripcion());
             ps.setString(4,producto.getImagen());
-            ps.setInt(4,producto.getCosto());
+            ps.setDouble(5,producto.getCosto());
             ps.execute();
  
             
-        String sql2 = "insert into publicacion idCuenta,idProducto VALUES (?,?)"; 
+            String sql2 = "insert into publicacion idCuenta,idProducto VALUES (?,?)"; 
             ps2= con.prepareStatement(sql2);
-            ps2.setInt(1,idCuenta);
+            ps2.setInt(1,Integer.parseInt(idCuenta));
             ps2.setInt(2,producto.getIdProducto());
             ps2.execute();
             return true;  
@@ -249,8 +249,7 @@ public class SentenciaSQL extends ConexionBD{
         } catch (SQLException ex) {
             Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        }   */
-        return false;
+        }   
     }
 
     public ArrayList<ProductoPublicacion> filtrarPublicacionesPorTexto(String texto) {
@@ -422,6 +421,25 @@ public class SentenciaSQL extends ConexionBD{
             
        }
     
-    
+    public String obtenerIdCategoria(String categoria) {
+        PreparedStatement ps = null;
+        String resultado = "";
+        establecerConexion();
+        Connection con = getConexion();
+        
+        String sql="select idCategoria from Categoria where descripcionCategoria=?";
+        try{
+            ps= con.prepareStatement(sql);
+            ps.setString(1, categoria);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                resultado = rs.getString(1);
+            }
+            return resultado;
+        } catch (SQLException ex) {
+            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
+            return "FALSE";
+        } 
+    }
     
 }

@@ -18,6 +18,9 @@ public class login extends javax.swing.JFrame {
     /**
      * Creates new form pantallaPrincipal
      */
+    
+    private String userCi;
+    
     public login() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -176,7 +179,11 @@ public class login extends javax.swing.JFrame {
     private void txt_passwordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_passwordMouseClicked
         txt_password.setText("");
     }//GEN-LAST:event_txt_passwordMouseClicked
-
+    
+    public String getUserCi(){
+        return userCi;
+    }
+    
     private void btn_init1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_init1ActionPerformed
         
         SentenciaSQL sql = new SentenciaSQL();
@@ -185,8 +192,10 @@ public class login extends javax.swing.JFrame {
         if(!nombre.equals(" ") || nombre != null){
            if(!pass.equals(" ") || pass != null){
                if(sql.inicioSesion(nombre,pass)){
-                    menuPrincipal inicio = new menuPrincipal();
+                    userCi = nombre;
+                    menuPrincipal inicio = new menuPrincipal(nombre);
                     inicio.setVisible(true);
+                    
                     this.dispose();          
                }else{
                     JOptionPane.showMessageDialog(null, "Usuario no válido");
@@ -197,7 +206,7 @@ public class login extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Ingrese un nombre");
         } 
-    
+     
         
     }//GEN-LAST:event_btn_init1ActionPerformed
 

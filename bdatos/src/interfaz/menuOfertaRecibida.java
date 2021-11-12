@@ -27,7 +27,11 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
         this.setResizable(false);
         SentenciaSQL sql = new SentenciaSQL();
         ArrayList<ProductoPublicacion> ofertasAPublicacion = sql.mostrarOfertasRecibidas("48453889",1); // Cuenta ,idPublicacion
+       
         //mostrar ofertasAPublicacion en la tabla
+        for(int i = 0; i < ofertasAPublicacion.size() ; i++){
+            System.out.println(ofertasAPublicacion.get(i).getTitulo());
+        }
     }
 
     /**
@@ -177,13 +181,13 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_aceptarActionPerformed
 
     private void btn_menuPrincActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menuPrincActionPerformed
-        menuPrincipal menuprinc = new menuPrincipal();
+        menuPrincipal menuprinc = new menuPrincipal("");
         menuprinc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_menuPrincActionPerformed
 
     private void btn_mispublicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mispublicActionPerformed
-        menuPublicaciones publicaciones = new menuPublicaciones();
+        menuPublicaciones publicaciones = new menuPublicaciones("");
         publicaciones.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_mispublicActionPerformed

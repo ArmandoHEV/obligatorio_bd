@@ -9,7 +9,7 @@ package main;
  * @author Wilfred
  */
 public class Cuenta {
-    private String ci;
+    public String ci;
     private String nombre;
     private String apellido;
     private String password;

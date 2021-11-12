@@ -236,17 +236,16 @@ public class pantallaOferta extends javax.swing.JFrame {
         int coins = Integer.parseInt(txt_moneda.getText());
         if(sql.obtenerUCUCoins("48453889") >= coins){ //idcuenta,ucucoins ofertadas
             sql.realizarOferta(listaOfertas,"48453889",1,coins); //ofertas,idcuenta,idpublicacion,ucucoins
-            menuPrincipal menuPrincipal = new menuPrincipal();
+            menuPrincipal menuPrincipal = new menuPrincipal("48453889");
             menuPrincipal.setVisible(true);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Saldo insuficiente","Error!", JOptionPane.ERROR_MESSAGE);
         }
-        
     }//GEN-LAST:event_btn_ofertarActionPerformed
 
     private void btn_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exitActionPerformed
-        menuPrincipal menuPrincipal = new menuPrincipal();
+        menuPrincipal menuPrincipal = new menuPrincipal("");
         menuPrincipal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_exitActionPerformed

@@ -16,6 +16,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.ListSelectionModel;
 import main.Producto;
 
+
 /**
  *
  * @author mlisonct
@@ -25,7 +26,10 @@ public class menuPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form pantallaPrincipal
      */
-    public menuPrincipal() {
+    private String cuenta;
+    
+    public menuPrincipal(String count) {
+        this.cuenta = count;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(897, 816)); 
@@ -59,6 +63,7 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         }
         System.out.print(data2);
+        System.out.print(cuenta);
         
         table_publicaciones.setModel(new javax.swing.table.DefaultTableModel(
             data2,
@@ -279,7 +284,7 @@ public class menuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_ofertaRealActionPerformed
 
     private void btn_misPublicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_misPublicActionPerformed
-        menuPublicaciones publica = new menuPublicaciones();
+        menuPublicaciones publica = new menuPublicaciones(cuenta);
         publica.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_misPublicActionPerformed
@@ -336,7 +341,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new menuPrincipal().setVisible(true);
+                new menuPrincipal("").setVisible(true);
                 
             }
         });

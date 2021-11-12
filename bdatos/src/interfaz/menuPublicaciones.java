@@ -7,6 +7,7 @@ package interfaz;
 
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import main.Cuenta;
 
 /**
  *
@@ -17,7 +18,9 @@ public class menuPublicaciones extends javax.swing.JFrame {
     /**
      * Creates new form pantallaPrincipal
      */
-    public menuPublicaciones() {
+    private String cuenta;
+    public menuPublicaciones(String id) {
+        this.cuenta = id;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(897, 816)); 
@@ -180,7 +183,7 @@ public class menuPublicaciones extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_publicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_publicActionPerformed
-        altaPublicacion nuevapublic = new altaPublicacion();
+        altaPublicacion nuevapublic = new altaPublicacion(cuenta);
         nuevapublic.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_publicActionPerformed
@@ -198,7 +201,7 @@ public class menuPublicaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_ofertaRealActionPerformed
 
     private void btn_menuPrincActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menuPrincActionPerformed
-        menuPrincipal menuprinc = new menuPrincipal();
+        menuPrincipal menuprinc = new menuPrincipal(cuenta);
         menuprinc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_menuPrincActionPerformed
@@ -754,7 +757,7 @@ public class menuPublicaciones extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new menuPublicaciones().setVisible(true);
+                new menuPublicaciones("").setVisible(true);
                 
             }
         });
