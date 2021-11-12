@@ -55,7 +55,7 @@ public class SentenciaSQL extends ConexionBD{
         establecerConexion();
         Connection con = getConexion();
         
-        String sql = "INSERT INTO cuenta VALUES(?,?,?,?,0,true)"; //('48453889','Gonzalo','Grossi','ggrossi',10000,true);"
+        String sql = "INSERT INTO Cuenta VALUES(?,?,?,?,0,true)"; //('48453889','Gonzalo','Grossi','ggrossi',10000,true);"
         
         try{
             ps= con.prepareStatement(sql);
@@ -159,17 +159,19 @@ public class SentenciaSQL extends ConexionBD{
         }   
     }
     
-    public ArrayList<ProductoPublicacion> buscarPublicacion(){
+    public ArrayList<ProductoPublicacion> buscarPublicacion(String idCuenta){
         PreparedStatement ps = null;
         establecerConexion();
         Connection con = getConexion();
         ArrayList<ProductoPublicacion> result = new ArrayList<>(); //CAMBIAR A LIST
         
         
-        String sql = "SELECT * FROM publicacion p INNER JOIN producto pro ON pro.idproducto = p.idpublicacion INNER JOIN categoria cat ON pro.idcategoria = cat.idcategoria WHERE p.idcuenta NOT IN ('45862435')";
+        String sql = "SELECT * FROM publicacion p INNER JOIN producto pro ON pro.idproducto = p.idpublicacion INNER JOIN categoria cat ON pro.idcategoria = cat.idcategoria"
+                + " WHERE p.idcuenta NOT IN (?) and p.estadoPublicacion not in (5)";
         
         try{
             ps= con.prepareStatement(sql);
+            ps.setString(1,idCuenta);
             //LEER USUARIO LOGEADO E INSERTARLO EN QUERY
             //GUARDAR TODOS LOS DATOS EN UNA LISTA DE PRODUCTOS Y DEVOLVERLO
             //PARA USARSE EN EL BOTON (INSERTAR EN TABLA)
@@ -259,7 +261,7 @@ public class SentenciaSQL extends ConexionBD{
         
         String sql = "select * from publicacion publ" +
             " inner join producto prod on publ.idproducto = prod.idproducto" +
-            " where prod.titulo like '%?%';";
+            " where prod.titulo like '%?%' and publ.estadoPublicacion not in(5);";
         
         try{
             ps= con.prepareStatement(sql);
@@ -288,7 +290,7 @@ public class SentenciaSQL extends ConexionBD{
         
         String sql = "select * from publicacion publ" +
             " inner join producto prod on publ.idproducto = prod.idproducto" +
-            " where prod.idCategoria=?;";
+            " where prod.idCategoria=? and publ.estadoPublicacion not in (5);";
         
         try{
             ps= con.prepareStatement(sql);
@@ -329,7 +331,6 @@ public class SentenciaSQL extends ConexionBD{
     }
 
     public void aceptarTrueque(String idCuenta, int idOferta) {
-        String resultado;
         PreparedStatement ps = null;
         PreparedStatement ps2 = null;
         PreparedStatement ps3 = null;
@@ -374,6 +375,21 @@ public class SentenciaSQL extends ConexionBD{
         //cambiar estados      
         //poner y sacar ucucoins
         //
+    }
+
+    public void rechazarOferta(int idOferta) {
+        PreparedStatement ps = null;
+        establecerConexion();
+        Connection con = getConexion();
+        
+        String sql="update Oferta set estadoOferta=10,fechaOferta=now() where idOferta=?";
+        try{
+        ps= con.prepareStatement(sql);
+            ps.setInt(1,idOferta);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
     
     

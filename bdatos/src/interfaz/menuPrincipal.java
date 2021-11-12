@@ -36,7 +36,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         
         jComboBox1.setModel(sql.obtenerCategorias());
         
-        ArrayList<ProductoPublicacion> publicaciones = sql.buscarPublicacion();
+        ArrayList<ProductoPublicacion> publicaciones = sql.buscarPublicacion("48453889"); //idCuenta
         
         for(int i = 0; i < publicaciones.size() ; i++){
             for(int j = 0; j < 3; j++) {
@@ -253,6 +253,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         pantallaOferta oferta = new pantallaOferta();
         oferta.setVisible(true);
         this.dispose();
+        SentenciaSQL sql = new SentenciaSQL();
     }//GEN-LAST:event_btn_ofertarActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed

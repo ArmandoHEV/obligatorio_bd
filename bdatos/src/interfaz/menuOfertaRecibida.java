@@ -155,7 +155,8 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_rechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rechazarActionPerformed
-        //cambiar estado de oferta a rechazada
+        SentenciaSQL sql = new SentenciaSQL();
+        sql.rechazarOferta(2); //idOferta
     }//GEN-LAST:event_btn_rechazarActionPerformed
 
     private void btn_endsessionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_endsessionActionPerformed
