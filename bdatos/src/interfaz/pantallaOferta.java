@@ -6,7 +6,9 @@
 package interfaz;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import main.SentenciaSQL;
 
 /**
@@ -229,13 +231,18 @@ public class pantallaOferta extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_quitarActionPerformed
 
     private void btn_ofertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ofertarActionPerformed
-        //REALIZAR UN INSERT DE OFERTA
+        SentenciaSQL sql = new SentenciaSQL();
+        ArrayList<Integer> listaOfertas = new ArrayList<>();
+        int coins = Integer.parseInt(txt_moneda.getText());
+        if(sql.obtenerUCUCoins("48453889") >= coins){ //idcuenta,ucucoins ofertadas
+            sql.realizarOferta(listaOfertas,"48453889",1,coins); //ofertas,idcuenta,idpublicacion,ucucoins
+            menuPrincipal menuPrincipal = new menuPrincipal();
+            menuPrincipal.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Saldo insuficiente","Error!", JOptionPane.ERROR_MESSAGE);
+        }
         
-        
-        //VOLVER AL MENU PRINCIPAL
-        menuPrincipal menuPrincipal = new menuPrincipal();
-        menuPrincipal.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_btn_ofertarActionPerformed
 
     private void btn_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exitActionPerformed
@@ -271,8 +278,8 @@ public class pantallaOferta extends javax.swing.JFrame {
 
     private void txt_coinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_coinActionPerformed
         SentenciaSQL sql = new SentenciaSQL();
-        String ucucoins = sql.obtenerUCUCoins("48453889");
-        txt_coin.setText(ucucoins);
+        int ucucoins = sql.obtenerUCUCoins("48453889");
+        txt_coin.setText(ucucoins+"");
     }//GEN-LAST:event_txt_coinActionPerformed
 
     /**

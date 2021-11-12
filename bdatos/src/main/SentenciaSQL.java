@@ -312,22 +312,22 @@ public class SentenciaSQL extends ConexionBD{
         }
     }
 
-    public String obtenerUCUCoins(String idCuenta) {
-        String resultado;
+    public int obtenerUCUCoins(String idCuenta) {
+        int resultado = 0;
         PreparedStatement ps = null;
         establecerConexion();
         Connection con = getConexion();
-        String sql ="select UCUCoins from Cuenta where idCuenta=?";
+        String sql = "Select UCUCoins Cuenta where idCuenta=?";
         try{
             ps= con.prepareStatement(sql);
             ps.setString(1,idCuenta);
             ResultSet rs = ps.executeQuery();
-            resultado = rs.getString(1);
-             return resultado;
-        } catch (SQLException ex) {
-            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
-            return "error";
-        }   
+            resultado =rs.getInt(1);
+         } catch (SQLException ex) {
+            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);           
+        } 
+        
+        return resultado; 
     }
 
     public void aceptarTrueque(String idCuenta, int idOferta) {
@@ -391,6 +391,36 @@ public class SentenciaSQL extends ConexionBD{
             Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
+
+    public void realizarOferta(ArrayList<Integer> listaOfertas, String idCuenta, int idPublicacion, int ucucoins) {
+       PreparedStatement ps = null;
+       PreparedStatement ps2 = null;
+        establecerConexion();
+        Connection con = getConexion();
+        
+        String altaOferta="insert into Oferta idCuenta,idPublicacionAOfertas,UCUCoins,fechaOferta "
+                + " VALUES(?,?,?,now())";
+               
+        try{
+        ps= con.prepareStatement(altaOferta);
+            ps.setString(1,idCuenta);
+            ps.setInt(2,idPublicacion);
+            ps.setInt(3,ucucoins);
+            ps.execute();
+            
+            for (Integer i : listaOfertas){
+                String altaLineasOferta="insert into LineasOfertadas idOferta,idPublicacion"
+                        + " VALUES (?,?)";
+                ps2= con.prepareStatement(altaLineasOferta);
+                ps2.setInt(1,i);
+                ps2.setInt(2,idPublicacion);
+                ps2.execute();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+            
+       }
     
     
     
