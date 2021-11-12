@@ -28,8 +28,8 @@ public class menuPrincipal extends javax.swing.JFrame {
      */
     private String cuenta;
     
-    public menuPrincipal(String count) {
-        this.cuenta = count;
+    public menuPrincipal(String idCuenta) {
+        this.cuenta = idCuenta;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(897, 816)); 

@@ -252,14 +252,13 @@ public class altaPublicacion extends javax.swing.JFrame {
 
     private void btn_publicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_publicarActionPerformed
         String titulo = txt_titular.getText();
-        //String categoria = combo_categoria.getName();
+        String categoria = combo_categoria.getSelectedItem().toString();    
         String costo = txt_valorpeso.getText();
         String ucuCoin = txt_ucucoin.getText();
         String descripcion = txt_descrip.getText();
         String imagen = txt_imagen.getSelectedText();
         
-        System.out.print(costo);
-        
+      
 
         if(titulo.isBlank() || costo.isBlank() || ucuCoin.isBlank() || descripcion.isBlank()){
             JOptionPane.showMessageDialog(rootPane, "Faltan datos por ingresar","Error!", JOptionPane.ERROR_MESSAGE);

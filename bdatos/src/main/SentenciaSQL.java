@@ -226,7 +226,7 @@ public class SentenciaSQL extends ConexionBD{
         establecerConexion();
         Connection con = getConexion();
         
-        String sql = "insert into producto idCategoria,titulo,descripcionProducto,imagen,costo VALUES (?,?,?,?,?)";
+        String sql = "insert into producto (idCategoria,titulo,descripcionProducto,imagen,costo) VALUES (?,?,?,?,?)";
         try{
             
             ps= con.prepareStatement(sql);
@@ -238,7 +238,7 @@ public class SentenciaSQL extends ConexionBD{
             ps.execute();
  
             
-            String sql2 = "insert into publicacion idCuenta,idProducto VALUES (?,?)"; 
+            String sql2 = "insert into publicacion (idCuenta,idProducto) VALUES (?,?)"; 
             ps2= con.prepareStatement(sql2);
             ps2.setInt(1,Integer.parseInt(idCuenta));
             ps2.setInt(2,producto.getIdProducto());
@@ -397,7 +397,7 @@ public class SentenciaSQL extends ConexionBD{
         establecerConexion();
         Connection con = getConexion();
         
-        String altaOferta="insert into Oferta idCuenta,idPublicacionAOfertas,UCUCoins,fechaOferta "
+        String altaOferta="insert into Oferta (idCuenta,idPublicacionAOfertar,UCUCoins,fechaOferta) "
                 + " VALUES(?,?,?,now())";
                
         try{
@@ -408,7 +408,7 @@ public class SentenciaSQL extends ConexionBD{
             ps.execute();
             
             for (Integer i : listaOfertas){
-                String altaLineasOferta="insert into LineasOfertadas idOferta,idPublicacion"
+                String altaLineasOferta="insert into LineasOfertadas (idOferta,idPublicacion)"
                         + " VALUES (?,?)";
                 ps2= con.prepareStatement(altaLineasOferta);
                 ps2.setInt(1,i);
