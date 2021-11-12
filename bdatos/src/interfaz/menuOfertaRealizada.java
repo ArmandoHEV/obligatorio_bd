@@ -147,7 +147,7 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_endsessionActionPerformed
 
     private void btn_mispublicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mispublicActionPerformed
-        menuPublicaciones publicaciones = new menuPublicaciones();
+        menuPublicaciones publicaciones = new menuPublicaciones("");
         publicaciones.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_mispublicActionPerformed
@@ -157,7 +157,7 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_cancelofertaActionPerformed
 
     private void btn_menuPrincActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menuPrincActionPerformed
-        menuPrincipal menuprinc = new menuPrincipal();
+        menuPrincipal menuprinc = new menuPrincipal("");
         menuprinc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_menuPrincActionPerformed

@@ -144,7 +144,7 @@ public class menuCuenta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exitActionPerformed
-        menuPrincipal menu = new menuPrincipal();
+        menuPrincipal menu = new menuPrincipal("");
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_exitActionPerformed

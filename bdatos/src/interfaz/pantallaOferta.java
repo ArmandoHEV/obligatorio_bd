@@ -233,13 +233,13 @@ public class pantallaOferta extends javax.swing.JFrame {
         
         
         //VOLVER AL MENU PRINCIPAL
-        menuPrincipal menuPrincipal = new menuPrincipal();
+        menuPrincipal menuPrincipal = new menuPrincipal("");
         menuPrincipal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_ofertarActionPerformed
 
     private void btn_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exitActionPerformed
-        menuPrincipal menuPrincipal = new menuPrincipal();
+        menuPrincipal menuPrincipal = new menuPrincipal("");
         menuPrincipal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_exitActionPerformed

@@ -8,6 +8,7 @@ import main.*;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import main.Cuenta;
 
 /**
  *
@@ -18,14 +19,30 @@ public class altaPublicacion extends javax.swing.JFrame {
     /**
      * Creates new form pantallaPrincipal
      */
-    public altaPublicacion() {
+    private String cuenta;
+    
+    String categoria;
+    SentenciaSQL sql = new SentenciaSQL();
+    
+    public altaPublicacion(String count) {
+        
+        this.cuenta = count;
+        
         initComponents();
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(897, 816)); 
         this.setResizable(false);
         
-        SentenciaSQL sql = new SentenciaSQL();
+        
+        System.out.println(cuenta);
+        
         combo_categoria.setModel(sql.obtenerCategorias());
+        
+        combo_categoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                categoria = combo_categoria.getSelectedItem().toString();
+            }
+        });
     }
 
     /**
@@ -199,7 +216,7 @@ public class altaPublicacion extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_fotoActionPerformed
 
     private void btn_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exitActionPerformed
-        menuPrincipal menuPrincipal = new menuPrincipal();
+        menuPrincipal menuPrincipal = new menuPrincipal(cuenta);
         menuPrincipal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_exitActionPerformed
@@ -234,15 +251,17 @@ public class altaPublicacion extends javax.swing.JFrame {
     }//GEN-LAST:event_combo_categoriaActionPerformed
 
     private void btn_publicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_publicarActionPerformed
-         String titulo = txt_titular.getText();
-        String categoria = combo_categoria.getName();
+        String titulo = txt_titular.getText();
+        //String categoria = combo_categoria.getName();
         String costo = txt_valorpeso.getText();
         String ucuCoin = txt_ucucoin.getText();
         String descripcion = txt_descrip.getText();
         String imagen = txt_imagen.getSelectedText();
         
+        System.out.print(categoria);
+        
 
-        if(titulo.isBlank() || categoria.isBlank() || costo.isBlank() || ucuCoin.isBlank() || descripcion.isBlank() || imagen.isBlank()){
+        if(titulo.isBlank() || costo.isBlank() || ucuCoin.isBlank() || descripcion.isBlank()){
             JOptionPane.showMessageDialog(rootPane, "Faltan datos por ingresar","Error!", JOptionPane.ERROR_MESSAGE);
         }
         else{
@@ -250,12 +269,12 @@ public class altaPublicacion extends javax.swing.JFrame {
            Producto aux = new Producto();
            
            aux.setTitulo(titulo);
-           aux.setIdCategoria(Integer.parseInt(categoria));
+           aux.setIdCategoria(Integer.parseInt(sql.obtenerIdCategoria(categoria)));
            aux.setCosto(Integer.parseInt(costo));
            aux.setDescripcion(descripcion);
            aux.setImagen(imagen);
            
-           if(sql.insertPublicacion(aux,"idCuenta")){
+           if(sql.insertPublicacion(aux, cuenta)){
                JOptionPane.showMessageDialog(null, "Actualización de datos correcta!");
            }else{
                JOptionPane.showMessageDialog(null, "Hubo un fallo en la actualización, verifique");
@@ -264,6 +283,7 @@ public class altaPublicacion extends javax.swing.JFrame {
             //Registro realizado -> Pantalla Login
             login login = new login();
             login.setVisible(true);
+            
             this.dispose();
         }
     }//GEN-LAST:event_btn_publicarActionPerformed
@@ -303,12 +323,7 @@ public class altaPublicacion extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new altaPublicacion().setVisible(true);
-                
-            }
-        });
+        
         
     }
     
