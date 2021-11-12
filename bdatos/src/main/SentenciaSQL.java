@@ -331,6 +331,8 @@ public class SentenciaSQL extends ConexionBD{
     public void aceptarTrueque(String idCuenta, int idOferta, int idPublicacion) {
         String sql ="";
         //
+        
+        
         //
         //
     }
