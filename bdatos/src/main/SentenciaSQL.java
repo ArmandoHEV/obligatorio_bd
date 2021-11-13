@@ -228,26 +228,32 @@ public class SentenciaSQL extends ConexionBD{
     public Boolean insertPublicacion(Producto producto, String idCuenta){
         PreparedStatement ps = null;
         PreparedStatement ps2 = null;
+        PreparedStatement ps3 = null;
         establecerConexion();
         Connection con = getConexion();
-        
-        String sql = "insert into producto (idCategoria,titulo,descripcionProducto,imagen,costo,cantidadproducto) VALUES (?,?,?,?,?,?)";
+        int idprod=0;
+        String sql = "insert into producto (idCategoria,titulo,descripcionProducto,cantidadproducto,imagen,costo) VALUES (?,?,?,?,?,?) RETURNING idproducto";
         try{
-            
+            //INSERT INTO persons (lastname,firstname) VALUES ('Smith', 'John') RETURNING id;
             ps= con.prepareStatement(sql);
             ps.setInt(1,producto.getCategoria().getIdCat());
             ps.setString(2,producto.getTitulo());
             ps.setString(3,producto.getDescripcion());
-            ps.setString(4,producto.getImagen());
-            ps.setDouble(5,producto.getCosto());
-            ps.setDouble(6,producto.getCantidad());
+            ps.setDouble(4,producto.getCantidad());
+            ps.setString(5,producto.getImagen());
+            ps.setDouble(6,producto.getCosto());
+            
             ps.execute();
- 
+            
+            ResultSet rs = ps.getResultSet();
+            if (rs.next()){
+                idprod = rs.getInt(1);
+            }
             
             String sql2 = "insert into publicacion (idCuenta,idProducto) VALUES (?,?)"; 
             ps2= con.prepareStatement(sql2);
             ps2.setInt(1,Integer.parseInt(idCuenta));
-            ps2.setInt(2,producto.getIdProducto());
+            ps2.setInt(2,idprod);
             ps2.execute();
             return true;  
             
@@ -440,9 +446,9 @@ public class SentenciaSQL extends ConexionBD{
             
        }
     
-    public String obtenerIdCategoria(String categoria) {
+    public int obtenerIdCategoria(String categoria) {
         PreparedStatement ps = null;
-        String resultado = "";
+        int resultado = 0;
         establecerConexion();
         Connection con = getConexion();
         
@@ -452,12 +458,12 @@ public class SentenciaSQL extends ConexionBD{
             ps.setString(1, categoria);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                resultado = rs.getString(1);
+                resultado = rs.getInt(1);
             }
             return resultado;
         } catch (SQLException ex) {
             Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
-            return "FALSE";
+            return 0;
         } 
     }
     
@@ -492,6 +498,6 @@ public class SentenciaSQL extends ConexionBD{
             return resultado;
         }
    //Estados Publicacion 0=publicada 1=trueque
-//Estados Oferta 0=realizada , 1=aceptada  2=rechazada
+//Estados Oferta 0=pendiente , 1=aceptada  2=rechazada
     
 }

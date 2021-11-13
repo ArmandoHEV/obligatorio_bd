@@ -9,5 +9,6 @@ package main;
  * @author Wilfred
  */
 public class Oferta {
+    //private 
     
 }

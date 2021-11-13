@@ -281,10 +281,10 @@ public class altaPublicacion extends javax.swing.JFrame {
         else{
            SentenciaSQL sql = new SentenciaSQL();
            Producto aux = new Producto();
-           //System.out.println(sql.obtenerIdCategoria(categoria));
-           
+           int idCat = sql.obtenerIdCategoria(categoria);
+           Categoria cat = new Categoria(idCat,categoria);
            aux.setTitulo(titulo);
-           aux.getCategoria().setIdCat(Integer.parseInt(sql.obtenerIdCategoria(categoria)));
+           aux.setCategoria(cat);
            aux.setCosto(Integer.parseInt(ucuCoin));
            aux.setCantidad(Integer.parseInt(cantidad));
            aux.setDescripcion(descripcion);
