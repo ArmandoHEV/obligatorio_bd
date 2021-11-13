@@ -16,7 +16,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.ListSelectionModel;
 import main.Producto;
 
-
+//Estados Publicacion 0=publicada 1=trueque
+//Estados Oferta 0=realizada , 1=aceptada  2=rechazada
 /**
  *
  * @author mlisonct
