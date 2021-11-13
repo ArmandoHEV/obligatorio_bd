@@ -4,11 +4,16 @@
  */
 package main;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Wilfred
  */
 public class Oferta {
-    //private 
-    
+    private int idOferta;
+    private int idPublicacionAOfertar;
+    private ArrayList<Publicacion> publicacionesOfertadas;
+    private int idCuenta;
+    private int UCUCoins;   
 }

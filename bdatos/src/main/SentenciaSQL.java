@@ -278,18 +278,18 @@ public class SentenciaSQL extends ConexionBD{
         
        
         if (texto != null && !categoria.isBlank()){
-            sql+=" and prod.titulo like '%?%'";
+            sql+=" and prod.titulo like '%"+texto+"%'";
         }
         
         if (!categoria.isBlank() && categoria != null && !categoria.equals("Seleccione Categoría")){
-            sql+=" and cat.descripcionCategoria like '%?%'";
+            sql+=" and cat.descripcionCategoria like '%"+categoria+"%'";
         }
         
         
         try{
             ps= con.prepareStatement(sql);
-            ps.setString(1,texto);
-            ps.setString(2,categoria);
+          //  ps.setString(1,texto);
+          //  ps.setString(2,categoria);
             ResultSet rs = ps.executeQuery();
              while (rs.next()){
                 ProdPublicacion prod = new ProdPublicacion();
@@ -478,6 +478,7 @@ public class SentenciaSQL extends ConexionBD{
                     + " inner join categoria cat on cat.idCategoria = producto.idCategoria"
                     + " where p.idCuenta=? and o.estadoOferta=0";
             try{
+               // ARREGLAR ESTO !!
                ps = con.prepareStatement(sql);
                ps.setString(1, idCuenta);
                ResultSet rs = ps.executeQuery();
@@ -486,7 +487,7 @@ public class SentenciaSQL extends ConexionBD{
                     prod.setTitulo(rs.getString(1));
                     prod.setDcategoria(rs.getString(2));
                     prod.setCosto(rs.getInt(3));
-                    prod.setImagen(rs.getString(4));
+                    prod.setImagen(rs.getString(10));
                     prod.setDproducto(rs.getString(5));
                     resultado.add(prod);
                  }
@@ -499,5 +500,50 @@ public class SentenciaSQL extends ConexionBD{
         }
    //Estados Publicacion 0=publicada 1=trueque
 //Estados Oferta 0=pendiente , 1=aceptada  2=rechazada
+
+    public ArrayList<Publicacion> obtenerPublicacionesDeCuenta(String idCuenta) {
+         PreparedStatement ps = null;
+        establecerConexion();
+        Connection con = getConexion();
+        ArrayList<Publicacion> result = new ArrayList<>(); //CAMBIAR A LIST
+        
+        /*
+        String sql = "SELECT * FROM publicacion p INNER JOIN producto pro ON pro.idproducto = p.idpublicacion INNER JOIN categoria cat ON pro.idcategoria = cat.idcategoria"
+                + " WHERE p.idcuenta NOT IN (?) and p.estadoPublicacion not in (5)";
+*/
+         String sql = "SELECT * FROM publicacion p INNER JOIN producto pro ON pro.idproducto = p.idpublicacion INNER JOIN categoria cat ON pro.idcategoria = cat.idcategoria"
+                + " WHERE p.idcuenta IN (?)";
+        
+        try{
+            ps= con.prepareStatement(sql);
+            ps.setString(1,idCuenta);
+            //LEER USUARIO LOGEADO E INSERTARLO EN QUERY
+            //GUARDAR TODOS LOS DATOS EN UNA LISTA DE PRODUCTOS Y DEVOLVERLO
+            //PARA USARSE EN EL BOTON (INSERTAR EN TABLA)
+            ResultSet rs = ps.executeQuery();
+                 
+            while (rs.next()){
+                Categoria cat = new Categoria();
+                cat.setDcategoria(rs.getString(13));
+                Producto prod = new Producto();
+                prod.setTitulo(rs.getString(7));
+                prod.setCosto(rs.getInt(11));
+                prod.setImagen(rs.getString(12));
+                prod.setDescripcion(rs.getString(8));
+                prod.setCategoria(cat);
+                Publicacion publ = new Publicacion();
+                publ.setProducto(prod);
+                publ.setIdCuenta(idCuenta);
+                publ.setIdPublicacion(rs.getInt(1));
+                publ.setEstadoPublicacion(rs.getInt(4));
+                result.add(publ);
+            }
+            return result;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
     
 }

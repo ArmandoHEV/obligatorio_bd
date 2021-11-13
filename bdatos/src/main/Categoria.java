@@ -12,6 +12,10 @@ public class Categoria {
     private int idCat;
     private String dcategoria; //Descripcion Categoria
 
+    public Categoria(){
+        
+    }
+    
     public Categoria(int idCat, String dcategoria) {
         this.idCat = idCat;
         this.dcategoria = dcategoria;
