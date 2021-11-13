@@ -258,20 +258,33 @@ public class SentenciaSQL extends ConexionBD{
         }   
     }
 
-    public ArrayList<ProdPublicacion> filtrarPublicacionesPorTexto(String texto) {
+    public ArrayList<ProdPublicacion> filtrarPublicaciones(String texto, String categoria) {
         ArrayList<ProdPublicacion> resultado = new ArrayList<>();
         PreparedStatement ps = null;
         establecerConexion();
         Connection con = getConexion();
         
-        
+         System.out.println("h");
+         
         String sql = "select * from publicacion publ" +
             " inner join producto prod on publ.idproducto = prod.idproducto" +
-            " where prod.titulo like '%?%' and publ.estadoPublicacion not in(1);";
+            " inner join categoria cat on cat.idCategoria = prod.idCategoria" +    
+            " where publ.estadoPublicacion not in(1) ";
+        
        
+        if (texto != null && !categoria.isBlank()){
+            sql+=" and prod.titulo like '%?%'";
+        }
+        
+        if (!categoria.isBlank() && categoria != null && !categoria.equals("Seleccione Categoría")){
+            sql+=" and cat.descripcionCategoria like '%?%'";
+        }
+        
+        
         try{
             ps= con.prepareStatement(sql);
             ps.setString(1,texto);
+            ps.setString(2,categoria);
             ResultSet rs = ps.executeQuery();
              while (rs.next()){
                 ProdPublicacion prod = new ProdPublicacion();

@@ -29,20 +29,24 @@ public class menuPrincipal extends javax.swing.JFrame {
     private String cuenta;
     
     public menuPrincipal(String idCuenta) {
-        //this.cuenta = idCuenta;
+        this.cuenta = idCuenta;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(897, 816)); 
         this.setResizable(false);
         
-        Object data2[][] = new Object[99][3];
         SentenciaSQL sql = new SentenciaSQL();
         
-        jComboBox1.setModel(sql.obtenerCategorias());
+        jComboBoxCategoria.setModel(sql.obtenerCategorias());
         
         
         ArrayList<ProdPublicacion> publicaciones = sql.buscarPublicacion(idCuenta); //idCuenta
-        
+
+        mostrar(publicaciones);
+    }
+    
+    public void mostrar(ArrayList<ProdPublicacion> publicaciones){
+        Object data2[][] = new Object[99][3];
         for(int i = 0; i < publicaciones.size() ; i++){
             for(int j = 0; j < 3; j++) {
                 // read information from somewhere
@@ -63,8 +67,9 @@ public class menuPrincipal extends javax.swing.JFrame {
                 }
             }
         }
-        System.out.print(data2);
-        System.out.print(idCuenta);
+        
+        //System.out.print(data2);
+        //System.out.print(idCuenta);
         
         table_publicaciones.setModel(new javax.swing.table.DefaultTableModel(
             data2,
@@ -99,7 +104,6 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
 
         });
-        
     }
     
     
@@ -122,7 +126,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         btn_endsession = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxCategoria = new javax.swing.JComboBox<>();
         btn_misPublic = new javax.swing.JButton();
         btn_ofertaReal = new javax.swing.JButton();
         btn_ofertaRec = new javax.swing.JButton();
@@ -188,13 +192,13 @@ public class menuPrincipal extends javax.swing.JFrame {
         });
         p_init.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 460, 290, 190));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jComboBoxCategoriaActionPerformed(evt);
             }
         });
-        p_init.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 180, 30));
+        p_init.add(jComboBoxCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 180, 30));
 
         btn_misPublic.setText("Mis Publicaciones");
         btn_misPublic.addActionListener(new java.awt.event.ActionListener() {
@@ -273,9 +277,9 @@ public class menuPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_ofertarActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
 
     private void btn_endsessionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_endsessionActionPerformed
         login login = new login();
@@ -307,12 +311,15 @@ public class menuPrincipal extends javax.swing.JFrame {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         String buscar = txt_buscar.getText();
+        String categoria = jComboBoxCategoria.getSelectedItem().toString();
+        
         if (buscar != null){
             ArrayList<ProdPublicacion> productos = new ArrayList<>();
             SentenciaSQL sql = new SentenciaSQL();
-            productos = sql.filtrarPublicacionesPorTexto(buscar);
+            productos = sql.filtrarPublicaciones(buscar,categoria);
             
             //Mostrar Productos filtrados en tabla
+            mostrar(productos);
         }
     }//GEN-LAST:event_btn_buscarActionPerformed
 
@@ -372,7 +379,7 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btn_ofertaRec;
     private javax.swing.JButton btn_ofertar;
     private javax.swing.JLabel img_background;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBoxCategoria;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
