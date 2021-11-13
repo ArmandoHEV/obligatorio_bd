@@ -6,6 +6,7 @@
 package interfaz;
 import main.*;
 import java.awt.Dimension;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import main.Cuenta;
@@ -212,7 +213,12 @@ public class altaPublicacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_fotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fotoActionPerformed
-        System.exit(0);
+        JFileChooser j = new JFileChooser();
+        int ap = j.showDialog(this, "Cargar");
+        if (ap == JFileChooser.APPROVE_OPTION){
+            String ruta = j.getSelectedFile().getAbsolutePath();
+            txt_imagen.setText(ruta);
+        }
     }//GEN-LAST:event_btn_fotoActionPerformed
 
     private void btn_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exitActionPerformed
@@ -256,7 +262,7 @@ public class altaPublicacion extends javax.swing.JFrame {
         String costo = txt_valorpeso.getText();
         String ucuCoin = txt_ucucoin.getText();
         String descripcion = txt_descrip.getText();
-        String imagen = txt_imagen.getSelectedText();
+        String imagen = txt_imagen.getSelectedText(); //Path de la imagen cargada
         
       
 
