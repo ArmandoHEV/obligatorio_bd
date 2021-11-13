@@ -267,7 +267,7 @@ public class SentenciaSQL extends ConexionBD{
         
         String sql = "select * from publicacion publ" +
             " inner join producto prod on publ.idproducto = prod.idproducto" +
-            " where prod.titulo like '%?%' and publ.estadoPublicacion not in(5);";
+            " where prod.titulo like '%?%' and publ.estadoPublicacion not in(1);";
        
         try{
             ps= con.prepareStatement(sql);
@@ -296,7 +296,7 @@ public class SentenciaSQL extends ConexionBD{
         
         String sql = "select * from publicacion publ" +
             " inner join producto prod on publ.idproducto = prod.idproducto" +
-            " where prod.idCategoria=? and publ.estadoPublicacion not in (5);";
+            " where prod.idCategoria=? and publ.estadoPublicacion not in (1);";
         
         try{
             ps= con.prepareStatement(sql);
@@ -352,9 +352,9 @@ public class SentenciaSQL extends ConexionBD{
                 + " where c.idCuenta=(select idCuenta from Oferta oo where oo.idOferta=?)";
         
         
-        String cambioEstadoOferta ="update Oferta set estadoOferta=5, fechaOferta=now() where idOferta=?";
+        String cambioEstadoOferta ="update Oferta set estadoOferta=1, fechaOferta=now() where idOferta=?";
         
-        String cambioEstadoPublicacion ="update Publicacion set estadoPublicacion=5"
+        String cambioEstadoPublicacion ="update Publicacion set estadoPublicacion=2"
                 + " where p.idPublicacion=(select idPublicacionAOfertar from Oferta o where o.idOferta=?)";
          try{
             ps= con.prepareStatement(sumoUCUCOins);
@@ -388,7 +388,7 @@ public class SentenciaSQL extends ConexionBD{
         establecerConexion();
         Connection con = getConexion();
         
-        String sql="update Oferta set estadoOferta=10,fechaOferta=now() where idOferta=?";
+        String sql="update Oferta set estadoOferta=2,fechaOferta=now() where idOferta=?";
         try{
         ps= con.prepareStatement(sql);
             ps.setInt(1,idOferta);
@@ -448,5 +448,38 @@ public class SentenciaSQL extends ConexionBD{
             return "FALSE";
         } 
     }
+    
+    public ArrayList<ProdPublicacion> obtenerPublicacionConOfertas(String idCuenta){
+            ArrayList<ProdPublicacion> resultado = new ArrayList<ProdPublicacion>();
+            PreparedStatement ps = null;
+            establecerConexion();
+            Connection con = getConexion();
+            String sql ="select prod.titulo,cat.descripcionCategoria,prod.costo,prod.imagen,prod.descripcionProducto from publicacion p"
+                    + " inner join oferta o on o.idPublicacionAOfertar=p.idPublicacion"
+                    + " inner join producto prod on prod.idProducto = p.idProducto"
+                    + " inner join categoria cat on cat.idCategoria = producto.idCategoria"
+                    + " where p.idCuenta=? and o.estadoOferta=0";
+            try{
+               ps = con.prepareStatement(sql);
+               ps.setString(1, idCuenta);
+               ResultSet rs = ps.executeQuery();
+                while (rs.next()){
+                    ProdPublicacion prod = new ProdPublicacion();
+                    prod.setTitulo(rs.getString(1));
+                    prod.setDcategoria(rs.getString(2));
+                    prod.setCosto(rs.getInt(3));
+                    prod.setImagen(rs.getString(4));
+                    prod.setDproducto(rs.getString(5));
+                    resultado.add(prod);
+                 }
+
+            }catch (SQLException ex){
+                Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+            }
+            return resultado;
+        }
+   //Estados Publicacion 0=publicada 1=trueque
+//Estados Oferta 0=realizada , 1=aceptada  2=rechazada
     
 }
