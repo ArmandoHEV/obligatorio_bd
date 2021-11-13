@@ -292,7 +292,7 @@ public class altaPublicacion extends javax.swing.JFrame {
            
            if(sql.insertPublicacion(aux, cuenta)){
                JOptionPane.showMessageDialog(null, "Publicación correcta!");
-               menuOfertaRealizada mofertareal = new menuOfertaRealizada(cuenta);
+               menuPublicaciones mofertareal = new menuPublicaciones(cuenta);
                mofertareal.setVisible(true);
                this.dispose();
            }else{
