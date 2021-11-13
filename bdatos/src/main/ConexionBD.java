@@ -12,9 +12,11 @@ import javax.swing.JOptionPane;
 public class ConexionBD {
     
     private Connection conectar = null;
-    String bd = "jdbc:postgresql://localhost:5432/prueba";
+    //String bd = "jdbc:postgresql://localhost:5432/prueba"; LOCALHOST
+    String bd = "jdbc:postgresql://192.168.56.101:5432/pruebas";
     String user = "postgres";
-    String pass = "1234567";
+    //String pass = "1234567";
+    String pass = "hola123";
     
     
 public Connection getConexion()

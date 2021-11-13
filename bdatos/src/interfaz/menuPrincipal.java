@@ -29,7 +29,7 @@ public class menuPrincipal extends javax.swing.JFrame {
     private String cuenta;
     
     public menuPrincipal(String idCuenta) {
-        this.cuenta = idCuenta;
+        //this.cuenta = idCuenta;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(897, 816)); 
@@ -40,7 +40,8 @@ public class menuPrincipal extends javax.swing.JFrame {
         
         jComboBox1.setModel(sql.obtenerCategorias());
         
-        ArrayList<ProductoPublicacion> publicaciones = sql.buscarPublicacion("48453889"); //idCuenta
+        /*
+        ArrayList<ProductoPublicacion> publicaciones = sql.buscarPublicacion(idCuenta); //idCuenta
         
         for(int i = 0; i < publicaciones.size() ; i++){
             for(int j = 0; j < 3; j++) {
@@ -63,7 +64,7 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         }
         System.out.print(data2);
-        System.out.print(cuenta);
+        System.out.print(idCuenta);
         
         table_publicaciones.setModel(new javax.swing.table.DefaultTableModel(
             data2,
@@ -96,7 +97,7 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
 
         });
-        
+        */
     }
     
     
@@ -111,7 +112,6 @@ public class menuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         p_init = new javax.swing.JPanel();
-        txt_buscar = new javax.swing.JPasswordField();
         btn_buscar = new javax.swing.JButton();
         btn_ofertar = new javax.swing.JButton();
         main_icon = new javax.swing.JLabel();
@@ -123,6 +123,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         btn_misPublic = new javax.swing.JButton();
         btn_ofertaReal = new javax.swing.JButton();
         btn_ofertaRec = new javax.swing.JButton();
+        txt_buscar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_publicaciones = new javax.swing.JTable();
         img_background = new javax.swing.JLabel();
@@ -136,7 +137,6 @@ public class menuPrincipal extends javax.swing.JFrame {
         p_init.setBackground(new java.awt.Color(255, 255, 255));
         p_init.setPreferredSize(new java.awt.Dimension(1000, 1000));
         p_init.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        p_init.add(txt_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 120, 230, 30));
 
         btn_buscar.setText("Buscar");
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
@@ -213,6 +213,7 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
         p_init.add(btn_ofertaRec, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, 130, 20));
+        p_init.add(txt_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, 200, 30));
 
         table_publicaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -231,10 +232,6 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(table_publicaciones);
-        if (table_publicaciones.getColumnModel().getColumnCount() > 0) {
-            table_publicaciones.getColumnModel().getColumn(1).setHeaderValue("Tipo");
-            table_publicaciones.getColumnModel().getColumn(3).setHeaderValue("Foto");
-        }
 
         p_init.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 540, 620));
 
@@ -364,6 +361,6 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel main_icon;
     private javax.swing.JPanel p_init;
     private javax.swing.JTable table_publicaciones;
-    private javax.swing.JPasswordField txt_buscar;
+    private javax.swing.JTextField txt_buscar;
     // End of variables declaration//GEN-END:variables
 }

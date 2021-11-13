@@ -165,7 +165,7 @@ public class login extends javax.swing.JFrame {
     private void txt_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usuarioActionPerformed
         // TODO add your handling code here:
         //if(jTextField2.is)
-        txt_usuario.setText("");
+        //txt_usuario.setText("");
     }//GEN-LAST:event_txt_usuarioActionPerformed
 
     private void txt_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_passwordActionPerformed
@@ -207,7 +207,7 @@ public class login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ingrese un nombre");
         } 
      
-        
+     
     }//GEN-LAST:event_btn_init1ActionPerformed
 
     /**

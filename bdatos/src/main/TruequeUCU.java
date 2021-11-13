@@ -21,18 +21,7 @@ public class TruequeUCU {
         ConexionBD bd = new ConexionBD();
         bd.establecerConexion();
         login init = new login();
-        init.setVisible(true);
-        
-        /*
-        SentenciaSQL test = new SentenciaSQL();
-        ArrayList<ProductoPublicacion> hola = test.buscarPublicacion();
-        
-        for (ProductoPublicacion i : hola){
-            System.out.println(i.getTitulo());
-        }
-       
-        System.out.println("TEST DE PUSH");
-       */
+        init.setVisible(true);   
     }
     
 }

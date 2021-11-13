@@ -165,10 +165,13 @@ public class SentenciaSQL extends ConexionBD{
         Connection con = getConexion();
         ArrayList<ProductoPublicacion> result = new ArrayList<>(); //CAMBIAR A LIST
         
-        
+        /*
         String sql = "SELECT * FROM publicacion p INNER JOIN producto pro ON pro.idproducto = p.idpublicacion INNER JOIN categoria cat ON pro.idcategoria = cat.idcategoria"
                 + " WHERE p.idcuenta NOT IN (?) and p.estadoPublicacion not in (5)";
-        
+*/
+         String sql = "SELECT * FROM publicacion p INNER JOIN producto pro ON pro.idproducto = p.idpublicacion INNER JOIN categoria cat ON pro.idcategoria = cat.idcategoria"
+                + " WHERE p.idcuenta NOT IN (?)";
+        ProductoPublicacion prod = new ProductoPublicacion();
         try{
             ps= con.prepareStatement(sql);
             ps.setString(1,idCuenta);
@@ -178,7 +181,7 @@ public class SentenciaSQL extends ConexionBD{
             ResultSet rs = ps.executeQuery();
                  
             while (rs.next()){
-                ProductoPublicacion prod = new ProductoPublicacion();
+                
                 prod.setTitulo(rs.getString(7));
                 prod.setDcategoria(rs.getString(13));
                 prod.setCosto(rs.getInt(11));
@@ -195,6 +198,8 @@ public class SentenciaSQL extends ConexionBD{
             return null;
         }
     }
+    
+    
 
     public Boolean actualizarCuenta(Cuenta cuenta){
         PreparedStatement ps = null;
@@ -258,10 +263,11 @@ public class SentenciaSQL extends ConexionBD{
         establecerConexion();
         Connection con = getConexion();
         
+        
         String sql = "select * from publicacion publ" +
             " inner join producto prod on publ.idproducto = prod.idproducto" +
             " where prod.titulo like '%?%' and publ.estadoPublicacion not in(5);";
-        
+       
         try{
             ps= con.prepareStatement(sql);
             ps.setString(1,texto);
@@ -316,7 +322,7 @@ public class SentenciaSQL extends ConexionBD{
         PreparedStatement ps = null;
         establecerConexion();
         Connection con = getConexion();
-        String sql = "Select UCUCoins Cuenta where idCuenta=?";
+        String sql = "Select UCUCoins cuenta where idCuenta=?";
         try{
             ps= con.prepareStatement(sql);
             ps.setString(1,idCuenta);
