@@ -31,6 +31,9 @@ public class menuPublicaciones extends javax.swing.JFrame {
         this.cuenta = idCuenta;
         SentenciaSQL sql = new SentenciaSQL();
         ArrayList<Publicacion> publicaciones =  sql.obtenerPublicacionesDeCuenta(cuenta); 
+        for(int i = 0; i < publicaciones.size(); i++){
+            System.out.println(publicaciones.get(i).getProducto().getTitulo());
+        }
         initComponents();
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(897, 816)); 

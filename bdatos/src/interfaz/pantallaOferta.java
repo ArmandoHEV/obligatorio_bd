@@ -9,8 +9,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import main.SentenciaSQL;
-import main.Publicacion;
+import main.*;
 /**
  *
  * @author mlisonct
@@ -18,9 +17,11 @@ import main.Publicacion;
 public class pantallaOferta extends javax.swing.JFrame {
 
     private Publicacion publicacion;
+    private String cuenta;
     
-    public pantallaOferta(Publicacion publicacion) {
+    public pantallaOferta(Publicacion publicacion, String cuenta) {
         this.publicacion = publicacion;
+        this.cuenta = cuenta;
         initComponents();
         this.setSize(new Dimension(897, 816)); 
         this.setResizable(false);
@@ -245,7 +246,7 @@ public class pantallaOferta extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_ofertarActionPerformed
 
     private void btn_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exitActionPerformed
-        menuPrincipal menuPrincipal = new menuPrincipal("");
+        menuPrincipal menuPrincipal = new menuPrincipal(cuenta);
         menuPrincipal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_exitActionPerformed
@@ -312,12 +313,7 @@ public class pantallaOferta extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new pantallaOferta(null).setVisible(true);
-                
-            }
-        });
+        
         
     }
 

@@ -27,6 +27,8 @@ public class menuPrincipal extends javax.swing.JFrame {
      * Creates new form pantallaPrincipal
      */
     private String cuenta;
+    private ArrayList<Publicacion> publicaciones;
+    private int seleccion;
     
     public menuPrincipal(String idCuenta) {
         this.cuenta = idCuenta;
@@ -40,30 +42,33 @@ public class menuPrincipal extends javax.swing.JFrame {
         jComboBoxCategoria.setModel(sql.obtenerCategorias());
         
         
-        ArrayList<ProdPublicacion> publicaciones = sql.buscarPublicacion(idCuenta); //idCuenta
+        publicaciones = sql.buscarPublicacion(idCuenta); //idCuenta
+        
+        for(int i = 0; i < publicaciones.size() ; i++){
+            System.out.println(publicaciones.get(i).getProducto().getTitulo());
+        }
+        
+        
 
         mostrarEnTabla(publicaciones);
     }
     
-    public void mostrarEnTabla(ArrayList<ProdPublicacion> publicaciones){
+    public void mostrarEnTabla(ArrayList<Publicacion> publicaciones){
+        
         Object data2[][] = new Object[99][3];
         for(int i = 0; i < publicaciones.size() ; i++){
             for(int j = 0; j < 3; j++) {
                 // read information from somewhere
                 switch(j){
                     case 0:
-                        data2[i][j] = publicaciones.get(i).getTitulo();
+                        data2[i][j] = publicaciones.get(i).getProducto().getTitulo();
                         break;
                     case 1:
-                        data2[i][j] = publicaciones.get(i).getDcategoria();
+                        data2[i][j] = publicaciones.get(i).getProducto().getCategoria().getDcategoria();
                         break;
                     case 2:
-                        data2[i][j] = publicaciones.get(i).getCosto();
+                        data2[i][j] = publicaciones.get(i).getProducto().getCosto();
                         break;
-                    case 3:
-                        data2[i][j] = publicaciones.get(i).getImagen();
-                        break;
-                      
                 }
             }
         }
@@ -91,19 +96,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         ListSelectionModel cellSelectionModel = table_publicaciones.getSelectionModel();
         cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
-        cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-              
-              int index1 = e.getFirstIndex();
-              int index2 = e.getLastIndex();
-              
-              System.out.println(index1 + " " + index2);
-              
-              lbl_foto.setIcon(new ImageIcon(publicaciones.get(index2).getImagen())); //Carga imagen en label
-              jTextField1.setText(publicaciones.get(index2).getDproducto());
-            }
-
-        });
+        
     }
     
     
@@ -247,6 +240,11 @@ public class menuPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        table_publicaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_publicacionesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table_publicaciones);
 
         p_init.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 540, 620));
@@ -269,12 +267,8 @@ public class menuPrincipal extends javax.swing.JFrame {
 
     private void btn_ofertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ofertarActionPerformed
         
-        Publicacion publicacion = new Publicacion();
-        publicacion.getProducto().setTitulo("dd"); //titulo del obejto seleccionado
-        publicacion.getProducto().setCosto(5); //costo del obejto seleccionado
-        publicacion.getProducto().setDescripcion("dd"); //descripcion del producto del obejto seleccionado
-        publicacion.getProducto().getCategoria().setDcategoria("dd"); //categoria del obejto seleccionado
-        pantallaOferta oferta = new pantallaOferta(publicacion);
+        
+        pantallaOferta oferta = new pantallaOferta(publicaciones.get(seleccion), cuenta);
         oferta.setVisible(true);
         this.dispose();
         //SentenciaSQL sql = new SentenciaSQL();
@@ -320,18 +314,27 @@ public class menuPrincipal extends javax.swing.JFrame {
         String categoria = jComboBoxCategoria.getSelectedItem().toString();
         
         if (buscar != null){
-            ArrayList<ProdPublicacion> productos = new ArrayList<>();
+            ArrayList<Publicacion> pub = new ArrayList<>();
             SentenciaSQL sql = new SentenciaSQL();
-            productos = sql.filtrarPublicaciones(buscar,categoria);
+            pub = sql.filtrarPublicaciones(buscar,categoria);
             
             //Mostrar Productos filtrados en tabla
-            mostrarEnTabla(productos);
+            mostrarEnTabla(pub);
         }
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void txt_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_buscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_buscarActionPerformed
+
+    private void table_publicacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_publicacionesMouseClicked
+        // TODO add your handling code here:
+        seleccion = table_publicaciones.rowAtPoint(evt.getPoint());
+        System.out.println(publicaciones.get(seleccion).getProducto().getTitulo());
+        System.out.println(publicaciones.get(seleccion));
+        System.out.println(table_publicaciones.getValueAt(seleccion, 2));
+        jTextField1.setText(publicaciones.get(seleccion).getProducto().getDescripcion());
+    }//GEN-LAST:event_table_publicacionesMouseClicked
 
     /**
      * @param args the command line arguments

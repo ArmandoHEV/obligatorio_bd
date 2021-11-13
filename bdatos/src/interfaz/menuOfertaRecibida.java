@@ -183,13 +183,13 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_aceptarActionPerformed
 
     private void btn_menuPrincActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menuPrincActionPerformed
-        menuPrincipal menuprinc = new menuPrincipal("");
+        menuPrincipal menuprinc = new menuPrincipal(cuenta);
         menuprinc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_menuPrincActionPerformed
 
     private void btn_mispublicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mispublicActionPerformed
-        menuPublicaciones publicaciones = new menuPublicaciones("");
+        menuPublicaciones publicaciones = new menuPublicaciones(cuenta);
         publicaciones.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_mispublicActionPerformed
