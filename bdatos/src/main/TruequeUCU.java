@@ -22,6 +22,7 @@ public class TruequeUCU {
         bd.establecerConexion();
         login init = new login();
         init.setVisible(true);   
+
     }
     
 }

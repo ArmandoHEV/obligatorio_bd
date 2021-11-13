@@ -8,7 +8,7 @@ package interfaz;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.JFrame;
-import main.ProductoPublicacion;
+import main.ProdPublicacion;
 import main.SentenciaSQL;
 
 /**

@@ -69,7 +69,7 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
                 btn_endsessionActionPerformed(evt);
             }
         });
-        p_init.add(btn_endsession, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 30, 120, 20));
+        p_init.add(btn_endsession, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 30, 130, 20));
 
         btn_mispublic.setText("Mis Publicaciones");
         btn_mispublic.addActionListener(new java.awt.event.ActionListener() {
@@ -77,7 +77,7 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
                 btn_mispublicActionPerformed(evt);
             }
         });
-        p_init.add(btn_mispublic, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 130, 20));
+        p_init.add(btn_mispublic, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 160, 20));
 
         btn_canceloferta.setText("Cancelar Oferta");
         btn_canceloferta.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +93,7 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
                 btn_menuPrincActionPerformed(evt);
             }
         });
-        p_init.add(btn_menuPrinc, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, 120, 20));
+        p_init.add(btn_menuPrinc, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, 130, 20));
 
         btn_ofertasRec.setText("Ofertas Recibidas");
         btn_ofertasRec.addActionListener(new java.awt.event.ActionListener() {
@@ -101,7 +101,7 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
                 btn_ofertasRecActionPerformed(evt);
             }
         });
-        p_init.add(btn_ofertasRec, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 130, 20));
+        p_init.add(btn_ofertasRec, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 140, 20));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

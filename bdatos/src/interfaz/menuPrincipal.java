@@ -8,13 +8,12 @@ package interfaz;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import main.ProductoPublicacion;
-import main.SentenciaSQL;
+import main.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.ListSelectionModel;
-import main.Producto;
 
 //Estados Publicacion 0=publicada 1=trueque
 //Estados Oferta 0=realizada , 1=aceptada  2=rechazada
@@ -41,8 +40,8 @@ public class menuPrincipal extends javax.swing.JFrame {
         
         jComboBox1.setModel(sql.obtenerCategorias());
         
-        /*
-        ArrayList<ProductoPublicacion> publicaciones = sql.buscarPublicacion(idCuenta); //idCuenta
+        
+        ArrayList<ProdPublicacion> publicaciones = sql.buscarPublicacion(idCuenta); //idCuenta
         
         for(int i = 0; i < publicaciones.size() ; i++){
             for(int j = 0; j < 3; j++) {
@@ -70,11 +69,11 @@ public class menuPrincipal extends javax.swing.JFrame {
         table_publicaciones.setModel(new javax.swing.table.DefaultTableModel(
             data2,
             new String [] {
-                "Titular", "Tipo", "Costo", "Foto"
+                "Titular", "Tipo", "Costo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -94,11 +93,13 @@ public class menuPrincipal extends javax.swing.JFrame {
               int index2 = e.getLastIndex();
               
               System.out.println(index1 + " " + index2);
+              
+              lbl_foto.setIcon(new ImageIcon(publicaciones.get(index2).getImagen())); //Carga imagen en label
               jTextField1.setText(publicaciones.get(index2).getDproducto());
             }
 
         });
-        */
+        
     }
     
     
@@ -113,6 +114,7 @@ public class menuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         p_init = new javax.swing.JPanel();
+        lbl_foto = new javax.swing.JLabel();
         btn_buscar = new javax.swing.JButton();
         btn_ofertar = new javax.swing.JButton();
         main_icon = new javax.swing.JLabel();
@@ -139,6 +141,9 @@ public class menuPrincipal extends javax.swing.JFrame {
         p_init.setPreferredSize(new java.awt.Dimension(1000, 1000));
         p_init.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lbl_foto.setText("text");
+        p_init.add(lbl_foto, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 190, 250, 230));
+
         btn_buscar.setText("Buscar");
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,7 +158,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                 btn_ofertarActionPerformed(evt);
             }
         });
-        p_init.add(btn_ofertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 520, 120, 40));
+        p_init.add(btn_ofertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 720, 120, 40));
 
         main_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/trueque_small.png"))); // NOI18N
         main_icon.setMaximumSize(new java.awt.Dimension(300, 300));
@@ -181,7 +186,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
-        p_init.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 300, 290, 160));
+        p_init.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 460, 290, 190));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -214,6 +219,12 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
         p_init.add(btn_ofertaRec, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, 130, 20));
+
+        txt_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_buscarActionPerformed(evt);
+            }
+        });
         p_init.add(txt_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, 200, 30));
 
         table_publicaciones.setModel(new javax.swing.table.DefaultTableModel(
@@ -221,11 +232,11 @@ public class menuPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Titular", "Tipo", "Costo", "Foto"
+                "Titular", "Tipo", "Costo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -256,7 +267,10 @@ public class menuPrincipal extends javax.swing.JFrame {
         pantallaOferta oferta = new pantallaOferta();
         oferta.setVisible(true);
         this.dispose();
-        SentenciaSQL sql = new SentenciaSQL();
+        //SentenciaSQL sql = new SentenciaSQL();
+        //Generar objeto oferta, agregar a la tabla BD 
+        
+        
     }//GEN-LAST:event_btn_ofertarActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -294,13 +308,17 @@ public class menuPrincipal extends javax.swing.JFrame {
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         String buscar = txt_buscar.getText();
         if (buscar != null){
-            ArrayList<ProductoPublicacion> productos = new ArrayList<>();
+            ArrayList<ProdPublicacion> productos = new ArrayList<>();
             SentenciaSQL sql = new SentenciaSQL();
             productos = sql.filtrarPublicacionesPorTexto(buscar);
             
-            //Mostrar Productos
+            //Mostrar Productos filtrados en tabla
         }
     }//GEN-LAST:event_btn_buscarActionPerformed
+
+    private void txt_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_buscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_buscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -359,6 +377,7 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lbl_foto;
     private javax.swing.JLabel main_icon;
     private javax.swing.JPanel p_init;
     private javax.swing.JTable table_publicaciones;

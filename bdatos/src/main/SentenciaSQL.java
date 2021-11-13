@@ -15,8 +15,8 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class SentenciaSQL extends ConexionBD{
 
-    public ArrayList<ProductoPublicacion> mostrarOfertasRecibidas(String idCuenta, int idPublicacion) {
-        ArrayList<ProductoPublicacion> resultado =new ArrayList<>();
+    public ArrayList<ProdPublicacion> mostrarOfertasRecibidas(String idCuenta, int idPublicacion) {
+        ArrayList<ProdPublicacion> resultado =new ArrayList<>();
         PreparedStatement ps = null;
         establecerConexion();
         Connection con = getConexion();
@@ -31,7 +31,7 @@ public class SentenciaSQL extends ConexionBD{
             ResultSet rs = ps.executeQuery();
                  
             while (rs.next()){
-                ProductoPublicacion prod = new ProductoPublicacion();
+                ProdPublicacion prod = new ProdPublicacion();
                 prod.setTitulo(rs.getString(7));
                 prod.setDcategoria(rs.getString(13));
                 prod.setCosto(rs.getInt(11));
@@ -159,11 +159,11 @@ public class SentenciaSQL extends ConexionBD{
         }   
     }
     
-    public ArrayList<ProductoPublicacion> buscarPublicacion(String idCuenta){
+    public ArrayList<ProdPublicacion> buscarPublicacion(String idCuenta){
         PreparedStatement ps = null;
         establecerConexion();
         Connection con = getConexion();
-        ArrayList<ProductoPublicacion> result = new ArrayList<>(); //CAMBIAR A LIST
+        ArrayList<ProdPublicacion> result = new ArrayList<>(); //CAMBIAR A LIST
         
         /*
         String sql = "SELECT * FROM publicacion p INNER JOIN producto pro ON pro.idproducto = p.idpublicacion INNER JOIN categoria cat ON pro.idcategoria = cat.idcategoria"
@@ -171,7 +171,7 @@ public class SentenciaSQL extends ConexionBD{
 */
          String sql = "SELECT * FROM publicacion p INNER JOIN producto pro ON pro.idproducto = p.idpublicacion INNER JOIN categoria cat ON pro.idcategoria = cat.idcategoria"
                 + " WHERE p.idcuenta NOT IN (?)";
-        ProductoPublicacion prod = new ProductoPublicacion();
+        
         try{
             ps= con.prepareStatement(sql);
             ps.setString(1,idCuenta);
@@ -181,7 +181,7 @@ public class SentenciaSQL extends ConexionBD{
             ResultSet rs = ps.executeQuery();
                  
             while (rs.next()){
-                
+                ProdPublicacion prod = new ProdPublicacion();
                 prod.setTitulo(rs.getString(7));
                 prod.setDcategoria(rs.getString(13));
                 prod.setCosto(rs.getInt(11));
@@ -231,7 +231,7 @@ public class SentenciaSQL extends ConexionBD{
         establecerConexion();
         Connection con = getConexion();
         
-        String sql = "insert into producto (idCategoria,titulo,descripcionProducto,imagen,costo) VALUES (?,?,?,?,?)";
+        String sql = "insert into producto (idCategoria,titulo,descripcionProducto,imagen,costo,cantidadproducto) VALUES (?,?,?,?,?,?)";
         try{
             
             ps= con.prepareStatement(sql);
@@ -240,6 +240,7 @@ public class SentenciaSQL extends ConexionBD{
             ps.setString(3,producto.getDescripcion());
             ps.setString(4,producto.getImagen());
             ps.setDouble(5,producto.getCosto());
+            ps.setDouble(6,producto.getCantidad());
             ps.execute();
  
             
@@ -257,8 +258,8 @@ public class SentenciaSQL extends ConexionBD{
         }   
     }
 
-    public ArrayList<ProductoPublicacion> filtrarPublicacionesPorTexto(String texto) {
-        ArrayList<ProductoPublicacion> resultado = new ArrayList<>();
+    public ArrayList<ProdPublicacion> filtrarPublicacionesPorTexto(String texto) {
+        ArrayList<ProdPublicacion> resultado = new ArrayList<>();
         PreparedStatement ps = null;
         establecerConexion();
         Connection con = getConexion();
@@ -273,7 +274,7 @@ public class SentenciaSQL extends ConexionBD{
             ps.setString(1,texto);
             ResultSet rs = ps.executeQuery();
              while (rs.next()){
-                ProductoPublicacion prod = new ProductoPublicacion();
+                ProdPublicacion prod = new ProdPublicacion();
                 prod.setTitulo(rs.getString(7));
                 prod.setDcategoria(rs.getString(6));
                 prod.setCosto(rs.getInt(11));
@@ -287,8 +288,8 @@ public class SentenciaSQL extends ConexionBD{
             return null;
         } 
     }
-    public ArrayList<ProductoPublicacion> filtrarPublicacionesPorCategoria(int idCategoria) {
-         ArrayList<ProductoPublicacion> resultado = new ArrayList<>();
+    public ArrayList<ProdPublicacion> filtrarPublicacionesPorCategoria(int idCategoria) {
+         ArrayList<ProdPublicacion> resultado = new ArrayList<>();
         PreparedStatement ps = null;
         establecerConexion();
         Connection con = getConexion();
@@ -302,7 +303,7 @@ public class SentenciaSQL extends ConexionBD{
             ps.setInt(1,idCategoria);
             ResultSet rs = ps.executeQuery();
              while (rs.next()){
-                ProductoPublicacion prod = new ProductoPublicacion();
+                ProdPublicacion prod = new ProdPublicacion();
                 prod.setTitulo(rs.getString(7));
                 prod.setDcategoria(rs.getString(6));
                 prod.setCosto(rs.getInt(11));

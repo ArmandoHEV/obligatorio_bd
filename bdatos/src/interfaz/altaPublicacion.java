@@ -57,7 +57,6 @@ public class altaPublicacion extends javax.swing.JFrame {
 
         p_init = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        txt_imagen = new javax.swing.JPasswordField();
         txt_titular = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txt_ucucoin = new javax.swing.JTextField();
@@ -69,12 +68,15 @@ public class altaPublicacion extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         txt_valorpeso = new javax.swing.JTextField();
         btn_limpiar = new javax.swing.JButton();
         label_user = new javax.swing.JLabel();
         combo_categoria = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         txt_descrip = new javax.swing.JTextField();
+        txt_cantidad = new javax.swing.JTextField();
+        txt_imagen = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -90,14 +92,13 @@ public class altaPublicacion extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setText("Categoría");
         p_init.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 120, -1));
-        p_init.add(txt_imagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 530, 230, 30));
         p_init.add(txt_titular, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 230, 30));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel1.setText("Descripción");
-        p_init.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, -1, 30));
+        p_init.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, -1, 30));
 
         txt_ucucoin.setEditable(false);
         txt_ucucoin.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -162,6 +163,12 @@ public class altaPublicacion extends javax.swing.JFrame {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario_small.png"))); // NOI18N
         p_init.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 100));
 
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel2.setText("Cantidad");
+        p_init.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 600, -1, 30));
+
         txt_valorpeso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_valorpesoActionPerformed(evt);
@@ -206,6 +213,8 @@ public class altaPublicacion extends javax.swing.JFrame {
             }
         });
         p_init.add(txt_descrip, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, 230, 120));
+        p_init.add(txt_cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 600, 140, 30));
+        p_init.add(txt_imagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 530, 230, 30));
 
         getContentPane().add(p_init);
 
@@ -259,38 +268,37 @@ public class altaPublicacion extends javax.swing.JFrame {
     private void btn_publicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_publicarActionPerformed
         String titulo = txt_titular.getText();
         String categoria = combo_categoria.getSelectedItem().toString();    
-        String costo = txt_valorpeso.getText();
         String ucuCoin = txt_ucucoin.getText();
+        String cantidad = txt_cantidad.getText();
         String descripcion = txt_descrip.getText();
         String imagen = txt_imagen.getSelectedText(); //Path de la imagen cargada
         
       
 
-        if(titulo.isBlank() || costo.isBlank() || ucuCoin.isBlank() || descripcion.isBlank()){
+        if(titulo.isBlank() || ucuCoin.isBlank() || descripcion.isBlank()){
             JOptionPane.showMessageDialog(rootPane, "Faltan datos por ingresar","Error!", JOptionPane.ERROR_MESSAGE);
         }
         else{
            SentenciaSQL sql = new SentenciaSQL();
            Producto aux = new Producto();
-           System.out.println(sql.obtenerIdCategoria(categoria));
+           //System.out.println(sql.obtenerIdCategoria(categoria));
            
            aux.setTitulo(titulo);
            aux.setIdCategoria(Integer.parseInt(sql.obtenerIdCategoria(categoria)));
-           aux.setCosto(Integer.parseInt(costo));
+           aux.setCosto(Integer.parseInt(ucuCoin));
+           aux.setCantidad(Integer.parseInt(cantidad));
            aux.setDescripcion(descripcion);
            aux.setImagen(imagen);
            
            if(sql.insertPublicacion(aux, cuenta)){
-               JOptionPane.showMessageDialog(null, "Actualización de datos correcta!");
+               JOptionPane.showMessageDialog(null, "Publicación correcta!");
+               menuOfertaRealizada mofertareal = new menuOfertaRealizada();
+               mofertareal.setVisible(true);
+               this.dispose();
            }else{
-               JOptionPane.showMessageDialog(null, "Hubo un fallo en la actualización, verifique");
-               
+               JOptionPane.showMessageDialog(null, "Hubo un fallo en la publicación, verifique");          
            }
-            //Registro realizado -> Pantalla Login
-            login login = new login();
-            login.setVisible(true);
-            
-            this.dispose();
+
         }
     }//GEN-LAST:event_btn_publicarActionPerformed
 
@@ -343,6 +351,7 @@ public class altaPublicacion extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combo_categoria;
     private javax.swing.JLabel img_background;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -351,8 +360,9 @@ public class altaPublicacion extends javax.swing.JFrame {
     private javax.swing.JLabel label_user;
     private javax.swing.JLabel main_icon;
     private javax.swing.JPanel p_init;
+    private javax.swing.JTextField txt_cantidad;
     private javax.swing.JTextField txt_descrip;
-    private javax.swing.JPasswordField txt_imagen;
+    private javax.swing.JTextField txt_imagen;
     private javax.swing.JTextField txt_titular;
     private javax.swing.JTextField txt_ucucoin;
     private javax.swing.JTextField txt_valorpeso;
