@@ -26,7 +26,7 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
         this.setSize(new Dimension(897, 816)); 
         this.setResizable(false);
         SentenciaSQL sql = new SentenciaSQL();
-        ArrayList<ProductoPublicacion> ofertasAPublicacion = sql.mostrarOfertasRecibidas("48453889",1); // Cuenta ,idPublicacion
+        ArrayList<ProductoPublicacion> ofertasAPublicacion = sql.mostrarOfertasRecibidasDeUnaPublicacion("48453889",1); // Cuenta ,idPublicacion
        
         //mostrar ofertasAPublicacion en la tabla
         for(int i = 0; i < ofertasAPublicacion.size() ; i++){
