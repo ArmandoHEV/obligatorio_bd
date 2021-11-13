@@ -235,7 +235,7 @@ public class SentenciaSQL extends ConexionBD{
         try{
             
             ps= con.prepareStatement(sql);
-            ps.setInt(1,producto.getIdCategoria());
+            ps.setInt(1,producto.getCategoria().getIdCat());
             ps.setString(2,producto.getTitulo());
             ps.setString(3,producto.getDescripcion());
             ps.setString(4,producto.getImagen());
@@ -264,7 +264,6 @@ public class SentenciaSQL extends ConexionBD{
         establecerConexion();
         Connection con = getConexion();
         
-         System.out.println("h");
          
         String sql = "select * from publicacion publ" +
             " inner join producto prod on publ.idproducto = prod.idproducto" +

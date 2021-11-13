@@ -19,8 +19,8 @@ public class menuPublicaciones extends javax.swing.JFrame {
      * Creates new form pantallaPrincipal
      */
     private String cuenta;
-    public menuPublicaciones(String id) {
-        this.cuenta = id;
+    public menuPublicaciones(String idCuenta) {
+        this.cuenta = idCuenta;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(897, 816)); 
@@ -195,7 +195,7 @@ public class menuPublicaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_endsessionActionPerformed
 
     private void btn_ofertaRealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ofertaRealActionPerformed
-        menuOfertaRealizada menuofertreal = new menuOfertaRealizada();
+        menuOfertaRealizada menuofertreal = new menuOfertaRealizada(cuenta);
         menuofertreal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_ofertaRealActionPerformed
@@ -207,7 +207,7 @@ public class menuPublicaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_menuPrincActionPerformed
 
     private void btn_ofertaRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ofertaRecActionPerformed
-        menuOfertaRecibida ofertarecibida = new menuOfertaRecibida();
+        menuOfertaRecibida ofertarecibida = new menuOfertaRecibida(cuenta);
         ofertarecibida.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_ofertaRecActionPerformed

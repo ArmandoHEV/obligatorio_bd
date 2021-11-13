@@ -13,17 +13,21 @@ import javax.swing.JFrame;
  * @author mlisonct
  */
 public class menuOfertaRealizada extends javax.swing.JFrame {
-
-    /**
-     * Creates new form pantallaPrincipal
-     */
-    public menuOfertaRealizada() {
+     
+    private String cuenta;
+    
+    public menuOfertaRealizada(String idCuenta) {
+        this.cuenta = idCuenta;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(897, 816)); 
         this.setResizable(false);
     }
 
+    
+    public void mostrar(){
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -163,7 +167,7 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_menuPrincActionPerformed
 
     private void btn_ofertasRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ofertasRecActionPerformed
-        menuOfertaRecibida menuofert = new menuOfertaRecibida();
+        menuOfertaRecibida menuofert = new menuOfertaRecibida(cuenta);
         menuofert.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_ofertasRecActionPerformed
@@ -242,7 +246,7 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new menuOfertaRealizada().setVisible(true);
+                new menuOfertaRealizada("").setVisible(true);
                 
             }
         });

@@ -14,7 +14,7 @@ public class Producto {
     private String titulo;
     private String descripcion;
     private double cantidad;
-    private int idCategoria;
+    private Categoria categoria;
     private String imagen;
     private double costo;
 
@@ -50,12 +50,12 @@ public class Producto {
         this.cantidad = cantidad;
     }
 
-    public int getIdCategoria() {
-        return idCategoria;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setIdCategoria(int idCategoria) {
-        this.idCategoria = idCategoria;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     public String getImagen() {

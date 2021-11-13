@@ -42,10 +42,10 @@ public class menuPrincipal extends javax.swing.JFrame {
         
         ArrayList<ProdPublicacion> publicaciones = sql.buscarPublicacion(idCuenta); //idCuenta
 
-        mostrar(publicaciones);
+        mostrarEnTabla(publicaciones);
     }
     
-    public void mostrar(ArrayList<ProdPublicacion> publicaciones){
+    public void mostrarEnTabla(ArrayList<ProdPublicacion> publicaciones){
         Object data2[][] = new Object[99][3];
         for(int i = 0; i < publicaciones.size() ; i++){
             for(int j = 0; j < 3; j++) {
@@ -268,7 +268,13 @@ public class menuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_ofertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ofertarActionPerformed
-        pantallaOferta oferta = new pantallaOferta();
+        
+        Publicacion publicacion = new Publicacion();
+        publicacion.getProducto().setTitulo("dd"); //titulo del obejto seleccionado
+        publicacion.getProducto().setCosto(5); //costo del obejto seleccionado
+        publicacion.getProducto().setDescripcion("dd"); //descripcion del producto del obejto seleccionado
+        publicacion.getProducto().getCategoria().setDcategoria("dd"); //categoria del obejto seleccionado
+        pantallaOferta oferta = new pantallaOferta(publicacion);
         oferta.setVisible(true);
         this.dispose();
         //SentenciaSQL sql = new SentenciaSQL();
@@ -288,13 +294,13 @@ public class menuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_endsessionActionPerformed
 
     private void btn_ofertaRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ofertaRecActionPerformed
-        menuOfertaRecibida ofertaRecibida = new menuOfertaRecibida();
+        menuOfertaRecibida ofertaRecibida = new menuOfertaRecibida(cuenta);
         ofertaRecibida.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_ofertaRecActionPerformed
 
     private void btn_ofertaRealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ofertaRealActionPerformed
-        menuOfertaRealizada ofertaRealizada = new menuOfertaRealizada();
+        menuOfertaRealizada ofertaRealizada = new menuOfertaRealizada(cuenta);
         ofertaRealizada.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_ofertaRealActionPerformed
@@ -319,7 +325,7 @@ public class menuPrincipal extends javax.swing.JFrame {
             productos = sql.filtrarPublicaciones(buscar,categoria);
             
             //Mostrar Productos filtrados en tabla
-            mostrar(productos);
+            mostrarEnTabla(productos);
         }
     }//GEN-LAST:event_btn_buscarActionPerformed
 

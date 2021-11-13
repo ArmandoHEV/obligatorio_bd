@@ -10,17 +10,17 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import main.SentenciaSQL;
-
+import main.Publicacion;
 /**
  *
  * @author mlisonct
  */
 public class pantallaOferta extends javax.swing.JFrame {
 
-    /**
-     * Creates new form pantallaPrincipal
-     */
-    public pantallaOferta() {
+    private Publicacion publicacion;
+    
+    public pantallaOferta(Publicacion publicacion) {
+        this.publicacion = publicacion;
         initComponents();
         this.setSize(new Dimension(897, 816)); 
         this.setResizable(false);
@@ -314,7 +314,7 @@ public class pantallaOferta extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new pantallaOferta().setVisible(true);
+                new pantallaOferta(null).setVisible(true);
                 
             }
         });

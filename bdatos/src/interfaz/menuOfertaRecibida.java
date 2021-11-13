@@ -16,11 +16,11 @@ import main.SentenciaSQL;
  * @author mlisonct
  */
 public class menuOfertaRecibida extends javax.swing.JFrame {
-
-    /**
-     * Creates new form pantallaPrincipal
-     */
-    public menuOfertaRecibida() {
+    
+    private String cuenta;
+    
+    public menuOfertaRecibida(String idCuenta) {
+        this.cuenta=idCuenta;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(897, 816)); 
@@ -172,7 +172,7 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_endsessionActionPerformed
 
     private void btn_ofertaRealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ofertaRealActionPerformed
-        menuOfertaRealizada menuofertreal = new menuOfertaRealizada();
+        menuOfertaRealizada menuofertreal = new menuOfertaRealizada(cuenta);
         menuofertreal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_ofertaRealActionPerformed
@@ -227,7 +227,7 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new menuOfertaRecibida().setVisible(true);
+                new menuOfertaRecibida("").setVisible(true);
                 
             }
         });

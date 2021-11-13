@@ -17,10 +17,10 @@ import main.*;
  */
 public class menuCuenta extends javax.swing.JFrame {
 
-    /**
-     * Creates new form pantallaPrincipal
-     */
-    public menuCuenta() {
+    private String cuenta;
+    
+    public menuCuenta(String idCuenta) {
+        this.cuenta=idCuenta;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(897, 816)); 
@@ -29,12 +29,12 @@ public class menuCuenta extends javax.swing.JFrame {
         
         
         SentenciaSQL sql = new SentenciaSQL();
-        Cuenta aux = sql.obtenerCuenta("45862435");
-        txt_cedula.setText(aux.getCi());
+        Cuenta aux = sql.obtenerCuenta(cuenta);
         txt_nombre.setText(aux.getNombre());
         txt_apellido.setText(aux.getApellido());
 
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,10 +54,8 @@ public class menuCuenta extends javax.swing.JFrame {
         main_icon = new javax.swing.JLabel();
         img_background = new javax.swing.JLabel();
         lbl_pass = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txt_cedula = new javax.swing.JTextField();
         txt_apellido = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
 
@@ -74,9 +72,9 @@ public class menuCuenta extends javax.swing.JFrame {
         lbl_apellido.setBackground(new java.awt.Color(0, 153, 255));
         lbl_apellido.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lbl_apellido.setText("Apellido");
-        p_init.add(lbl_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 100, -1));
-        p_init.add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 370, 230, 30));
-        p_init.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, 230, 30));
+        p_init.add(lbl_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 100, -1));
+        p_init.add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 230, 30));
+        p_init.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 230, 30));
 
         btn_init.setText("Aceptar");
         btn_init.addActionListener(new java.awt.event.ActionListener() {
@@ -114,24 +112,16 @@ public class menuCuenta extends javax.swing.JFrame {
         lbl_pass.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lbl_pass.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lbl_pass.setText("Contraseña");
-        p_init.add(lbl_pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, 30));
-
-        jLabel4.setBackground(new java.awt.Color(0, 153, 255));
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel4.setText("C.I");
-        p_init.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 100, -1));
+        p_init.add(lbl_pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, -1, 30));
 
         jLabel5.setBackground(new java.awt.Color(0, 153, 255));
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel5.setText("Nombre");
-        p_init.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 100, -1));
+        p_init.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 100, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario_small.png"))); // NOI18N
         p_init.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 100, 110));
-
-        txt_cedula.setEditable(false);
-        p_init.add(txt_cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 230, 30));
-        p_init.add(txt_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 230, 30));
+        p_init.add(txt_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 230, 30));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Complete los campos que desee modificar");
@@ -154,7 +144,6 @@ public class menuCuenta extends javax.swing.JFrame {
         String nombre = txt_nombre.getText();
         String apellido = txt_apellido.getText();
         String pass = txt_password.getText();
-        String cedula = txt_cedula.getText();
 
         if(nombre.isBlank() || apellido.isBlank() || pass.isBlank()){
             JOptionPane.showMessageDialog(rootPane, "Faltan datos por ingresar","Error!", JOptionPane.ERROR_MESSAGE);
@@ -163,7 +152,7 @@ public class menuCuenta extends javax.swing.JFrame {
            SentenciaSQL sql = new SentenciaSQL();
            Cuenta aux = new Cuenta();
            
-           aux.setCi(cedula);
+           aux.setCi(cuenta);
            aux.setNombre(nombre);
            aux.setApellido(apellido);
            aux.setPassword(pass);
@@ -219,7 +208,7 @@ public class menuCuenta extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new menuCuenta().setVisible(true);
+                new menuCuenta("").setVisible(true);
                 
             }
         });
@@ -231,7 +220,6 @@ public class menuCuenta extends javax.swing.JFrame {
     private javax.swing.JButton btn_init;
     private javax.swing.JLabel img_background;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel lbl_apellido;
@@ -239,7 +227,6 @@ public class menuCuenta extends javax.swing.JFrame {
     private javax.swing.JLabel main_icon;
     private javax.swing.JPanel p_init;
     private javax.swing.JTextField txt_apellido;
-    private javax.swing.JTextField txt_cedula;
     private javax.swing.JTextField txt_nombre;
     private javax.swing.JPasswordField txt_password;
     // End of variables declaration//GEN-END:variables

@@ -284,7 +284,7 @@ public class altaPublicacion extends javax.swing.JFrame {
            //System.out.println(sql.obtenerIdCategoria(categoria));
            
            aux.setTitulo(titulo);
-           aux.setIdCategoria(Integer.parseInt(sql.obtenerIdCategoria(categoria)));
+           aux.getCategoria().setIdCat(Integer.parseInt(sql.obtenerIdCategoria(categoria)));
            aux.setCosto(Integer.parseInt(ucuCoin));
            aux.setCantidad(Integer.parseInt(cantidad));
            aux.setDescripcion(descripcion);
@@ -292,7 +292,7 @@ public class altaPublicacion extends javax.swing.JFrame {
            
            if(sql.insertPublicacion(aux, cuenta)){
                JOptionPane.showMessageDialog(null, "Publicación correcta!");
-               menuOfertaRealizada mofertareal = new menuOfertaRealizada();
+               menuOfertaRealizada mofertareal = new menuOfertaRealizada(cuenta);
                mofertareal.setVisible(true);
                this.dispose();
            }else{
