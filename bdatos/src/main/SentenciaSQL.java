@@ -470,9 +470,10 @@ public class SentenciaSQL extends ConexionBD{
         PreparedStatement ps2 = null;
         establecerConexion();
         Connection con = getConexion();
+        int idpublic = 0;
         
         String altaOferta="insert into oferta (idCuenta,idPublicacionAOfertar,UCUCoins,fechaOferta) "
-                + " VALUES(?,?,?,now())";
+                + " VALUES(?,?,?,now()) RETURNING idoferta";
                
         try{
             ps= con.prepareStatement(altaOferta);
@@ -481,12 +482,17 @@ public class SentenciaSQL extends ConexionBD{
             ps.setInt(3,ucucoins);
             ps.execute();
             
+            ResultSet rs = ps.getResultSet();
+            if (rs.next()){
+                idpublic = rs.getInt(1);
+            }
+            
             for (Integer i : listaOfertas){
                 String altaLineasOferta="insert into LineasOfertadas (idOferta,idPublicacion)"
                         + " VALUES (?,?)";
                 ps2= con.prepareStatement(altaLineasOferta);
-                ps2.setInt(1,i);
-                ps2.setInt(2,idPublicacion);
+                ps2.setInt(1,idpublic);
+                ps2.setInt(2,i);
                 ps2.execute();
             }
         } catch (SQLException ex) {

@@ -20,6 +20,8 @@ public class pantallaOferta extends javax.swing.JFrame {
     private Publicacion publicacion;
     private String cuenta;
     ArrayList<Publicacion> publicaciones; 
+    ArrayList<Integer> listaOfertas = new ArrayList<>();
+    private int seleccion;
     
     public pantallaOferta(Publicacion publicacion, String cuenta) {
         this.publicacion = publicacion;
@@ -70,7 +72,7 @@ public class pantallaOferta extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        
+               
     }
 
     /**
@@ -279,11 +281,13 @@ public class pantallaOferta extends javax.swing.JFrame {
         //BORRAR PRODUCTO DE LA TABLA SECUNDARIA TEMPORAL
         DefaultTableModel aux = (DefaultTableModel) table_pOfertar.getModel();
         aux.removeRow(table_pOfertar.getSelectedRow());
+        
+        listaOfertas.remove(publicaciones.get(seleccion).getIdPublicacion());
     }//GEN-LAST:event_btn_quitarActionPerformed
 
     private void btn_ofertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ofertarActionPerformed
         SentenciaSQL sql = new SentenciaSQL();
-        ArrayList<Integer> listaOfertas = new ArrayList<>();
+        
         int coins = Integer.parseInt(txt_moneda.getText());
         if(sql.obtenerUCUCoins(cuenta) >= coins){ //idcuenta,ucucoins ofertadas
             
@@ -320,7 +324,8 @@ public class pantallaOferta extends javax.swing.JFrame {
         
     table_pOfertar.addRowSelectionInterval(0, 1);
     */
-              
+       seleccion = table_publicaciones.rowAtPoint(evt.getPoint());
+       
     }//GEN-LAST:event_table_publicacionesMouseClicked
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
@@ -331,10 +336,12 @@ public class pantallaOferta extends javax.swing.JFrame {
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         DefaultTableModel aux = (DefaultTableModel) table_pOfertar.getModel();
-        int seleccion = table_publicaciones.getSelectedRow();
+        int fila = table_publicaciones.getSelectedRow();
 
-        String[] datos = {table_publicaciones.getValueAt(seleccion, 0).toString(),table_publicaciones.getValueAt(seleccion, 1).toString()};
+        String[] datos = {table_publicaciones.getValueAt(fila, 0).toString(),table_publicaciones.getValueAt(fila, 1).toString()};
         aux.addRow(datos);
+        
+        listaOfertas.add(publicaciones.get(seleccion).getIdPublicacion());
        
     }//GEN-LAST:event_btn_agregarActionPerformed
 
