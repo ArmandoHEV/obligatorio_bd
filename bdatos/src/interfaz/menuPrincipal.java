@@ -148,7 +148,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                 btn_buscarActionPerformed(evt);
             }
         });
-        p_init.add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 120, 80, 30));
+        p_init.add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 120, 150, 30));
 
         btn_ofertar.setText("Ofertar");
         btn_ofertar.addActionListener(new java.awt.event.ActionListener() {
@@ -169,6 +169,11 @@ public class menuPrincipal extends javax.swing.JFrame {
         p_init.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 119, 150, 30));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario_small.png"))); // NOI18N
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
         p_init.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 100, 110));
 
         btn_endsession.setText("Cerrar Sesión");
@@ -223,7 +228,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                 txt_buscarActionPerformed(evt);
             }
         });
-        p_init.add(txt_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, 200, 30));
+        p_init.add(txt_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 200, 30));
 
         table_publicaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -333,6 +338,12 @@ public class menuPrincipal extends javax.swing.JFrame {
         jTextField1.setText(publicaciones.get(seleccion).getProducto().getDescripcion());
         lbl_foto.setIcon(new ImageIcon(publicaciones.get(seleccion).getProducto().getImagen()));
     }//GEN-LAST:event_table_publicacionesMouseClicked
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        menuCuenta menuc = new menuCuenta(cuenta);
+        menuc.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel6MouseClicked
 
     /**
      * @param args the command line arguments

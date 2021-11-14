@@ -144,6 +144,11 @@ public class menuPublicaciones extends javax.swing.JFrame {
         p_init.add(main_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 10, 50, 60));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario_small.png"))); // NOI18N
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
         p_init.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 100, 110));
 
         btn_endsession.setText("Cerrar Sesión");
@@ -326,6 +331,12 @@ public class menuPublicaciones extends javax.swing.JFrame {
         modifPublica.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_editActionPerformed
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        menuCuenta menuc = new menuCuenta(cuenta);
+        menuc.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel6MouseClicked
 
     /**
      * @param args the command line arguments

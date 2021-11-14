@@ -91,6 +91,7 @@ public class pantallaOferta extends javax.swing.JFrame {
         main_icon = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btn_exit = new javax.swing.JButton();
+        lbl_publicacion = new javax.swing.JLabel();
         btn_ofertar = new javax.swing.JButton();
         txt_coin = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -154,6 +155,7 @@ public class pantallaOferta extends javax.swing.JFrame {
             }
         });
         p_init.add(btn_exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 770, 80, 30));
+        p_init.add(lbl_publicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
 
         btn_ofertar.setText("Ofertar");
         btn_ofertar.setActionCommand("");
@@ -164,6 +166,7 @@ public class pantallaOferta extends javax.swing.JFrame {
         });
         p_init.add(btn_ofertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 700, 110, 40));
 
+        txt_coin.setEditable(false);
         txt_coin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_coin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -269,6 +272,11 @@ public class pantallaOferta extends javax.swing.JFrame {
         p_init.add(txt_moneda, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 570, 150, 30));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario_small.png"))); // NOI18N
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
         p_init.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 100, 110));
 
         getContentPane().add(p_init);
@@ -335,6 +343,12 @@ public class pantallaOferta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        menuCuenta menuc = new menuCuenta(cuenta);
+        menuc.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel6MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -386,6 +400,7 @@ public class pantallaOferta extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lbl_publicacion;
     private javax.swing.JLabel main_icon;
     private javax.swing.JPanel p_init;
     private javax.swing.JTable table_pOfertar;

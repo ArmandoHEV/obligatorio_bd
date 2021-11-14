@@ -383,6 +383,23 @@ public class SentenciaSQL extends ConexionBD{
         
         return resultado; 
     }
+    
+    public Boolean cargarUCUCoins(String idCuenta, String coin) {
+        PreparedStatement ps = null;
+        establecerConexion();
+        Connection con = getConexion();
+        String sql = "UPDATE cuenta c set ucucoins = ucucoins + ? where idCuenta=?";
+        try{
+            ps= con.prepareStatement(sql);
+            ps.setString(1,coin);
+            ps.setString(2,idCuenta);
+            ps.executeQuery();
+            return true;
+         } catch (SQLException ex) {
+            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);           
+        } 
+        return false; 
+    }
 
     public void aceptarTrueque(String idCuenta, int idOferta) {
         PreparedStatement ps = null;

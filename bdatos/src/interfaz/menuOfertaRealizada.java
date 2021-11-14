@@ -39,7 +39,7 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
 
         p_init = new javax.swing.JPanel();
         main_icon = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lbl_user = new javax.swing.JLabel();
         btn_endsession = new javax.swing.JButton();
         btn_mispublic = new javax.swing.JButton();
         btn_canceloferta = new javax.swing.JButton();
@@ -64,8 +64,13 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
         main_icon.setPreferredSize(new java.awt.Dimension(200, 200));
         p_init.add(main_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 10, 50, 60));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario_small.png"))); // NOI18N
-        p_init.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 100, 110));
+        lbl_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario_small.png"))); // NOI18N
+        lbl_user.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_userMouseClicked(evt);
+            }
+        });
+        p_init.add(lbl_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 100, 110));
 
         btn_endsession.setText("Cerrar Sesión");
         btn_endsession.addActionListener(new java.awt.event.ActionListener() {
@@ -172,6 +177,12 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_ofertasRecActionPerformed
 
+    private void lbl_userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_userMouseClicked
+        menuCuenta menuc = new menuCuenta(cuenta);
+        menuc.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lbl_userMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -260,9 +271,9 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
     private javax.swing.JButton btn_mispublic;
     private javax.swing.JButton btn_ofertasRec;
     private javax.swing.JLabel img_background;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lbl_user;
     private javax.swing.JLabel main_icon;
     private javax.swing.JPanel p_init;
     // End of variables declaration//GEN-END:variables

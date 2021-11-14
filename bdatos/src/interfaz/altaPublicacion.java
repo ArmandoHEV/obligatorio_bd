@@ -159,6 +159,11 @@ public class altaPublicacion extends javax.swing.JFrame {
         p_init.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 100, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario_small.png"))); // NOI18N
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
         p_init.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 100));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -299,6 +304,12 @@ public class altaPublicacion extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_btn_publicarActionPerformed
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        menuCuenta menuc = new menuCuenta(cuenta);
+        menuc.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel6MouseClicked
 
     /**
      * @param args the command line arguments
