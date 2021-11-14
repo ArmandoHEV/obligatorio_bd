@@ -376,7 +376,7 @@ public class SentenciaSQL extends ConexionBD{
             ps= con.prepareStatement(sql);
             ps.setString(1,idCuenta);
             ResultSet rs = ps.executeQuery();
-            resultado =rs.getInt(1);
+            resultado = rs.getInt(1);
          } catch (SQLException ex) {
             Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);           
         } 

@@ -12,10 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import main.Cuenta;
-import main.ProdPublicacion;
-import main.Publicacion;
-import main.SentenciaSQL;
+import main.*;
 
 /**
  *
@@ -27,13 +24,13 @@ public class menuPublicaciones extends javax.swing.JFrame {
      * Creates new form pantallaPrincipal
      */
     private String cuenta;
+    private int seleccion;
+    ArrayList<Publicacion> publicaciones; 
+    
     public menuPublicaciones(String idCuenta) {
         this.cuenta = idCuenta;
         SentenciaSQL sql = new SentenciaSQL();
-        ArrayList<Publicacion> publicaciones =  sql.obtenerPublicacionesDeCuenta(cuenta); 
-        for(int i = 0; i < publicaciones.size(); i++){
-            System.out.println(publicaciones.get(i).getProducto().getTitulo());
-        }
+        publicaciones = sql.obtenerPublicacionesDeCuenta(cuenta);
         initComponents();
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(897, 816)); 
@@ -68,10 +65,10 @@ public class menuPublicaciones extends javax.swing.JFrame {
         //System.out.print(data2);
         //System.out.print(idCuenta);
         
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table_mispublicaciones.setModel(new javax.swing.table.DefaultTableModel(
             data2,
             new String [] {
-                "Titular", "Costo", "Estado", "Foto"
+                "Titular", "Costo", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -83,9 +80,9 @@ public class menuPublicaciones extends javax.swing.JFrame {
             }
         });
         
-        
-        jTable1.setCellSelectionEnabled(true);
-        ListSelectionModel cellSelectionModel = jTable1.getSelectionModel();
+        /*
+        table_mispublicaciones.setCellSelectionEnabled(true);
+        ListSelectionModel cellSelectionModel = table_mispublicaciones.getSelectionModel();
         cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
@@ -99,6 +96,7 @@ public class menuPublicaciones extends javax.swing.JFrame {
             }
 
         }); 
+        */
     }
     
     
@@ -113,9 +111,12 @@ public class menuPublicaciones extends javax.swing.JFrame {
         btn_endsession = new javax.swing.JButton();
         btn_ofertaReal = new javax.swing.JButton();
         btn_menuPrinc = new javax.swing.JButton();
+        lbl_foto = new javax.swing.JLabel();
+        txt_descrip = new javax.swing.JTextField();
         btn_ofertaRec = new javax.swing.JButton();
+        btn_edit = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table_mispublicaciones = new javax.swing.JTable();
         img_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -129,12 +130,13 @@ public class menuPublicaciones extends javax.swing.JFrame {
         p_init.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_public.setText("Nueva Publicación");
+        btn_public.setToolTipText("");
         btn_public.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_publicActionPerformed(evt);
             }
         });
-        p_init.add(btn_public, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 700, 160, 30));
+        p_init.add(btn_public, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 650, 180, 30));
 
         main_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/trueque_small.png"))); // NOI18N
         main_icon.setMaximumSize(new java.awt.Dimension(300, 300));
@@ -158,7 +160,7 @@ public class menuPublicaciones extends javax.swing.JFrame {
                 btn_ofertaRealActionPerformed(evt);
             }
         });
-        p_init.add(btn_ofertaReal, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, 140, 20));
+        p_init.add(btn_ofertaReal, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 150, 20));
 
         btn_menuPrinc.setText("Menú Principal");
         btn_menuPrinc.addActionListener(new java.awt.event.ActionListener() {
@@ -168,73 +170,96 @@ public class menuPublicaciones extends javax.swing.JFrame {
         });
         p_init.add(btn_menuPrinc, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 30, 140, 20));
 
+        lbl_foto.setText("text");
+        p_init.add(lbl_foto, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 140, 250, 230));
+
+        txt_descrip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_descripActionPerformed(evt);
+            }
+        });
+        p_init.add(txt_descrip, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 380, 290, 190));
+
         btn_ofertaRec.setText("Ofertas Recibidas");
         btn_ofertaRec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_ofertaRecActionPerformed(evt);
             }
         });
-        p_init.add(btn_ofertaRec, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 130, 20));
+        p_init.add(btn_ofertaRec, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 160, 20));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        btn_edit.setText("Editar Publicación");
+        btn_edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editActionPerformed(evt);
+            }
+        });
+        p_init.add(btn_edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 730, 180, 30));
+
+        table_mispublicaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Titular", "Costo", "Estado", "Foto"
+                "Titular", "Costo", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.addFocusListener(new java.awt.event.FocusAdapter() {
+        table_mispublicaciones.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTable1FocusGained(evt);
+                table_mispublicacionesFocusGained(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        table_mispublicaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_mispublicacionesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(table_mispublicaciones);
 
-        p_init.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 640, 620));
+        p_init.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 490, 620));
 
         img_background.setForeground(new java.awt.Color(255, 255, 255));
         img_background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -282,9 +307,25 @@ public class menuPublicaciones extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_ofertaRecActionPerformed
 
-    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable1FocusGained
+    private void table_mispublicacionesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_table_mispublicacionesFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTable1FocusGained
+    }//GEN-LAST:event_table_mispublicacionesFocusGained
+
+    private void txt_descripActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_descripActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_descripActionPerformed
+
+    private void table_mispublicacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_mispublicacionesMouseClicked
+        seleccion = table_mispublicaciones.rowAtPoint(evt.getPoint());
+        txt_descrip.setText(publicaciones.get(seleccion).getProducto().getDescripcion());
+        lbl_foto.setIcon(new ImageIcon(publicaciones.get(seleccion).getProducto().getImagen()));
+    }//GEN-LAST:event_table_mispublicacionesMouseClicked
+
+    private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
+        editPublicacion modifPublica = new editPublicacion(cuenta,publicaciones.get(seleccion));
+        modifPublica.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_editActionPerformed
 
     /**
      * @param args the command line arguments
@@ -835,6 +876,7 @@ public class menuPublicaciones extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_edit;
     private javax.swing.JButton btn_endsession;
     private javax.swing.JButton btn_menuPrinc;
     private javax.swing.JButton btn_ofertaReal;
@@ -843,8 +885,10 @@ public class menuPublicaciones extends javax.swing.JFrame {
     private javax.swing.JLabel img_background;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lbl_foto;
     private javax.swing.JLabel main_icon;
     private javax.swing.JPanel p_init;
+    private javax.swing.JTable table_mispublicaciones;
+    private javax.swing.JTextField txt_descrip;
     // End of variables declaration//GEN-END:variables
 }

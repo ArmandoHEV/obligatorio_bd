@@ -15,26 +15,35 @@ import main.Cuenta;
  *
  * @author mlisonct
  */
-public class altaPublicacion extends javax.swing.JFrame {
+public class editPublicacion extends javax.swing.JFrame {
 
     /**
      * Creates new form pantallaPrincipal
      */
     private String cuenta;
+    private Publicacion publicacion;
     
     String categoria;
     SentenciaSQL sql = new SentenciaSQL();
     
-    public altaPublicacion(String count) {
+    public editPublicacion(String count, Publicacion publicacion) {
         
         this.cuenta = count;
-        
+        this.publicacion = publicacion;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(897, 816)); 
         this.setResizable(false);
-                
-        combo_categoria.setModel(sql.obtenerCategorias());
+        
+        txt_titular.setText(publicacion.getProducto().getTitulo());
+        combo_categoria.setSelectedItem(publicacion.getProducto().getCategoria());
+        txt_ucucoin.setText(String.valueOf(publicacion.getProducto().getCosto()));
+        txt_descrip.setText(publicacion.getProducto().getDescripcion());
+        txt_imagen.setText(publicacion.getProducto().getImagen());
+        txt_cantidad.setText(String.valueOf(publicacion.getProducto().getCantidad()));
+       
+        
+        //combo_categoria.setModel(sql.obtenerCategorias());
         label_user.setText(count);
         
         combo_categoria.addActionListener(new java.awt.event.ActionListener() {
@@ -58,7 +67,7 @@ public class altaPublicacion extends javax.swing.JFrame {
         txt_titular = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txt_ucucoin = new javax.swing.JTextField();
-        btn_publicar = new javax.swing.JButton();
+        btn_actualizar = new javax.swing.JButton();
         btn_foto = new javax.swing.JButton();
         main_icon = new javax.swing.JLabel();
         btn_exit = new javax.swing.JButton();
@@ -108,13 +117,13 @@ public class altaPublicacion extends javax.swing.JFrame {
         });
         p_init.add(txt_ucucoin, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 230, 30));
 
-        btn_publicar.setText("Publicar");
-        btn_publicar.addActionListener(new java.awt.event.ActionListener() {
+        btn_actualizar.setText("Actualizar");
+        btn_actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_publicarActionPerformed(evt);
+                btn_actualizarActionPerformed(evt);
             }
         });
-        p_init.add(btn_publicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 750, 110, 40));
+        p_init.add(btn_actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 750, 110, 40));
 
         btn_foto.setText("Cargar Foto");
         btn_foto.addActionListener(new java.awt.event.ActionListener() {
@@ -263,7 +272,7 @@ public class altaPublicacion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_combo_categoriaActionPerformed
 
-    private void btn_publicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_publicarActionPerformed
+    private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
         String titulo = txt_titular.getText();
         String categoria = combo_categoria.getSelectedItem().toString();    
         String ucuCoin = txt_ucucoin.getText();
@@ -298,7 +307,7 @@ public class altaPublicacion extends javax.swing.JFrame {
            }
 
         }
-    }//GEN-LAST:event_btn_publicarActionPerformed
+    }//GEN-LAST:event_btn_actualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -317,14 +326,23 @@ public class altaPublicacion extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(altaPublicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(editPublicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(altaPublicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(editPublicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(altaPublicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(editPublicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(altaPublicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(editPublicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -342,10 +360,10 @@ public class altaPublicacion extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_actualizar;
     private javax.swing.JButton btn_exit;
     private javax.swing.JButton btn_foto;
     private javax.swing.JButton btn_limpiar;
-    private javax.swing.JButton btn_publicar;
     private javax.swing.JComboBox<String> combo_categoria;
     private javax.swing.JLabel img_background;
     private javax.swing.JLabel jLabel1;

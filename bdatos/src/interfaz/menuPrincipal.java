@@ -44,10 +44,11 @@ public class menuPrincipal extends javax.swing.JFrame {
         
         publicaciones = sql.buscarPublicacion(idCuenta); //idCuenta
         
+        /*
         for(int i = 0; i < publicaciones.size() ; i++){
             System.out.println(publicaciones.get(i).getProducto().getTitulo());
         }
-        
+        */
         
 
         mostrarEnTabla(publicaciones);
@@ -91,11 +92,11 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
         
-        
+        /*
         table_publicaciones.setCellSelectionEnabled(true);
         ListSelectionModel cellSelectionModel = table_publicaciones.getSelectionModel();
         cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
+        */
         
     }
     
@@ -199,7 +200,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                 btn_misPublicActionPerformed(evt);
             }
         });
-        p_init.add(btn_misPublic, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 130, 20));
+        p_init.add(btn_misPublic, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 150, 20));
 
         btn_ofertaReal.setText("Ofertas Realizadas");
         btn_ofertaReal.addActionListener(new java.awt.event.ActionListener() {
@@ -207,7 +208,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                 btn_ofertaRealActionPerformed(evt);
             }
         });
-        p_init.add(btn_ofertaReal, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 140, 20));
+        p_init.add(btn_ofertaReal, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 160, 20));
 
         btn_ofertaRec.setText("Ofertas Recibidas");
         btn_ofertaRec.addActionListener(new java.awt.event.ActionListener() {
@@ -266,14 +267,13 @@ public class menuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_ofertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ofertarActionPerformed
-        
-        
-        pantallaOferta oferta = new pantallaOferta(publicaciones.get(seleccion), cuenta);
-        oferta.setVisible(true);
-        this.dispose();
         //SentenciaSQL sql = new SentenciaSQL();
         //Generar objeto oferta, agregar a la tabla BD 
-        
+        if (seleccion != 0){
+            pantallaOferta oferta = new pantallaOferta(publicaciones.get(seleccion), cuenta);
+            oferta.setVisible(true);
+            this.dispose();
+        }
         
     }//GEN-LAST:event_btn_ofertarActionPerformed
 
@@ -330,10 +330,8 @@ public class menuPrincipal extends javax.swing.JFrame {
     private void table_publicacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_publicacionesMouseClicked
         // TODO add your handling code here:
         seleccion = table_publicaciones.rowAtPoint(evt.getPoint());
-        System.out.println(publicaciones.get(seleccion).getProducto().getTitulo());
-        System.out.println(publicaciones.get(seleccion));
-        System.out.println(table_publicaciones.getValueAt(seleccion, 2));
         jTextField1.setText(publicaciones.get(seleccion).getProducto().getDescripcion());
+        lbl_foto.setIcon(new ImageIcon(publicaciones.get(seleccion).getProducto().getImagen()));
     }//GEN-LAST:event_table_publicacionesMouseClicked
 
     /**

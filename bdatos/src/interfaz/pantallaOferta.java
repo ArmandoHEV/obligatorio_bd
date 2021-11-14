@@ -18,15 +18,60 @@ public class pantallaOferta extends javax.swing.JFrame {
 
     private Publicacion publicacion;
     private String cuenta;
+    ArrayList<Publicacion> publicaciones; 
     
     public pantallaOferta(Publicacion publicacion, String cuenta) {
         this.publicacion = publicacion;
         this.cuenta = cuenta;
+        
+        SentenciaSQL sql = new SentenciaSQL();
+        publicaciones = sql.obtenerPublicacionesDeCuenta(cuenta);
+        
         initComponents();
         this.setSize(new Dimension(897, 816)); 
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
+        mostrarEnTabla(publicaciones);
+    }
+    
+    public void mostrarEnTabla(ArrayList<Publicacion> publicaciones){
+       Object data2[][] = new Object[99][4];
+        for(int i = 0; i < publicaciones.size() ; i++){
+            for(int j = 0; j < 4; j++) {
+                // read information from somewhere
+                switch(j){
+                    case 0:
+                        data2[i][j] = publicaciones.get(i).getProducto().getTitulo();
+                        break;
+                    case 1:
+                        data2[i][j] = publicaciones.get(i).getProducto().getCosto();
+                        break;
+                    case 2:
+                        data2[i][j] = publicaciones.get(i).getEstadoPublicacion();
+                        break;
+                    case 3:
+                        data2[i][j] = publicaciones.get(i).getProducto().getImagen();
+                        break;
+                      
+                }
+            }
+        }
+         
+        table_publicaciones.setModel(new javax.swing.table.DefaultTableModel(
+            data2,
+            new String [] {
+                "Titular", "Costo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
     }
 
     /**
@@ -167,7 +212,6 @@ public class pantallaOferta extends javax.swing.JFrame {
 
         table_publicaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"celular", "10"},
                 {null, null},
                 {null, null},
                 {null, null},
@@ -204,6 +248,11 @@ public class pantallaOferta extends javax.swing.JFrame {
         p_init.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, -1, -1));
 
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
         p_init.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 480, 60, 30));
 
         jCheckBox1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -235,7 +284,7 @@ public class pantallaOferta extends javax.swing.JFrame {
         SentenciaSQL sql = new SentenciaSQL();
         ArrayList<Integer> listaOfertas = new ArrayList<>();
         int coins = Integer.parseInt(txt_moneda.getText());
-        if(sql.obtenerUCUCoins("48453889") >= coins){ //idcuenta,ucucoins ofertadas
+        if(sql.obtenerUCUCoins(cuenta) >= coins){ //idcuenta,ucucoins ofertadas
             sql.realizarOferta(listaOfertas,"48453889",1,coins); //ofertas,idcuenta,idpublicacion,ucucoins
             menuPrincipal menuPrincipal = new menuPrincipal("48453889");
             menuPrincipal.setVisible(true);
@@ -278,9 +327,13 @@ public class pantallaOferta extends javax.swing.JFrame {
 
     private void txt_coinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_coinActionPerformed
         SentenciaSQL sql = new SentenciaSQL();
-        int ucucoins = sql.obtenerUCUCoins("48453889");
+        int ucucoins = sql.obtenerUCUCoins(cuenta);
         txt_coin.setText(ucucoins+"");
     }//GEN-LAST:event_txt_coinActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
