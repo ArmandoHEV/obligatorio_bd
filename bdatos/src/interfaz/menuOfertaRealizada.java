@@ -18,6 +18,7 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
      
     private String cuenta;
     ArrayList<Oferta> ofertas;
+    int seleccion;
     
     public menuOfertaRealizada(String idCuenta) {
         this.cuenta = idCuenta;
@@ -182,6 +183,11 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        table_ofertaReal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_ofertaRealMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table_ofertaReal);
 
         p_init.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 570, 620));
@@ -217,6 +223,8 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
 
     private void btn_cancelofertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelofertaActionPerformed
         //SE DEBE CAMBIAR EL ESTADO DE LA OFERTA SELECCIONADA CON EL MOUSE A RECHAZADA-DESHABILITADA
+        SentenciaSQL sql = new SentenciaSQL();
+        sql.cancelarOferta(ofertas.get(seleccion).getIdOferta());
     }//GEN-LAST:event_btn_cancelofertaActionPerformed
 
     private void btn_menuPrincActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menuPrincActionPerformed
@@ -236,6 +244,10 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
         menuc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lbl_userMouseClicked
+
+    private void table_ofertaRealMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_ofertaRealMouseClicked
+        seleccion = table_ofertaReal.rowAtPoint(evt.getPoint());
+    }//GEN-LAST:event_table_ofertaRealMouseClicked
 
     /**
      * @param args the command line arguments

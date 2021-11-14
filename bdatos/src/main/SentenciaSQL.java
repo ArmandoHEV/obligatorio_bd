@@ -403,6 +403,21 @@ public class SentenciaSQL extends ConexionBD{
         return false; 
     }
 
+    public void cancelarOferta(int idoferta){
+        PreparedStatement ps = null;
+        establecerConexion();
+        Connection con = getConexion();
+        
+        String cambioEstadoOferta ="update Oferta set estadoOferta=2, fechaOferta=now() where idOferta=?";
+        try{
+            ps= con.prepareStatement(cambioEstadoOferta);
+            ps.setInt(1,idoferta);
+            ps.executeUpdate();
+        }catch (SQLException ex) {
+            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }
+    
     public void aceptarTrueque(String idCuenta, int idOferta) {
         PreparedStatement ps = null;
         PreparedStatement ps2 = null;
