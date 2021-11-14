@@ -65,8 +65,7 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
             }
         }
         
-        //System.out.print(data2);
-        //System.out.print(idCuenta);
+        
         
         table_ofertaReal.setModel(new javax.swing.table.DefaultTableModel(
             data2,

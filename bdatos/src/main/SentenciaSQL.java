@@ -585,6 +585,59 @@ public class SentenciaSQL extends ConexionBD{
         }
    //Estados Publicacion 0=publicada 1=trueque
 //Estados Oferta 0=pendiente , 1=aceptada  2=rechazada
+    
+    
+    
+    public ArrayList<Oferta> ofertasRecibidas(String idCuenta){
+            ArrayList<Oferta> resultado = new ArrayList<>();
+            PreparedStatement ps = null;
+            establecerConexion();
+            Connection con = getConexion();
+            /*
+            String sql ="select prod.titulo,cat.descripcionCategoria,prod.costo,prod.imagen,prod.descripcionProducto from publicacion p"
+                    + " inner join oferta o on o.idPublicacionAOfertar=p.idPublicacion"
+                    + " inner join producto prod on prod.idProducto = p.idProducto"
+                    + " inner join categoria cat on cat.idCategoria = producto.idCategoria"
+                    + " where p.idCuenta=? and o.estadoOferta=0";
+            */
+            String sql = "select estadooferta, fechaoferta,idoferta,p.titulo,p.costo, c.nombre, c.apellido from oferta o"
+                    + " inner join publicacion pro on o.idpublicacionaofertar = pro.idpublicacion"
+                    + " inner join cuenta c on pro.idcuenta = c.idcuenta"
+                    + " inner join producto p on pro.idproducto = p.idproducto where c.idcuenta = ?";
+            try{
+               ps = con.prepareStatement(sql);
+               ps.setString(1, idCuenta);
+               ResultSet rs = ps.executeQuery();
+                while (rs.next()){
+                    Oferta ofer = new Oferta();
+                    Publicacion pub = new Publicacion();
+                    Producto pro = new Producto();
+                    Cuenta cuenta = new Cuenta();
+                    
+                    cuenta.setNombre(rs.getString(0));
+                    
+                    pro.setTitulo(rs.getString(5));
+                    pro.setCosto(rs.getInt(6));
+                    
+                    pub.setIdPublicacion(1);
+                    pub.setProducto(pro);
+                    
+                    ofer.setIdOferta(rs.getInt(4));
+                    ofer.setEstado(rs.getInt(2));
+                    ofer.setFecha(rs.getDate(3));
+                    
+                    ofer.setPublicacionAOfertar(pub);
+
+                    resultado.add(ofer);
+ 
+                 }
+
+            }catch (SQLException ex){
+                Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+            }
+            return resultado;
+        }
 
     public ArrayList<Publicacion> obtenerPublicacionesDeCuenta(String idCuenta) {
          PreparedStatement ps = null;
