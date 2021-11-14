@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import main.*;
 /**
  *
@@ -35,6 +36,7 @@ public class pantallaOferta extends javax.swing.JFrame {
         
         lbl_coin.setText(String.valueOf(sqlCoins.obtenerUCUCoins(cuenta)));
         lbl_user.setText("Hola! " + cuenta);
+        lbl_publicacion.setText("Publicación #" + publicacion.getIdPublicacion() +" "+publicacion.getProducto().getTitulo());
         mostrarEnTabla(publicaciones);
     }
     
@@ -98,11 +100,9 @@ public class pantallaOferta extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         table_publicaciones = new javax.swing.JTable();
         img_background = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
         txt_moneda = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -116,16 +116,16 @@ public class pantallaOferta extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(0, 153, 255));
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setText("Publicacion seleccionada");
-        p_init.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 230, -1));
+        jLabel3.setText("Publicación seleccionada");
+        p_init.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 230, -1));
 
         lbl_user.setText("user");
-        p_init.add(lbl_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, -1, -1));
+        p_init.add(lbl_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 200, -1));
 
         lbl_coin.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbl_coin.setText("0");
         lbl_coin.setToolTipText("");
-        p_init.add(lbl_coin, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 200, 20, -1));
+        p_init.add(lbl_coin, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 190, 150, -1));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -156,7 +156,7 @@ public class pantallaOferta extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setText("UCUcoins disponibles:");
-        p_init.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 200, -1, -1));
+        p_init.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, -1, -1));
 
         btn_exit.setText("Salir");
         btn_exit.setActionCommand("");
@@ -167,9 +167,11 @@ public class pantallaOferta extends javax.swing.JFrame {
         });
         p_init.add(btn_exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 770, 80, 30));
 
+        lbl_publicacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_publicacion.setText("0");
-        p_init.add(lbl_publicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
+        p_init.add(lbl_publicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 300, 30));
 
+        btn_ofertar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btn_ofertar.setText("Ofertar");
         btn_ofertar.setActionCommand("");
         btn_ofertar.addActionListener(new java.awt.event.ActionListener() {
@@ -177,13 +179,11 @@ public class pantallaOferta extends javax.swing.JFrame {
                 btn_ofertarActionPerformed(evt);
             }
         });
-        p_init.add(btn_ofertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 700, 110, 40));
+        p_init.add(btn_ofertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 570, 130, 40));
 
         table_pOfertar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Titular", "Costo"
@@ -250,30 +250,13 @@ public class pantallaOferta extends javax.swing.JFrame {
         img_background.setPreferredSize(new java.awt.Dimension(1000, 1000));
         p_init.add(img_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 480, 820));
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("Costo Productos");
-        p_init.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, -1, -1));
-
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        p_init.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 480, 60, 30));
-
-        jCheckBox1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jCheckBox1.setText("Desea utilizar UCUcoins?");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-        p_init.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 570, -1, -1));
-
         txt_moneda.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_moneda.setText("Ingrese UCUcoins");
-        p_init.add(txt_moneda, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 570, 150, 30));
+        txt_moneda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_monedaActionPerformed(evt);
+            }
+        });
+        p_init.add(txt_moneda, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 500, 150, 30));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario_small.png"))); // NOI18N
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -283,6 +266,10 @@ public class pantallaOferta extends javax.swing.JFrame {
         });
         p_init.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 100, 110));
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setText("Desea incluir UCUCoins?");
+        p_init.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, -1, -1));
+
         getContentPane().add(p_init);
 
         pack();
@@ -290,6 +277,8 @@ public class pantallaOferta extends javax.swing.JFrame {
 
     private void btn_quitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_quitarActionPerformed
         //BORRAR PRODUCTO DE LA TABLA SECUNDARIA TEMPORAL
+        DefaultTableModel aux = (DefaultTableModel) table_pOfertar.getModel();
+        aux.removeRow(table_pOfertar.getSelectedRow());
     }//GEN-LAST:event_btn_quitarActionPerformed
 
     private void btn_ofertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ofertarActionPerformed
@@ -297,8 +286,10 @@ public class pantallaOferta extends javax.swing.JFrame {
         ArrayList<Integer> listaOfertas = new ArrayList<>();
         int coins = Integer.parseInt(txt_moneda.getText());
         if(sql.obtenerUCUCoins(cuenta) >= coins){ //idcuenta,ucucoins ofertadas
-            sql.realizarOferta(listaOfertas,"48453889",1,coins); //ofertas,idcuenta,idpublicacion,ucucoins
-            menuPrincipal menuPrincipal = new menuPrincipal("48453889");
+            
+            sql.realizarOferta(listaOfertas,cuenta,publicacion.getIdPublicacion(),coins); //ofertas,idcuenta,idpublicacion,ucucoins
+            
+            menuPrincipal menuPrincipal = new menuPrincipal("cuenta");
             menuPrincipal.setVisible(true);
             this.dispose();
         } else {
@@ -311,12 +302,6 @@ public class pantallaOferta extends javax.swing.JFrame {
         menuPrincipal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_exitActionPerformed
-
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        if (jCheckBox1.isSelected()){
-            txt_moneda.isEditable();
-        }
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void table_pOfertarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_table_pOfertarFocusGained
         
@@ -338,10 +323,6 @@ public class pantallaOferta extends javax.swing.JFrame {
               
     }//GEN-LAST:event_table_publicacionesMouseClicked
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         menuCuenta menuc = new menuCuenta(cuenta);
         menuc.setVisible(true);
@@ -349,13 +330,17 @@ public class pantallaOferta extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
+        DefaultTableModel aux = (DefaultTableModel) table_pOfertar.getModel();
         int seleccion = table_publicaciones.getSelectedRow();
-  
-        table_pOfertar.setValueAt(table_publicaciones.getValueAt(seleccion, 0), 0, 0);
-        table_pOfertar.setValueAt(table_publicaciones.getValueAt(seleccion, 1), 0, 1);
-        
-        table_pOfertar.addRowSelectionInterval(0, 1);
+
+        String[] datos = {table_publicaciones.getValueAt(seleccion, 0).toString(),table_publicaciones.getValueAt(seleccion, 1).toString()};
+        aux.addRow(datos);
+       
     }//GEN-LAST:event_btn_agregarActionPerformed
+
+    private void txt_monedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_monedaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_monedaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -398,16 +383,14 @@ public class pantallaOferta extends javax.swing.JFrame {
     private javax.swing.JButton btn_ofertar;
     private javax.swing.JButton btn_quitar;
     private javax.swing.JLabel img_background;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbl_coin;
     private javax.swing.JLabel lbl_publicacion;
     private javax.swing.JLabel lbl_user;

@@ -371,12 +371,14 @@ public class SentenciaSQL extends ConexionBD{
         PreparedStatement ps = null;
         establecerConexion();
         Connection con = getConexion();
-        String sql = "select ucucoins from cuenta where idCuenta=?";
+        String sql = "select ucucoins from cuenta where idCuenta= ?";
         try{
             ps= con.prepareStatement(sql);
             ps.setString(1,idCuenta);
             ResultSet rs = ps.executeQuery();
-            resultado = rs.getInt(1);
+            if (rs.next()){
+                resultado = rs.getInt(1);
+            }
          } catch (SQLException ex) {
             Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);           
         } 
@@ -464,16 +466,16 @@ public class SentenciaSQL extends ConexionBD{
     }
 
     public void realizarOferta(ArrayList<Integer> listaOfertas, String idCuenta, int idPublicacion, int ucucoins) {
-       PreparedStatement ps = null;
-       PreparedStatement ps2 = null;
+        PreparedStatement ps = null;
+        PreparedStatement ps2 = null;
         establecerConexion();
         Connection con = getConexion();
         
-        String altaOferta="insert into Oferta (idCuenta,idPublicacionAOfertar,UCUCoins,fechaOferta) "
+        String altaOferta="insert into oferta (idCuenta,idPublicacionAOfertar,UCUCoins,fechaOferta) "
                 + " VALUES(?,?,?,now())";
                
         try{
-        ps= con.prepareStatement(altaOferta);
+            ps= con.prepareStatement(altaOferta);
             ps.setString(1,idCuenta);
             ps.setInt(2,idPublicacion);
             ps.setInt(3,ucucoins);
@@ -489,9 +491,9 @@ public class SentenciaSQL extends ConexionBD{
             }
         } catch (SQLException ex) {
             Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+          } 
             
-       }
+    }
     
     public int obtenerIdCategoria(String categoria) {
         PreparedStatement ps = null;
