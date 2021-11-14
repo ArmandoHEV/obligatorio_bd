@@ -35,7 +35,7 @@ public class altaPublicacion extends javax.swing.JFrame {
         this.setResizable(false);
                 
         combo_categoria.setModel(sql.obtenerCategorias());
-        label_user.setText(count);
+        label_user.setText("Hola! " + count);
         
         combo_categoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,7 +225,7 @@ public class altaPublicacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_fotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fotoActionPerformed
-        JFileChooser j = new JFileChooser();
+        JFileChooser j = new JFileChooser("fotoProducto");
         int ap = j.showDialog(this, "Cargar");
         if (ap == JFileChooser.APPROVE_OPTION){
             String ruta = j.getSelectedFile().getAbsolutePath();

@@ -371,7 +371,7 @@ public class SentenciaSQL extends ConexionBD{
         PreparedStatement ps = null;
         establecerConexion();
         Connection con = getConexion();
-        String sql = "Select UCUCoins cuenta where idCuenta=?";
+        String sql = "select ucucoins from cuenta where idCuenta=?";
         try{
             ps= con.prepareStatement(sql);
             ps.setString(1,idCuenta);
