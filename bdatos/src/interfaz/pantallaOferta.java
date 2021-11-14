@@ -289,7 +289,7 @@ public class pantallaOferta extends javax.swing.JFrame {
             
             sql.realizarOferta(listaOfertas,cuenta,publicacion.getIdPublicacion(),coins); //ofertas,idcuenta,idpublicacion,ucucoins
             
-            menuPrincipal menuPrincipal = new menuPrincipal("cuenta");
+            menuPrincipal menuPrincipal = new menuPrincipal(cuenta);
             menuPrincipal.setVisible(true);
             this.dispose();
         } else {
