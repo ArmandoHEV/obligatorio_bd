@@ -522,29 +522,44 @@ public class SentenciaSQL extends ConexionBD{
         } 
     }
     
-    public ArrayList<ProdPublicacion> obtenerPublicacionConOfertas(String idCuenta){
-            ArrayList<ProdPublicacion> resultado = new ArrayList<ProdPublicacion>();
+    public ArrayList<Oferta> ofertasRealizadas(String idCuenta){
+            ArrayList<Oferta> resultado = new ArrayList<>();
             PreparedStatement ps = null;
             establecerConexion();
             Connection con = getConexion();
+            /*
             String sql ="select prod.titulo,cat.descripcionCategoria,prod.costo,prod.imagen,prod.descripcionProducto from publicacion p"
                     + " inner join oferta o on o.idPublicacionAOfertar=p.idPublicacion"
                     + " inner join producto prod on prod.idProducto = p.idProducto"
                     + " inner join categoria cat on cat.idCategoria = producto.idCategoria"
                     + " where p.idCuenta=? and o.estadoOferta=0";
+            */
+            String sql = "select idpublicacionaofertar,estadooferta, fechaoferta,idoferta,p.titulo,p.costo from oferta o"
+                    + " inner join publicacion pro on o.idpublicacionaofertar = pro.idpublicacion"
+                    + " inner join producto p on pro.idproducto = p.idproducto where o.idcuenta = ?";
             try{
-               // ARREGLAR ESTO !!
                ps = con.prepareStatement(sql);
                ps.setString(1, idCuenta);
                ResultSet rs = ps.executeQuery();
                 while (rs.next()){
-                    ProdPublicacion prod = new ProdPublicacion();
-                    prod.setTitulo(rs.getString(1));
-                    prod.setDcategoria(rs.getString(2));
-                    prod.setCosto(rs.getInt(3));
-                    prod.setImagen(rs.getString(10));
-                    prod.setDproducto(rs.getString(5));
-                    resultado.add(prod);
+                    Oferta ofer = new Oferta();
+                    Publicacion pub = new Publicacion();
+                    Producto pro = new Producto();
+                    
+                    pro.setTitulo(rs.getString(5));
+                    pro.setCosto(rs.getInt(6));
+                    
+                    pub.setIdPublicacion(1);
+                    pub.setProducto(pro);
+                    
+                    ofer.setIdOferta(rs.getInt(4));
+                    ofer.setEstado(rs.getInt(2));
+                    ofer.setFecha(rs.getDate(3));
+                    
+                    ofer.setPublicacionAOfertar(pub);
+
+                    resultado.add(ofer);
+ 
                  }
 
             }catch (SQLException ex){

@@ -5,6 +5,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -12,11 +13,20 @@ import java.util.ArrayList;
  */
 public class Oferta {
     private int idOferta;
-    private Publicacion idPublicacionAOfertar;
+    private Publicacion PublicacionAOfertar;
     private ArrayList<Publicacion> publicacionesOfertadas;
     private int idCuenta;
     private int UCUCoins;  
     private int estado;
+    private Date fecha;
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
 
     public int getEstado() {
         return estado;
@@ -34,12 +44,12 @@ public class Oferta {
         this.idOferta = idOferta;
     }
 
-    public Publicacion getIdPublicacionAOfertar() {
-        return idPublicacionAOfertar;
+    public Publicacion getPublicacionAOfertar() {
+        return PublicacionAOfertar;
     }
 
-    public void setIdPublicacionAOfertar(Publicacion idPublicacionAOfertar) {
-        this.idPublicacionAOfertar = idPublicacionAOfertar;
+    public void setPublicacionAOfertar(Publicacion PublicacionAOfertar) {
+        this.PublicacionAOfertar = PublicacionAOfertar;
     }
 
     public ArrayList<Publicacion> getPublicacionesOfertadas() {

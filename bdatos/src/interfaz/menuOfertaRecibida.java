@@ -55,7 +55,7 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
         btn_menuPrinc = new javax.swing.JButton();
         btn_mispublic = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table_ofertasRec = new javax.swing.JTable();
         img_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -129,7 +129,7 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
         });
         p_init.add(btn_mispublic, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 140, 20));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table_ofertasRec.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -145,7 +145,7 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(table_ofertasRec);
 
         p_init.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 570, 620));
 
@@ -255,8 +255,8 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
     private javax.swing.JLabel img_background;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel main_icon;
     private javax.swing.JPanel p_init;
+    private javax.swing.JTable table_ofertasRec;
     // End of variables declaration//GEN-END:variables
 }

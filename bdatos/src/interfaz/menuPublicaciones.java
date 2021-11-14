@@ -80,23 +80,7 @@ public class menuPublicaciones extends javax.swing.JFrame {
             }
         });
         
-        /*
-        table_mispublicaciones.setCellSelectionEnabled(true);
-        ListSelectionModel cellSelectionModel = table_mispublicaciones.getSelectionModel();
-        cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
-        cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-              
-              int index1 = e.getFirstIndex();
-              int index2 = e.getLastIndex();
-              
-              System.out.println(index1 + " " + index2);
-              
-            }
-
-        }); 
-        */
     }
     
     

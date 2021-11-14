@@ -6,7 +6,9 @@
 package interfaz;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import main.*;
 
 /**
  *
@@ -15,18 +17,70 @@ import javax.swing.JFrame;
 public class menuOfertaRealizada extends javax.swing.JFrame {
      
     private String cuenta;
+    ArrayList<Oferta> ofertas;
     
     public menuOfertaRealizada(String idCuenta) {
         this.cuenta = idCuenta;
         initComponents();
+        SentenciaSQL sql = new SentenciaSQL();
+        ofertas = sql.ofertasRealizadas(idCuenta);
+        
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(897, 816)); 
         this.setResizable(false);
+        
+        mostrarEnTabla(ofertas);
     }
 
+    public String consultaEstado (int estado){
+        if (estado == 0){
+            return "Pendiente";
+        }else if(estado == 1){
+            return "Aceptado";
+        }else{
+            return "Rechazado";
+        }
+    }
     
-    public void mostrar(){
+    public void mostrarEnTabla(ArrayList<Oferta> ofert){
+       Object data2[][] = new Object[99][4];
+        for(int i = 0; i < ofert.size() ; i++){
+            for(int j = 0; j < 4; j++) {
+                // read information from somewhere
+                switch(j){
+                    case 0:
+                        data2[i][j] = ofert.get(i).getPublicacionAOfertar().getProducto().getTitulo();
+                        break;
+                    case 1:
+                        data2[i][j] = ofert.get(i).getPublicacionAOfertar().getProducto().getCosto();
+                        break;
+                    case 2:
+                        data2[i][j] = consultaEstado(ofert.get(i).getEstado());
+                        break;  
+                    case 3:
+                        data2[i][j] = ofert.get(i).getFecha();
+                    break;  
+                }
+            }
+        }
         
+        //System.out.print(data2);
+        //System.out.print(idCuenta);
+        
+        table_ofertaReal.setModel(new javax.swing.table.DefaultTableModel(
+            data2,
+            new String [] {
+                "Titular", "Costo", "Estado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,7 +100,7 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
         btn_menuPrinc = new javax.swing.JButton();
         btn_ofertasRec = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table_ofertaReal = new javax.swing.JTable();
         img_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -112,23 +166,23 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
         });
         p_init.add(btn_ofertasRec, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 140, 20));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table_ofertaReal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Titular", "Costo", "Estado"
+                "Titular", "Costo", "Estado", "Fecha"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(table_ofertaReal);
 
         p_init.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 570, 620));
 
@@ -272,9 +326,10 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
     private javax.swing.JButton btn_ofertasRec;
     private javax.swing.JLabel img_background;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_user;
     private javax.swing.JLabel main_icon;
     private javax.swing.JPanel p_init;
+    private javax.swing.JTable table_ofertaReal;
     // End of variables declaration//GEN-END:variables
+
 }
