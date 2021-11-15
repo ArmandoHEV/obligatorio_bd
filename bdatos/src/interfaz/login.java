@@ -46,6 +46,9 @@ public class login extends javax.swing.JFrame {
         txt_usuario = new javax.swing.JTextField();
         btn_init1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        main_icon = new javax.swing.JLabel();
+        img_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -124,6 +127,25 @@ public class login extends javax.swing.JFrame {
 
         jLabel2.setText("En caso de no contar con una cuenta, favor de registrarse");
         p_init.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 720, -1, -1));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario_small.png"))); // NOI18N
+        p_init.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 100, 110));
+
+        main_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/trueque2.png"))); // NOI18N
+        main_icon.setMaximumSize(new java.awt.Dimension(300, 300));
+        main_icon.setPreferredSize(new java.awt.Dimension(200, 200));
+        p_init.add(main_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, 280, 330));
+
+        img_background.setForeground(new java.awt.Color(255, 255, 255));
+        img_background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        img_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo.jpg"))); // NOI18N
+        img_background.setText("background");
+        img_background.setToolTipText("");
+        img_background.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        img_background.setAutoscrolls(true);
+        img_background.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        img_background.setPreferredSize(new java.awt.Dimension(1000, 1000));
+        p_init.add(img_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 480, 820));
 
         getContentPane().add(p_init);
 
@@ -260,9 +282,12 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JButton btn_exit;
     private javax.swing.JButton btn_init;
     private javax.swing.JButton btn_init1;
+    private javax.swing.JLabel img_background;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel main_icon;
     private javax.swing.JPanel p_init;
     private javax.swing.JPasswordField txt_password;
     private javax.swing.JTextField txt_usuario;

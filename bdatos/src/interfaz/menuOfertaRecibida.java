@@ -19,6 +19,7 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
     
     private String cuenta;
     int seleccion;
+    ArrayList<Oferta> ofertas;
     
     public menuOfertaRecibida(String idCuenta) {
         this.cuenta=idCuenta;
@@ -28,14 +29,14 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
         this.setResizable(false);
         
         SentenciaSQL sql = new SentenciaSQL();
+        ofertas = sql.ofertasRecibidas(idCuenta);
         
-        
-        
+        mostrarEnTabla(ofertas);
     }
     public void mostrarEnTabla(ArrayList<Oferta> ofert){
-       Object data2[][] = new Object[99][4];
+       Object data2[][] = new Object[99][6];
         for(int i = 0; i < ofert.size() ; i++){
-            for(int j = 0; j < 4; j++) {
+            for(int j = 0; j < 6; j++) {
                 // read information from somewhere
                 switch(j){
                     case 0:
@@ -45,31 +46,47 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
                         data2[i][j] = ofert.get(i).getPublicacionAOfertar().getProducto().getCosto();
                         break;
                     case 2:
-                        data2[i][j] = consultaEstado(ofert.get(i).getEstado());
+                        data2[i][j] = ofert.get(i).getPublicacionAOfertar().getCuenta().getNombre();
                         break;  
                     case 3:
-                        data2[i][j] = ofert.get(i).getFecha();
+                        data2[i][j] = ofert.get(i).getPublicacionAOfertar().getCuenta().getApellido();
                     break;  
+                    case 4:
+                        data2[i][j] = consultaEstado(ofert.get(i).getEstado());
+                    break;
+                    case 5:
+                        data2[i][j] = ofert.get(i).getFecha();
+                    break;
                 }
             }
         }
         
         
         
-        table_ofertaReal.setModel(new javax.swing.table.DefaultTableModel(
+        table_ofertasRec.setModel(new javax.swing.table.DefaultTableModel(
             data2,
             new String [] {
-                "Titular", "Costo", "Estado"
+                "Titular", "Costo", "Nombre", "Apellido", "Estado", "Fecha"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false,false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+    }
+    
+    public String consultaEstado (int estado){
+        if (estado == 0){
+            return "Pendiente";
+        }else if(estado == 1){
+            return "Aceptado";
+        }else{
+            return "Rechazado";
+        }
     }
 
     /**
@@ -82,12 +99,11 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
     private void initComponents() {
 
         p_init = new javax.swing.JPanel();
-        btn_rechazar = new javax.swing.JButton();
         main_icon = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btn_endsession = new javax.swing.JButton();
         btn_ofertaReal = new javax.swing.JButton();
-        btn_aceptar = new javax.swing.JButton();
+        btn_detalle = new javax.swing.JButton();
         btn_menuPrinc = new javax.swing.JButton();
         btn_mispublic = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -103,14 +119,6 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
         p_init.setBackground(new java.awt.Color(255, 255, 255));
         p_init.setPreferredSize(new java.awt.Dimension(1000, 1000));
         p_init.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btn_rechazar.setText("Rechazar Oferta");
-        btn_rechazar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_rechazarActionPerformed(evt);
-            }
-        });
-        p_init.add(btn_rechazar, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 640, 120, 40));
 
         main_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/trueque_small.png"))); // NOI18N
         main_icon.setMaximumSize(new java.awt.Dimension(300, 300));
@@ -141,13 +149,13 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
         });
         p_init.add(btn_ofertaReal, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 150, 20));
 
-        btn_aceptar.setText("Aceptar Oferta");
-        btn_aceptar.addActionListener(new java.awt.event.ActionListener() {
+        btn_detalle.setText("Ver Detalles");
+        btn_detalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_aceptarActionPerformed(evt);
+                btn_detalleActionPerformed(evt);
             }
         });
-        p_init.add(btn_aceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 580, 120, 40));
+        p_init.add(btn_detalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 360, 120, 40));
 
         btn_menuPrinc.setText("Menú Principal");
         btn_menuPrinc.addActionListener(new java.awt.event.ActionListener() {
@@ -167,7 +175,57 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
 
         table_ofertasRec.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
                 "Titular", "Costo", "Nombre", "Apellido", "Estado", "Fecha"
@@ -179,6 +237,11 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        table_ofertasRec.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_ofertasRecMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(table_ofertasRec);
@@ -201,11 +264,6 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_rechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rechazarActionPerformed
-        SentenciaSQL sql = new SentenciaSQL();
-        sql.rechazarOferta(2); //idOferta
-    }//GEN-LAST:event_btn_rechazarActionPerformed
-
     private void btn_endsessionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_endsessionActionPerformed
         login login = new login();
         login.setVisible(true);
@@ -218,10 +276,11 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_ofertaRealActionPerformed
 
-    private void btn_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_aceptarActionPerformed
-       SentenciaSQL sql = new SentenciaSQL();
-       sql.aceptarTrueque("48453889",1); //idCuenta , idOferta , idPublicacion
-    }//GEN-LAST:event_btn_aceptarActionPerformed
+    private void btn_detalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_detalleActionPerformed
+        detalleOferta detalle = new detalleOferta(cuenta,ofertas.get(seleccion));
+        detalle.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_detalleActionPerformed
 
     private void btn_menuPrincActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menuPrincActionPerformed
         menuPrincipal menuprinc = new menuPrincipal(cuenta);
@@ -240,6 +299,10 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
         menuc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void table_ofertasRecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_ofertasRecMouseClicked
+        seleccion = table_ofertasRec.rowAtPoint(evt.getPoint());
+    }//GEN-LAST:event_table_ofertasRecMouseClicked
 
     /**
      * @param args the command line arguments
@@ -282,12 +345,11 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_aceptar;
+    private javax.swing.JButton btn_detalle;
     private javax.swing.JButton btn_endsession;
     private javax.swing.JButton btn_menuPrinc;
     private javax.swing.JButton btn_mispublic;
     private javax.swing.JButton btn_ofertaReal;
-    private javax.swing.JButton btn_rechazar;
     private javax.swing.JLabel img_background;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;

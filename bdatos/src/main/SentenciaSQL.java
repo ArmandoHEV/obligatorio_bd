@@ -15,30 +15,42 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class SentenciaSQL extends ConexionBD{
 
-    public ArrayList<ProdPublicacion> mostrarOfertasRecibidas(String idCuenta, int idPublicacion) {
-        ArrayList<ProdPublicacion> resultado =new ArrayList<>();
+  
+    public ArrayList<Publicacion> ofertasDeUnaPublicacion (int ofer) {
+        ArrayList<Publicacion> resultado =new ArrayList<>();
         PreparedStatement ps = null;
         establecerConexion();
         Connection con = getConexion();
-        String sql = "select p.titulo,p.idcategoria,p.costo,p.idproducto,p.idproducto from publicacion publ "
-                + " inner join producto p on p.idproducto=publ.idproducto"
-                + " inner join oferta o on o.idpublicacionaofertar = publ.idpublicacion"
-                + " where publ.idcuenta=? and publ.idpublicacion=?";
+        String sql = "select p.titulo,c.descripcionCategoria ,p.costo,p.imagen,p.descripcionProducto,pub.estadoPublicacion ,pub.idpublicacion"
+        + " from oferta o " + "inner join lineasofertadas linea on o.idoferta = linea.idoferta " +
+        "inner join publicacion pub on linea.idpublicacion=pub.idpublicacion "+
+        "inner join Producto p on p.idProducto = pub.idProducto " +
+        " inner join Categoria c on c.idCategoria = p.idCategoria" +
+        " where o.idoferta = ?";
         try{
             ps = con.prepareStatement(sql);
-            ps.setString(1,idCuenta);
-            ps.setInt(2,idPublicacion);
+            ps.setInt(1,ofer);
             ResultSet rs = ps.executeQuery();
-                 
+
             while (rs.next()){
-                ProdPublicacion prod = new ProdPublicacion();
-                prod.setTitulo(rs.getString(7));
-                prod.setDcategoria(rs.getString(13));
-                prod.setCosto(rs.getInt(11));
-                prod.setImagen(rs.getString(12));
-                prod.setDproducto(rs.getString(8));
+                Categoria cat = new Categoria();
+                cat.setDcategoria(rs.getString(2));
                 
-                resultado.add(prod);
+                Producto prod = new Producto();
+                prod.setTitulo(rs.getString(1));
+                prod.setCosto(rs.getInt(3));
+                prod.setImagen(rs.getString(4));
+                prod.setDescripcion(rs.getString(5));
+                prod.setCategoria(cat);
+                
+                Publicacion publ = new Publicacion();
+                publ.setProducto(prod);
+                
+              
+                publ.setIdPublicacion(rs.getInt(7));
+                publ.setEstadoPublicacion(rs.getInt(6));
+                
+                resultado.add(publ);
             }
             
             return resultado;
@@ -48,6 +60,7 @@ public class SentenciaSQL extends ConexionBD{
             return null;
         }
     }
+    
     
     //ES POSIBLE QUE SE GENEREN TODAS LAS QUERYS ACA Y SE LLAME DIRECTO AL METODO
     public boolean registroCuenta (Cuenta cuenta){
@@ -185,9 +198,11 @@ public class SentenciaSQL extends ConexionBD{
                 Producto prod = new Producto();
                 Publicacion pub = new Publicacion();
                 Categoria cat = new Categoria();
+                Cuenta cuenta = new Cuenta();
                 
                 pub.setIdPublicacion(rs.getInt(1));
-                pub.setIdCuenta(rs.getString(2));
+                cuenta.setCi(rs.getString(2));
+                pub.setCuenta(cuenta);
                 pub.setEstadoPublicacion(rs.getInt(4));
                 
                 cat.setIdCat(rs.getInt(12));
@@ -310,9 +325,11 @@ public class SentenciaSQL extends ConexionBD{
                 Producto prod = new Producto();
                 Publicacion pub = new Publicacion();
                 Categoria cat = new Categoria();
+                Cuenta cuenta = new Cuenta();
                 
                 pub.setIdPublicacion(rs.getInt(1));
-                pub.setIdCuenta(rs.getString(2));
+                cuenta.setCi(rs.getString(2));
+                pub.setCuenta(cuenta);
                 pub.setEstadoPublicacion(rs.getInt(4));
                 
                 cat.setIdCat(rs.getInt(12));
@@ -403,26 +420,14 @@ public class SentenciaSQL extends ConexionBD{
         return false; 
     }
 
-    public void cancelarOferta(int idoferta){
-        PreparedStatement ps = null;
-        establecerConexion();
-        Connection con = getConexion();
-        
-        String cambioEstadoOferta ="update Oferta set estadoOferta=2, fechaOferta=now() where idOferta=?";
-        try{
-            ps= con.prepareStatement(cambioEstadoOferta);
-            ps.setInt(1,idoferta);
-            ps.executeUpdate();
-        }catch (SQLException ex) {
-            Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }  
-    }
     
-    public void aceptarTrueque(String idCuenta, int idOferta) {
+    
+    public void aceptarTrueque(String idCuenta, Oferta oferta) {
         PreparedStatement ps = null;
         PreparedStatement ps2 = null;
         PreparedStatement ps3 = null;
         PreparedStatement ps4 = null;
+        PreparedStatement ps5 = null;
         
         establecerConexion();
         Connection con = getConexion();
@@ -436,26 +441,36 @@ public class SentenciaSQL extends ConexionBD{
         
         String cambioEstadoOferta ="update Oferta set estadoOferta=1, fechaOferta=now() where idOferta=?";
         
-        String cambioEstadoPublicacion ="update Publicacion set estadoPublicacion=2"
+        String cambioEstadoPublicacion ="update Publicacion p set estadoPublicacion=2"
                 + " where p.idPublicacion=(select idPublicacionAOfertar from Oferta o where o.idOferta=?)";
+        
+        String actualizarEstado = "update publicacion set estadoPublicacion = 2 where idpublicacion=?";
+        ArrayList<Publicacion> aux = ofertasDeUnaPublicacion(oferta.getIdOferta());
+        
          try{
             ps= con.prepareStatement(sumoUCUCOins);
-            ps.setInt(1,idOferta);
+            ps.setInt(1,oferta.getIdOferta());
             ps.setString(2,idCuenta);
             ps.executeUpdate();
             
             ps2= con.prepareStatement(restoUCUCOins);
-            ps2.setInt(1,idOferta);
-            ps2.setString(2,idCuenta);
+            ps2.setInt(1,oferta.getIdOferta());
+            ps2.setInt(2,oferta.getIdCuenta());
             ps2.executeUpdate();
             
             ps3= con.prepareStatement(cambioEstadoOferta);
-            ps3.setInt(1,idOferta);
+            ps3.setInt(1,oferta.getIdOferta());
             ps3.executeUpdate();
             
             ps4= con.prepareStatement(cambioEstadoPublicacion);
-            ps4.setInt(1,idOferta);
+            ps4.setInt(1,oferta.getIdOferta());
             ps4.executeUpdate();
+            
+            for (Publicacion p : aux){
+                ps4= con.prepareStatement(actualizarEstado);
+                ps4.setInt(1, p.getIdPublicacion());
+                ps4.executeUpdate();
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
@@ -472,14 +487,14 @@ public class SentenciaSQL extends ConexionBD{
         
         String sql="update Oferta set estadoOferta=2,fechaOferta=now() where idOferta=?";
         try{
-        ps= con.prepareStatement(sql);
+            ps= con.prepareStatement(sql);
             ps.setInt(1,idOferta);
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SentenciaSQL.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
-
+    
     public void realizarOferta(ArrayList<Integer> listaOfertas, String idCuenta, int idPublicacion, int ucucoins) {
         PreparedStatement ps = null;
         PreparedStatement ps2 = null;
@@ -593,15 +608,10 @@ public class SentenciaSQL extends ConexionBD{
             PreparedStatement ps = null;
             establecerConexion();
             Connection con = getConexion();
-            /*
-            String sql ="select prod.titulo,cat.descripcionCategoria,prod.costo,prod.imagen,prod.descripcionProducto from publicacion p"
-                    + " inner join oferta o on o.idPublicacionAOfertar=p.idPublicacion"
-                    + " inner join producto prod on prod.idProducto = p.idProducto"
-                    + " inner join categoria cat on cat.idCategoria = producto.idCategoria"
-                    + " where p.idCuenta=? and o.estadoOferta=0";
-            */
-            String sql = "select estadooferta, fechaoferta,idoferta,p.titulo,p.costo, c.nombre, c.apellido from oferta o"
+
+            String sql = "select estadooferta, fechaoferta,idoferta,p.titulo,p.costo, cuen.nombre, cuen.apellido from oferta o"
                     + " inner join publicacion pro on o.idpublicacionaofertar = pro.idpublicacion"
+                    + " inner join cuenta cuen on o.idcuenta = cuen.idcuenta"
                     + " inner join cuenta c on pro.idcuenta = c.idcuenta"
                     + " inner join producto p on pro.idproducto = p.idproducto where c.idcuenta = ?";
             try{
@@ -614,17 +624,19 @@ public class SentenciaSQL extends ConexionBD{
                     Producto pro = new Producto();
                     Cuenta cuenta = new Cuenta();
                     
-                    cuenta.setNombre(rs.getString(0));
+                    cuenta.setNombre(rs.getString(6));
+                    cuenta.setApellido(rs.getString(7));
                     
-                    pro.setTitulo(rs.getString(5));
-                    pro.setCosto(rs.getInt(6));
+                    pro.setTitulo(rs.getString(4));
+                    pro.setCosto(rs.getInt(5));
                     
-                    pub.setIdPublicacion(1);
+                    
                     pub.setProducto(pro);
+                    pub.setCuenta(cuenta);
                     
-                    ofer.setIdOferta(rs.getInt(4));
-                    ofer.setEstado(rs.getInt(2));
-                    ofer.setFecha(rs.getDate(3));
+                    ofer.setIdOferta(rs.getInt(3));
+                    ofer.setEstado(rs.getInt(1));
+                    ofer.setFecha(rs.getDate(2));
                     
                     ofer.setPublicacionAOfertar(pub);
 
@@ -664,6 +676,8 @@ public class SentenciaSQL extends ConexionBD{
                 Categoria cat = new Categoria();
                 cat.setDcategoria(rs.getString(13));
                 Producto prod = new Producto();
+                Cuenta cuenta = new Cuenta();
+                
                 prod.setTitulo(rs.getString(7));
                 prod.setCosto(rs.getInt(11));
                 prod.setImagen(rs.getString(12));
@@ -671,7 +685,9 @@ public class SentenciaSQL extends ConexionBD{
                 prod.setCategoria(cat);
                 Publicacion publ = new Publicacion();
                 publ.setProducto(prod);
-                publ.setIdCuenta(idCuenta);
+                
+                cuenta.setCi(idCuenta);
+                publ.setCuenta(cuenta);
                 publ.setIdPublicacion(rs.getInt(1));
                 publ.setEstadoPublicacion(rs.getInt(4));
                 result.add(publ);

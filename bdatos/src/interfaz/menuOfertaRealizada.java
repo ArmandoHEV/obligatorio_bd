@@ -223,7 +223,7 @@ public class menuOfertaRealizada extends javax.swing.JFrame {
     private void btn_cancelofertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelofertaActionPerformed
         //SE DEBE CAMBIAR EL ESTADO DE LA OFERTA SELECCIONADA CON EL MOUSE A RECHAZADA-DESHABILITADA
         SentenciaSQL sql = new SentenciaSQL();
-        sql.cancelarOferta(ofertas.get(seleccion).getIdOferta());
+        sql.rechazarOferta(ofertas.get(seleccion).getIdOferta());
     }//GEN-LAST:event_btn_cancelofertaActionPerformed
 
     private void btn_menuPrincActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menuPrincActionPerformed

@@ -28,27 +28,22 @@ public class detalleOferta extends javax.swing.JFrame {
      */
     private String cuenta;
     private ArrayList<Publicacion> publicaciones;
+    private Oferta oferta;
     private int seleccion;
     
-    public detalleOferta(String idCuenta) {
+    public detalleOferta(String idCuenta,Oferta ofer ) {
         this.cuenta = idCuenta;
+        oferta = ofer;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(897, 816)); 
         this.setResizable(false);
         
         SentenciaSQL sql = new SentenciaSQL();
+               
         
-        jComboBoxCategoria.setModel(sql.obtenerCategorias());
+        publicaciones = sql.ofertasDeUnaPublicacion(oferta.getIdOferta());
         
-        
-        publicaciones = sql.buscarPublicacion(idCuenta); //idCuenta
-        
-        /*
-        for(int i = 0; i < publicaciones.size() ; i++){
-            System.out.println(publicaciones.get(i).getProducto().getTitulo());
-        }
-        */
         
 
         mostrarEnTabla(publicaciones);
@@ -104,13 +99,14 @@ public class detalleOferta extends javax.swing.JFrame {
 
         p_init = new javax.swing.JPanel();
         lbl_foto = new javax.swing.JLabel();
-        btn_ofertar = new javax.swing.JButton();
         main_icon = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btn_endsession = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         btn_misPublic = new javax.swing.JButton();
         btn_ofertaReal = new javax.swing.JButton();
+        btn_aceptar = new javax.swing.JButton();
+        btn_rechazar = new javax.swing.JButton();
         btn_ofertaRec = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_publicaciones = new javax.swing.JTable();
@@ -127,15 +123,7 @@ public class detalleOferta extends javax.swing.JFrame {
         p_init.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_foto.setText("text");
-        p_init.add(lbl_foto, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 250, 230));
-
-        btn_ofertar.setText("Ofertar");
-        btn_ofertar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ofertarActionPerformed(evt);
-            }
-        });
-        p_init.add(btn_ofertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 620, 120, 40));
+        p_init.add(lbl_foto, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 130, 250, 230));
 
         main_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/trueque_small.png"))); // NOI18N
         main_icon.setMaximumSize(new java.awt.Dimension(300, 300));
@@ -163,7 +151,7 @@ public class detalleOferta extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
-        p_init.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 370, 290, 190));
+        p_init.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 380, 290, 120));
 
         btn_misPublic.setText("Mis Publicaciones");
         btn_misPublic.addActionListener(new java.awt.event.ActionListener() {
@@ -181,6 +169,22 @@ public class detalleOferta extends javax.swing.JFrame {
         });
         p_init.add(btn_ofertaReal, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 160, 20));
 
+        btn_aceptar.setText("Aceptar Oferta");
+        btn_aceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_aceptarActionPerformed(evt);
+            }
+        });
+        p_init.add(btn_aceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 600, 120, 40));
+
+        btn_rechazar.setText("Rechazar Oferta");
+        btn_rechazar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_rechazarActionPerformed(evt);
+            }
+        });
+        p_init.add(btn_rechazar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 600, 120, 40));
+
         btn_ofertaRec.setText("Ofertas Recibidas");
         btn_ofertaRec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,7 +195,26 @@ public class detalleOferta extends javax.swing.JFrame {
 
         table_publicaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
                 "Titular", "Tipo", "Costo"
@@ -212,7 +235,7 @@ public class detalleOferta extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(table_publicaciones);
 
-        p_init.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 540, 620));
+        p_init.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 540, 370));
 
         img_background.setForeground(new java.awt.Color(255, 255, 255));
         img_background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -229,17 +252,6 @@ public class detalleOferta extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_ofertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ofertarActionPerformed
-        //SentenciaSQL sql = new SentenciaSQL();
-        //Generar objeto oferta, agregar a la tabla BD 
-        if (seleccion != 0){
-            pantallaOferta oferta = new pantallaOferta(publicaciones.get(seleccion), cuenta);
-            oferta.setVisible(true);
-            this.dispose();
-        }
-        
-    }//GEN-LAST:event_btn_ofertarActionPerformed
 
     private void btn_endsessionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_endsessionActionPerformed
         login login = new login();
@@ -284,6 +296,16 @@ public class detalleOferta extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabel6MouseClicked
 
+    private void btn_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_aceptarActionPerformed
+        SentenciaSQL sql = new SentenciaSQL();
+        sql.aceptarTrueque(cuenta,oferta); //idCuenta , idOferta
+    }//GEN-LAST:event_btn_aceptarActionPerformed
+
+    private void btn_rechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rechazarActionPerformed
+        SentenciaSQL sql = new SentenciaSQL();
+        sql.rechazarOferta(oferta.getIdOferta()); //idOferta
+    }//GEN-LAST:event_btn_rechazarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -326,22 +348,24 @@ public class detalleOferta extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the form 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new detalleOferta("").setVisible(true);
                 
             }
-        });
+
+        });*/
         
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_aceptar;
     private javax.swing.JButton btn_endsession;
     private javax.swing.JButton btn_misPublic;
     private javax.swing.JButton btn_ofertaReal;
     private javax.swing.JButton btn_ofertaRec;
-    private javax.swing.JButton btn_ofertar;
+    private javax.swing.JButton btn_rechazar;
     private javax.swing.JLabel img_background;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;

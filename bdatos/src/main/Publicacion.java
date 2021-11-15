@@ -10,7 +10,7 @@ package main;
  */
 public class Publicacion {
    private int idPublicacion;
-   private String idCuenta;
+   private Cuenta cuenta;
    private Producto producto;
    private int estadoPublicacion;
 
@@ -22,13 +22,15 @@ public class Publicacion {
         this.idPublicacion = idPublicacion;
     }
 
-    public String getIdCuenta() {
-        return idCuenta;
+    public Cuenta getCuenta() {
+        return cuenta;
     }
 
-    public void setIdCuenta(String idCuenta) {
-        this.idCuenta = idCuenta;
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
     }
+
+
 
     public Producto getProducto() {
         return producto;

@@ -328,7 +328,8 @@ public class menuPrincipal extends javax.swing.JFrame {
         seleccion = table_publicaciones.rowAtPoint(evt.getPoint());
         jTextField1.setText(publicaciones.get(seleccion).getProducto().getDescripcion());
         //lbl_foto.setIcon(new ImageIcon(publicaciones.get(seleccion).getProducto().getImagen()));
-        ImageIcon icon = new ImageIcon("fotoProductos/lampazo.jpg");
+        //ImageIcon icon = new ImageIcon("fotoProductos/lampazo.jpg");
+        ImageIcon icon = new ImageIcon(publicaciones.get(seleccion).getProducto().getImagen());
         lbl_foto.setIcon(icon);
     }//GEN-LAST:event_table_publicacionesMouseClicked
 
