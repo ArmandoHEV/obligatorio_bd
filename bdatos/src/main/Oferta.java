@@ -7,10 +7,7 @@ package main;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- *
- * @author Wilfred
- */
+
 public class Oferta {
     private int idOferta;
     private Publicacion PublicacionAOfertar;

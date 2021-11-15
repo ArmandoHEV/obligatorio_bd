@@ -26,8 +26,8 @@ public class menuCuenta extends javax.swing.JFrame {
         this.setSize(new Dimension(897, 816)); 
         this.setResizable(false);
         
-        
-        
+        SentenciaSQL sqlCoins = new SentenciaSQL(); //SQL para obtener las UcuCOins de la cuenta iniciada
+        lbl_saldoucu.setText(String.valueOf(sqlCoins.obtenerUCUCoins(cuenta)));
         SentenciaSQL sql = new SentenciaSQL();
         Cuenta aux = sql.obtenerCuenta(cuenta);
         txt_usuario.setText(cuenta);
@@ -50,6 +50,8 @@ public class menuCuenta extends javax.swing.JFrame {
         lbl_apellido = new javax.swing.JLabel();
         txt_password = new javax.swing.JPasswordField();
         txt_nombre = new javax.swing.JTextField();
+        lbl_saldo = new javax.swing.JLabel();
+        lbl_saldoucu = new javax.swing.JLabel();
         lbl_ucucoin = new javax.swing.JLabel();
         txt_usuario = new javax.swing.JTextField();
         txt_coin = new javax.swing.JTextField();
@@ -82,6 +84,10 @@ public class menuCuenta extends javax.swing.JFrame {
         p_init.add(lbl_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 100, -1));
         p_init.add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, 230, 30));
         p_init.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 230, 30));
+
+        lbl_saldo.setText("Saldo UCUCoins");
+        p_init.add(lbl_saldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 290, 90, -1));
+        p_init.add(lbl_saldoucu, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 290, -1, -1));
 
         lbl_ucucoin.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbl_ucucoin.setText("Desea obtener UCUcoins?");
@@ -273,6 +279,8 @@ public class menuCuenta extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_detalleucu;
     private javax.swing.JLabel lbl_nombre;
     private javax.swing.JLabel lbl_pass;
+    private javax.swing.JLabel lbl_saldo;
+    private javax.swing.JLabel lbl_saldoucu;
     private javax.swing.JLabel lbl_ucucoin;
     private javax.swing.JLabel lbl_user;
     private javax.swing.JLabel main_icon;

@@ -9,10 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.*;
 import javax.swing.DefaultComboBoxModel;
-/**
- *
- * @author Wilfred
- */
+
 public class SentenciaSQL extends ConexionBD{
 
   
@@ -183,7 +180,7 @@ public class SentenciaSQL extends ConexionBD{
                 + " WHERE p.idcuenta NOT IN (?) and p.estadoPublicacion not in (5)";
 */
          String sql = "SELECT * FROM publicacion p INNER JOIN producto pro ON pro.idproducto = p.idpublicacion INNER JOIN categoria cat ON pro.idcategoria = cat.idcategoria"
-                + " WHERE p.idcuenta NOT IN (?)";
+                + " WHERE p.idcuenta NOT IN (?) and p.estadopublicacion = 0"; //EstadoPublicacion = 0 -> Habilitada
         
         try{
             ps= con.prepareStatement(sql);

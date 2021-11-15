@@ -5,19 +5,13 @@
 package main;
 import java.sql.*;
 import javax.swing.JOptionPane;
-/**
- *
- * @author Wilfred
- */
+
 public class ConexionBD {
     
     private Connection conectar = null;
-    //String bd = "jdbc:postgresql://localhost:5432/prueba"; 
-    //String bd = "jdbc:postgresql://192.168.56.8:5432/obligatorio_bd";
-    String bd = "jdbc:postgresql://192.168.56.101:5432/pruebas";
+
+    String bd = "jdbc:postgresql://192.168.56.101:5432/pruebas"; //Base de Datos instalada en equipo Virtual
     String user = "postgres";
-    //String pass = "1234567";
-    //String pass = "1234";
     String pass = "hola123";
     
     

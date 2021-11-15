@@ -43,13 +43,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         
         
         publicaciones = sql.buscarPublicacion(idCuenta); //idCuenta
-        
-        /*
-        for(int i = 0; i < publicaciones.size() ; i++){
-            System.out.println(publicaciones.get(i).getProducto().getTitulo());
-        }
-        */
-        
+
 
         mostrarEnTabla(publicaciones);
     }
@@ -59,7 +53,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         Object data2[][] = new Object[99][3];
         for(int i = 0; i < publicaciones.size() ; i++){
             for(int j = 0; j < 3; j++) {
-                // read information from somewhere
+               
                 switch(j){
                     case 0:
                         data2[i][j] = publicaciones.get(i).getProducto().getTitulo();
@@ -129,8 +123,6 @@ public class menuPrincipal extends javax.swing.JFrame {
         p_init.setBackground(new java.awt.Color(255, 255, 255));
         p_init.setPreferredSize(new java.awt.Dimension(1000, 1000));
         p_init.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lbl_foto.setText("text");
         p_init.add(lbl_foto, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 190, 250, 230));
 
         btn_buscar.setText("Buscar");
