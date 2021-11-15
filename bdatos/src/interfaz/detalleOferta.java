@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import main.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -298,12 +299,20 @@ public class detalleOferta extends javax.swing.JFrame {
 
     private void btn_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_aceptarActionPerformed
         SentenciaSQL sql = new SentenciaSQL();
-        sql.aceptarTrueque(cuenta,oferta); //idCuenta , idOferta
+        if(sql.obtenerUCUCoins(oferta.getIdCuenta()) >= oferta.getUCUCoins() ){
+            sql.aceptarTrueque(cuenta,oferta); //idCuenta , idOferta
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "El usuario ofertante, no dispone con la cantidad de UCUCoins ofertadas","Error!", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btn_aceptarActionPerformed
 
     private void btn_rechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rechazarActionPerformed
         SentenciaSQL sql = new SentenciaSQL();
-        sql.rechazarOferta(oferta.getIdOferta()); //idOferta
+        if (oferta.getEstado() == 0 ){
+            sql.rechazarOferta(oferta.getIdOferta()); //idOferta
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "No es posible rechazar esta oferta","Error!", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btn_rechazarActionPerformed
 
     /**

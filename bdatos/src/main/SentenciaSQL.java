@@ -455,7 +455,7 @@ public class SentenciaSQL extends ConexionBD{
             
             ps2= con.prepareStatement(restoUCUCOins);
             ps2.setInt(1,oferta.getIdOferta());
-            ps2.setInt(2,oferta.getIdCuenta());
+            ps2.setString(2,oferta.getIdCuenta());
             ps2.executeUpdate();
             
             ps3= con.prepareStatement(cambioEstadoOferta);
@@ -598,10 +598,7 @@ public class SentenciaSQL extends ConexionBD{
             }
             return resultado;
         }
-   //Estados Publicacion 0=publicada 1=trueque
-//Estados Oferta 0=pendiente , 1=aceptada  2=rechazada
-    
-    
+
     
     public ArrayList<Oferta> ofertasRecibidas(String idCuenta){
             ArrayList<Oferta> resultado = new ArrayList<>();
@@ -699,5 +696,8 @@ public class SentenciaSQL extends ConexionBD{
             return null;
         }
     }
+    
+     //Estados Publicacion 0=publicada 1=trueque
+//Estados Oferta 0=pendiente , 1=aceptada  2=rechazada
     
 }

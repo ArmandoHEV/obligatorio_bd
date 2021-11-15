@@ -15,7 +15,7 @@ public class Oferta {
     private int idOferta;
     private Publicacion PublicacionAOfertar;
     private ArrayList<Publicacion> publicacionesOfertadas;
-    private int idCuenta;
+    private String idCuenta;
     private int UCUCoins;  
     private int estado;
     private Date fecha;
@@ -60,11 +60,11 @@ public class Oferta {
         this.publicacionesOfertadas = publicacionesOfertadas;
     }
 
-    public int getIdCuenta() {
+    public String getIdCuenta() {
         return idCuenta;
     }
 
-    public void setIdCuenta(int idCuenta) {
+    public void setIdCuenta(String idCuenta) {
         this.idCuenta = idCuenta;
     }
 
