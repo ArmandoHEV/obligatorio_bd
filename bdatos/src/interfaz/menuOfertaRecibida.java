@@ -155,7 +155,7 @@ public class menuOfertaRecibida extends javax.swing.JFrame {
                 btn_detalleActionPerformed(evt);
             }
         });
-        p_init.add(btn_detalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 360, 120, 40));
+        p_init.add(btn_detalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 360, 160, 40));
 
         btn_menuPrinc.setText("Menú Principal");
         btn_menuPrinc.addActionListener(new java.awt.event.ActionListener() {

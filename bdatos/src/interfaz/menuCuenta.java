@@ -87,15 +87,15 @@ public class menuCuenta extends javax.swing.JFrame {
 
         lbl_saldo.setText("Saldo UCUCoins");
         p_init.add(lbl_saldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 290, 90, -1));
-        p_init.add(lbl_saldoucu, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 290, -1, -1));
+        p_init.add(lbl_saldoucu, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 290, -1, 10));
 
         lbl_ucucoin.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbl_ucucoin.setText("Desea obtener UCUcoins?");
-        p_init.add(lbl_ucucoin, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 320, 240, 30));
+        p_init.add(lbl_ucucoin, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 330, 240, 30));
 
         txt_usuario.setEditable(false);
         p_init.add(txt_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 230, 30));
-        p_init.add(txt_coin, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 500, 70, 30));
+        p_init.add(txt_coin, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 530, 70, 30));
 
         btn_coin.setText("Solicitar");
         btn_coin.addActionListener(new java.awt.event.ActionListener() {
@@ -103,7 +103,7 @@ public class menuCuenta extends javax.swing.JFrame {
                 btn_coinActionPerformed(evt);
             }
         });
-        p_init.add(btn_coin, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 500, -1, 30));
+        p_init.add(btn_coin, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 530, -1, 30));
 
         btn_init.setText("Actualizar datos");
         btn_init.addActionListener(new java.awt.event.ActionListener() {
@@ -111,10 +111,10 @@ public class menuCuenta extends javax.swing.JFrame {
                 btn_initActionPerformed(evt);
             }
         });
-        p_init.add(btn_init, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 490, 180, 40));
+        p_init.add(btn_init, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 520, 200, 40));
 
         lbl_detalleucu.setText("<html>Recuerde que tras la solicitud debe asistir a la <br> institución encargada para brindar las botellas de agua correspondientes al cambio de moneda, luego de su recepción se acreditará el monto total a su cuenta.</html>");
-        p_init.add(lbl_detalleucu, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 370, 230, 100));
+        p_init.add(lbl_detalleucu, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 380, 230, 120));
 
         btn_exit.setText("Salir");
         btn_exit.addActionListener(new java.awt.event.ActionListener() {

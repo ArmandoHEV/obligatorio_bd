@@ -120,7 +120,7 @@ public class menuPublicaciones extends javax.swing.JFrame {
                 btn_publicActionPerformed(evt);
             }
         });
-        p_init.add(btn_public, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 650, 180, 30));
+        p_init.add(btn_public, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 650, 210, 30));
 
         main_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/trueque_small.png"))); // NOI18N
         main_icon.setMaximumSize(new java.awt.Dimension(300, 300));
@@ -183,7 +183,7 @@ public class menuPublicaciones extends javax.swing.JFrame {
                 btn_editActionPerformed(evt);
             }
         });
-        p_init.add(btn_edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 730, 180, 30));
+        p_init.add(btn_edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 730, 210, 30));
 
         table_mispublicaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -307,7 +307,8 @@ public class menuPublicaciones extends javax.swing.JFrame {
     private void table_mispublicacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_mispublicacionesMouseClicked
         seleccion = table_mispublicaciones.rowAtPoint(evt.getPoint());
         txt_descrip.setText(publicaciones.get(seleccion).getProducto().getDescripcion());
-        lbl_foto.setIcon(new ImageIcon(publicaciones.get(seleccion).getProducto().getImagen()));
+        ImageIcon icon = new ImageIcon(publicaciones.get(seleccion).getProducto().getImagen());
+        lbl_foto.setIcon(icon);
     }//GEN-LAST:event_table_mispublicacionesMouseClicked
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed

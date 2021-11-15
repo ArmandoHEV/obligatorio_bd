@@ -176,7 +176,7 @@ public class detalleOferta extends javax.swing.JFrame {
                 btn_aceptarActionPerformed(evt);
             }
         });
-        p_init.add(btn_aceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 600, 120, 40));
+        p_init.add(btn_aceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 600, 140, 40));
 
         btn_rechazar.setText("Rechazar Oferta");
         btn_rechazar.addActionListener(new java.awt.event.ActionListener() {
@@ -184,7 +184,7 @@ public class detalleOferta extends javax.swing.JFrame {
                 btn_rechazarActionPerformed(evt);
             }
         });
-        p_init.add(btn_rechazar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 600, 120, 40));
+        p_init.add(btn_rechazar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 600, 150, 40));
 
         btn_ofertaRec.setText("Ofertas Recibidas");
         btn_ofertaRec.addActionListener(new java.awt.event.ActionListener() {
